@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Case Converter | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to convert text between capital letters, small letters, title case and sentence case.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <ul class="menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="index.html">All Tools</a></li>
+          <li><a href="text-case-converter.html" aria-current="page">Text Case Converter</a></li>
+          <li><a href="text-analyser.html">Text Analyser</a></li>
+          <li><a href="text-cleaner.html">Text Cleaner</a></li>
+          <li><a href="text-encryptor.html">Text Encryptor and Decryptor</a></li>
+        </ul>
+      </li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Text Case Converter</h1>
+  <p>This tool changes the letter case of your text. You can turn everything into capital letters or small letters, put a capital letter at the start of every word, or use normal sentence case.</p>
+  <p>Type or paste your text below, choose a conversion button, and the result appears in the same box. You can then copy the result or listen to it. Your text never leaves your device.</p>
+
+  <label for="text-input">Your text</label>
+  <textarea id="text-input" rows="8" placeholder="Type or paste your text here"></textarea>
+
+  <div class="button-row" role="group" aria-label="Case conversion options">
+    <button class="action" type="button" data-case="upper">CAPITAL LETTERS</button>
+    <button class="action" type="button" data-case="lower">small letters</button>
+    <button class="action" type="button" data-case="title">Title Case</button>
+    <button class="action" type="button" data-case="sentence">Sentence case</button>
+  </div>
+
+  <div class="button-row" role="group" aria-label="Result actions">
+    <button class="action secondary" type="button" id="copy-btn">Copy result</button>
+    <button class="action secondary" type="button" id="listen-btn">Listen to result</button>
+    <button class="action secondary" type="button" id="clear-btn">Clear</button>
+  </div>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html">All Tools</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+  <p>Vaibhav Tech Vision. This website does not collect any personal information. Everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/main.js"></script>
+<script>
+(function () {
+  var input = document.getElementById('text-input');
+  var status = document.getElementById('status');
+
+  function toTitleCase(text) {
+    return text.toLowerCase().replace(/(^|\s|[("'\[])(\S)/g, function (match, before, letter) {
+      return before + letter.toUpperCase();
+    });
+  }
+  function toSentenceCase(text) {
+    return text.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, function (match) {
+      return match.toUpperCase();
+    });
+  }
+
+  document.querySelectorAll('[data-case]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = input.value;
+      if (!text.trim()) { status.textContent = 'Please type or paste some text first.'; input.focus(); return; }
+      var mode = btn.getAttribute('data-case');
+      if (mode === 'upper') input.value = text.toUpperCase();
+      else if (mode === 'lower') input.value = text.toLowerCase();
+      else if (mode === 'title') input.value = toTitleCase(text);
+      else if (mode === 'sentence') input.value = toSentenceCase(text);
+      status.textContent = 'Done. Your text was converted to ' + btn.textContent.trim() + '.';
+    });
+  });
+
+  document.getElementById('copy-btn').addEventListener('click', function () {
+    if (!input.value) { status.textContent = 'There is nothing to copy yet.'; return; }
+    navigator.clipboard.writeText(input.value).then(function () {
+      status.textContent = 'Result copied to clipboard.';
+    }, function () {
+      input.select();
+      document.execCommand('copy');
+      status.textContent = 'Result copied to clipboard.';
+    });
+  });
+
+  document.getElementById('listen-btn').addEventListener('click', function () {
+    if (!input.value.trim()) { status.textContent = 'There is nothing to listen to yet.'; return; }
+    if (!('speechSynthesis' in window)) { status.textContent = 'Sorry, your browser cannot read text aloud.'; return; }
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(input.value));
+    status.textContent = 'Reading your text aloud.';
+  });
+
+  document.getElementById('clear-btn').addEventListener('click', function () {
+    input.value = '';
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    status.textContent = 'Cleared.';
+    input.focus();
+  });
+})();
+</script>
+</body>
+</html>
