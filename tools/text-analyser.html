@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Analyser | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool that counts characters, words and lines in your text and finds the most repeated word.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <ul class="menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="index.html">All Tools</a></li>
+          <li><a href="text-case-converter.html">Text Case Converter</a></li>
+          <li><a href="text-analyser.html" aria-current="page">Text Analyser</a></li>
+          <li><a href="text-cleaner.html">Text Cleaner</a></li>
+          <li><a href="text-encryptor.html">Text Encryptor and Decryptor</a></li>
+        </ul>
+      </li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Text Analyser</h1>
+  <p>This tool examines your text and tells you useful facts about it: how many characters and words it has, how many lines it contains, and which word you used the most.</p>
+  <p>Type or paste your text below and press the Analyse button. The results are read out by your screen reader and shown in a list. Your text never leaves your device.</p>
+
+  <label for="text-input">Your text</label>
+  <textarea id="text-input" rows="8" placeholder="Type or paste your text here"></textarea>
+
+  <div class="button-row">
+    <button class="action" type="button" id="analyse-btn">Analyse text</button>
+    <button class="action secondary" type="button" id="clear-btn">Clear</button>
+  </div>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  <div class="result-box" id="results" hidden>
+    <h2>Results</h2>
+    <ul id="result-list"></ul>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html">All Tools</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+  <p>Vaibhav Tech Vision. This website does not collect any personal information. Everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/main.js"></script>
+<script>
+(function () {
+  var input = document.getElementById('text-input');
+  var status = document.getElementById('status');
+  var results = document.getElementById('results');
+  var list = document.getElementById('result-list');
+
+  document.getElementById('analyse-btn').addEventListener('click', function () {
+    var text = input.value;
+    if (!text.trim()) { status.textContent = 'Please type or paste some text first.'; input.focus(); return; }
+
+    var chars = text.length;
+    var charsNoSpaces = text.replace(/\s/g, '').length;
+    var words = text.trim().split(/\s+/);
+    var wordCount = words.length;
+    var lines = text.split(/\r\n|\r|\n/).length;
+
+    var counts = {};
+    words.forEach(function (w) {
+      var clean = w.toLowerCase().replace(/[^a-z0-9']/g, '');
+      if (clean) counts[clean] = (counts[clean] || 0) + 1;
+    });
+    var topWord = '', topCount = 0;
+    Object.keys(counts).forEach(function (w) {
+      if (counts[w] > topCount) { topWord = w; topCount = counts[w]; }
+    });
+
+    list.innerHTML = '';
+    var rows = [
+      'Characters (with spaces): ' + chars,
+      'Characters (without spaces): ' + charsNoSpaces,
+      'Words: ' + wordCount,
+      'Lines: ' + lines
+    ];
+    if (topCount > 1) rows.push('Most repeated word: "' + topWord + '" used ' + topCount + ' times');
+    else rows.push('Most repeated word: no word is repeated');
+    rows.forEach(function (r) {
+      var li = document.createElement('li');
+      li.textContent = r;
+      list.appendChild(li);
+    });
+    results.hidden = false;
+    status.textContent = 'Analysis complete. ' + wordCount + ' words, ' + chars + ' characters, ' + lines + ' lines.';
+  });
+
+  document.getElementById('clear-btn').addEventListener('click', function () {
+    input.value = '';
+    results.hidden = true;
+    list.innerHTML = '';
+    status.textContent = 'Cleared.';
+    input.focus();
+  });
+})();
+</script>
+</body>
+</html>
