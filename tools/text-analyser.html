@@ -17,16 +17,48 @@
     <ul class="menu">
       <li><a href="../index.html">Home</a></li>
       <li>
-        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
-        <ul class="submenu" id="tools-menu">
-          <li><a href="index.html">All Tools</a></li>
-          <li><a href="text-case-converter.html">Text Case Converter</a></li>
-          <li><a href="text-analyser.html" aria-current="page">Text Analyser</a></li>
-          <li><a href="text-cleaner.html">Text Cleaner</a></li>
-          <li><a href="text-encryptor.html">Text Encryptor and Decryptor</a></li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
         </ul>
       </li>
-      <li><a href="../about.html">About</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
     </ul>
   </nav>
 </header>
@@ -53,70 +85,17 @@
 </main>
 
 <footer class="site-footer">
-  <nav aria-label="Footer">
+  <nav aria-label="Legal and information">
     <ul>
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="index.html">All Tools</a></li>
-      <li><a href="../about.html">About</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
     </ul>
   </nav>
   <p>Vaibhav Tech Vision. This website does not collect any personal information. Everything you type into our tools stays on your own device.</p>
 </footer>
-
 <script src="../assets/main.js"></script>
-<script>
-(function () {
-  var input = document.getElementById('text-input');
-  var status = document.getElementById('status');
-  var results = document.getElementById('results');
-  var list = document.getElementById('result-list');
-
-  document.getElementById('analyse-btn').addEventListener('click', function () {
-    var text = input.value;
-    if (!text.trim()) { status.textContent = 'Please type or paste some text first.'; input.focus(); return; }
-
-    var chars = text.length;
-    var charsNoSpaces = text.replace(/\s/g, '').length;
-    var words = text.trim().split(/\s+/);
-    var wordCount = words.length;
-    var lines = text.split(/\r\n|\r|\n/).length;
-
-    var counts = {};
-    words.forEach(function (w) {
-      var clean = w.toLowerCase().replace(/[^a-z0-9']/g, '');
-      if (clean) counts[clean] = (counts[clean] || 0) + 1;
-    });
-    var topWord = '', topCount = 0;
-    Object.keys(counts).forEach(function (w) {
-      if (counts[w] > topCount) { topWord = w; topCount = counts[w]; }
-    });
-
-    list.innerHTML = '';
-    var rows = [
-      'Characters (with spaces): ' + chars,
-      'Characters (without spaces): ' + charsNoSpaces,
-      'Words: ' + wordCount,
-      'Lines: ' + lines
-    ];
-    if (topCount > 1) rows.push('Most repeated word: "' + topWord + '" used ' + topCount + ' times');
-    else rows.push('Most repeated word: no word is repeated');
-    rows.forEach(function (r) {
-      var li = document.createElement('li');
-      li.textContent = r;
-      list.appendChild(li);
-    });
-    results.hidden = false;
-    status.textContent = 'Analysis complete. ' + wordCount + ' words, ' + chars + ' characters, ' + lines + ' lines.';
-  });
-
-  document.getElementById('clear-btn').addEventListener('click', function () {
-    input.value = '';
-    results.hidden = true;
-    list.innerHTML = '';
-    status.textContent = 'Cleared.';
-    input.focus();
-  });
-})();
-</script>
 </body>
 </html>
