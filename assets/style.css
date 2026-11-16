@@ -246,3 +246,22 @@ button.action.secondary:hover { background: var(--soft); }
   .menu { flex-direction: column; align-items: stretch; }
   .menu a, .submenu-toggle { width: 100%; text-align: left; }
 }
+
+/* Full-structure pages */
+.notice {
+  padding: 1rem 1.25rem;
+  border: 2px solid #b45309;
+  background: #fef3c7;
+  border-radius: 6px;
+}
+.tag-soon, .tag-available {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.tag-soon { background: #fef3c7; border: 1px solid #b45309; color: #7c2d12; }
+.tag-available { background: #dcfce7; border: 1px solid #15803d; color: #14532d; }
