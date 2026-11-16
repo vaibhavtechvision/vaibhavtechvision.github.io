@@ -17,16 +17,48 @@
     <ul class="menu">
       <li><a href="../index.html">Home</a></li>
       <li>
-        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
-        <ul class="submenu" id="tools-menu">
-          <li><a href="index.html">All Tools</a></li>
-          <li><a href="text-case-converter.html">Text Case Converter</a></li>
-          <li><a href="text-analyser.html">Text Analyser</a></li>
-          <li><a href="text-cleaner.html">Text Cleaner</a></li>
-          <li><a href="text-encryptor.html" aria-current="page">Text Encryptor and Decryptor</a></li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
         </ul>
       </li>
-      <li><a href="../about.html">About</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
     </ul>
   </nav>
 </header>
@@ -53,102 +85,17 @@
 </main>
 
 <footer class="site-footer">
-  <nav aria-label="Footer">
+  <nav aria-label="Legal and information">
     <ul>
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="index.html">All Tools</a></li>
-      <li><a href="../about.html">About</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
     </ul>
   </nav>
   <p>Vaibhav Tech Vision. This website does not collect any personal information. Everything you type into our tools stays on your own device.</p>
 </footer>
-
 <script src="../assets/main.js"></script>
-<script>
-(function () {
-  var input = document.getElementById('text-input');
-  var passwordField = document.getElementById('password');
-  var status = document.getElementById('status');
-
-  // Real encryption: AES-GCM with a key derived from the password (PBKDF2).
-  async function deriveKey(password, salt) {
-    var material = await crypto.subtle.importKey(
-      'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
-    return crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt: salt, iterations: 100000, hash: 'SHA-256' },
-      material, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
-  }
-  function toBase64(bytes) {
-    var bin = '';
-    bytes.forEach(function (b) { bin += String.fromCharCode(b); });
-    return btoa(bin);
-  }
-  function fromBase64(text) {
-    var bin = atob(text);
-    var bytes = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    return bytes;
-  }
-
-  async function lockText() {
-    var text = input.value, password = passwordField.value;
-    if (!text.trim()) { status.textContent = 'Please type or paste some text first.'; input.focus(); return; }
-    if (!password) { status.textContent = 'Please choose a password first.'; passwordField.focus(); return; }
-    try {
-      var salt = crypto.getRandomValues(new Uint8Array(16));
-      var iv = crypto.getRandomValues(new Uint8Array(12));
-      var key = await deriveKey(password, salt);
-      var coded = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv: iv }, key, new TextEncoder().encode(text));
-      var packed = new Uint8Array(salt.length + iv.length + coded.byteLength);
-      packed.set(salt, 0); packed.set(iv, salt.length);
-      packed.set(new Uint8Array(coded), salt.length + iv.length);
-      input.value = toBase64(packed);
-      status.textContent = 'Locked. Your text is now a secret code. Copy it and share it with the password.';
-    } catch (e) {
-      status.textContent = 'Sorry, something went wrong while locking the text.';
-    }
-  }
-
-  async function unlockText() {
-    var text = input.value.trim(), password = passwordField.value;
-    if (!text) { status.textContent = 'Please paste the coded message first.'; input.focus(); return; }
-    if (!password) { status.textContent = 'Please enter the password first.'; passwordField.focus(); return; }
-    try {
-      var packed = fromBase64(text);
-      var salt = packed.slice(0, 16);
-      var iv = packed.slice(16, 28);
-      var data = packed.slice(28);
-      var key = await deriveKey(password, salt);
-      var plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, data);
-      input.value = new TextDecoder().decode(plain);
-      status.textContent = 'Unlocked. Your original text is back.';
-    } catch (e) {
-      status.textContent = 'Could not unlock. Please check the coded message and the password.';
-    }
-  }
-
-  document.getElementById('lock-btn').addEventListener('click', lockText);
-  document.getElementById('unlock-btn').addEventListener('click', unlockText);
-
-  document.getElementById('copy-btn').addEventListener('click', function () {
-    if (!input.value) { status.textContent = 'There is nothing to copy yet.'; return; }
-    navigator.clipboard.writeText(input.value).then(function () {
-      status.textContent = 'Result copied to clipboard.';
-    }, function () {
-      input.select();
-      document.execCommand('copy');
-      status.textContent = 'Result copied to clipboard.';
-    });
-  });
-
-  document.getElementById('clear-btn').addEventListener('click', function () {
-    input.value = '';
-    passwordField.value = '';
-    status.textContent = 'Cleared.';
-    input.focus();
-  });
-})();
-</script>
 </body>
 </html>
