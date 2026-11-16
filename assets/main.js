@@ -1,8 +1,8 @@
 // Vaibhav Tech Vision - shared menu behaviour
-// Accessible dropdown: button toggles submenu, Escape closes, leaving the
-// menu with Tab closes it too.
+// One "Menu" button reveals the whole menu; section buttons open their
+// submenus. Escape closes, and leaving a menu with Tab closes it too.
 (function () {
-  var toggles = document.querySelectorAll('.submenu-toggle');
+  var toggles = document.querySelectorAll('.menu-toggle, .submenu-toggle');
   toggles.forEach(function (toggle) {
     var submenu = document.getElementById(toggle.getAttribute('aria-controls'));
     if (!submenu) return;
@@ -31,7 +31,7 @@
       if (event.key === 'ArrowDown' && !isOpen()) {
         event.preventDefault();
         open();
-        var first = submenu.querySelector('a');
+        var first = submenu.querySelector('a, button');
         if (first) first.focus();
       }
     });
@@ -43,8 +43,8 @@
       }
     });
 
-    // Close when focus leaves the whole menu item
-    var wrapper = toggle.closest('li');
+    // Close when focus leaves the menu this button owns
+    var wrapper = toggle.closest('li') || toggle.closest('nav');
     wrapper.addEventListener('focusout', function (event) {
       if (!wrapper.contains(event.relatedTarget)) close();
     });
