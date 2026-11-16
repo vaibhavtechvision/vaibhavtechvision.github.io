@@ -312,3 +312,30 @@ button.action.secondary:hover { background: var(--soft); }
   padding-left: 0.5rem;
 }
 .menu .submenu a { width: 100%; }
+
+/* Rich home page */
+.hero {
+  background: linear-gradient(135deg, #16324f 0%, #1d4e79 60%, #2a6ea5 100%);
+  color: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+.hero h1 { margin-top: 0; color: #fff; }
+.hero-intro { font-size: 1.15rem; }
+.hero-actions { margin-bottom: 0; }
+.button-big {
+  padding: 0.8rem 1.4rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-height: 48px;
+  display: inline-block;
+}
+.button-light {
+  background: #fff;
+  color: #16324f;
+  border: 2px solid #fff;
+}
+.hero a.button { color: #16324f; background: #fff; border: 2px solid #fff; }
+.hero a.button:hover, .hero a.button:focus { background: #dbeafe; }
+.tool-card h3 { margin-top: 0; }
