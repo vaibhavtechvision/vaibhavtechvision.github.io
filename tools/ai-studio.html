@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Studio | Vaibhav Tech Vision</title>
-<meta name="description" content="AI Studio on Vaibhav Tech Vision: ask AI anything in plain language and hear the answer aloud.">
+<meta name="description" content="AI Studio on Vaibhav Tech Vision: ask the VTV Assistant anything in plain language and hear the answer aloud.">
 <link rel="stylesheet" href="../assets/style.css?v=2">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
@@ -67,34 +67,186 @@
 
 <main id="main">
 <h1>AI Studio</h1>
-  <p>Welcome to AI Studio, the home of simple and accessible AI tools on Vaibhav Tech Vision. Our first tool, Ask AI, is ready. Type any question in plain language and get a clear, simple answer. You can also listen to every answer.</p>
+  <p>Welcome to AI Studio, the home of simple and accessible AI tools on Vaibhav Tech Vision. Our first tool, the VTV Assistant (our AI assistant), is ready. Type any question in plain language and get a clear, simple answer. You can also listen to every answer.</p>
   <h2>Ask AI</h2>
-  <p>Type your question below and press the Send button. The answer appears on this page and your screen reader reads it aloud automatically. Use the Listen button under any answer to hear it again, and the Stop button to stop the voice.</p>
+  <p>Type your question below and press the Send button. The answer appears on this page and your screen reader reads it aloud automatically. Under every answer there is a Listen button and an Actions button. The Actions button opens a menu where you can copy the answer, share it, or save it to your notes. Saved notes are stored only on your own device.</p>
   <form id="ai-form" action="#">
     <label for="ai-input">Type your question</label><br>
     <textarea id="ai-input" rows="3" maxlength="2000" style="width:100%;max-width:40em;"></textarea><br>
     <button type="submit" id="ai-send" class="button">Send</button>
     <button type="button" id="ai-stop" class="button" hidden>Stop the voice</button>
   </form>
-  <div id="ai-chat" role="log" aria-live="polite" aria-label="Conversation with the AI assistant" style="margin-top:1em;"></div>
+  <p id="ai-status" role="status" aria-live="polite" style="position:absolute;left:-9999px;"></p>
+  <div id="ai-chat" role="log" aria-live="polite" aria-label="Conversation with the VTV Assistant" style="margin-top:1em;"></div>
+  <section aria-labelledby="notes-heading">
+    <h2 id="notes-heading">My Saved Notes</h2>
+    <p>Answers that you save with the Save to Notes action appear here. They stay only on this device, in this browser.</p>
+    <div id="ai-notes"></div>
+  </section>
   <script>
   (function () {
     var WORKER = "https://vtv-ai.vaibhavtechvision.workers.dev/chat";
+    var NOTES_KEY = "vtv_assistant_notes";
     var form = document.getElementById("ai-form");
     var input = document.getElementById("ai-input");
     var chat = document.getElementById("ai-chat");
     var stopBtn = document.getElementById("ai-stop");
+    var status = document.getElementById("ai-status");
+    var openMenu = null;
+
+    function say(text) {
+      status.textContent = "";
+      window.setTimeout(function () { status.textContent = text; }, 40);
+    }
+
     function speak(text) {
-      if (!("speechSynthesis" in window)) return;
+      if (!("speechSynthesis" in window)) { say("Sorry, voice is not available on this device."); return; }
       window.speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(text);
-      window.speechSynthesis.speak(u);
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
       stopBtn.hidden = false;
     }
     stopBtn.addEventListener("click", function () {
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       stopBtn.hidden = true;
+      say("Voice stopped.");
     });
+
+    function copyText(text, done) {
+      function legacy() {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = false;
+        try { ok = document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        done(ok);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, legacy);
+      } else { legacy(); }
+    }
+
+    function getNotes() {
+      try { return JSON.parse(localStorage.getItem(NOTES_KEY)) || []; } catch (e) { return []; }
+    }
+    function setNotes(notes) {
+      try { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); } catch (e) {}
+    }
+
+    function renderNotes() {
+      var box = document.getElementById("ai-notes");
+      box.innerHTML = "";
+      var notes = getNotes();
+      if (!notes.length) {
+        var empty = document.createElement("p");
+        empty.textContent = "No saved notes yet.";
+        box.appendChild(empty);
+        return;
+      }
+      notes.forEach(function (note, i) {
+        var wrap = document.createElement("div");
+        wrap.style.marginBottom = "1em";
+        var p = document.createElement("p");
+        p.textContent = note.text;
+        wrap.appendChild(p);
+        var listenBtn = document.createElement("button");
+        listenBtn.type = "button";
+        listenBtn.className = "button";
+        listenBtn.textContent = "Listen to note " + (i + 1);
+        listenBtn.addEventListener("click", function () { speak(note.text); });
+        var delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.className = "button";
+        delBtn.textContent = "Delete note " + (i + 1);
+        delBtn.addEventListener("click", function () {
+          var ns = getNotes();
+          ns.splice(i, 1);
+          setNotes(ns);
+          renderNotes();
+          say("Note deleted.");
+        });
+        wrap.appendChild(listenBtn);
+        wrap.appendChild(delBtn);
+        box.appendChild(wrap);
+      });
+    }
+
+    function closeMenu(refocus) {
+      if (!openMenu) return;
+      var btn = openMenu.btn;
+      openMenu.menu.remove();
+      btn.setAttribute("aria-expanded", "false");
+      openMenu = null;
+      if (refocus) btn.focus();
+    }
+    document.addEventListener("click", function (e) {
+      if (openMenu && !openMenu.menu.contains(e.target) && e.target !== openMenu.btn) closeMenu(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && openMenu) { closeMenu(true); say("Menu closed."); }
+    });
+
+    function makeActionsButton(ans) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "button";
+      btn.textContent = "Actions for this answer";
+      btn.setAttribute("aria-haspopup", "menu");
+      btn.setAttribute("aria-expanded", "false");
+      btn.addEventListener("click", function () {
+        if (openMenu && openMenu.btn === btn) { closeMenu(true); return; }
+        closeMenu(false);
+        var menu = document.createElement("div");
+        menu.setAttribute("role", "menu");
+        menu.setAttribute("aria-label", "Actions for this answer");
+        menu.style.cssText = "border:2px solid #1a1a1a;background:#ffffff;padding:0.5em;margin:0.4em 0;max-width:22em;";
+        var items = [
+          { label: "Copy the answer", act: function () {
+              copyText(ans, function (ok) { say(ok ? "Answer copied." : "Copying failed on this device."); });
+            } },
+          { label: "Share the answer", act: function () {
+              if (navigator.share) {
+                navigator.share({ text: ans }).then(function () { say("Shared."); }, function () {});
+              } else {
+                copyText(ans, function (ok) {
+                  say(ok ? "Sharing is not available on this device, so the answer was copied. You can paste it anywhere." : "Sharing is not available on this device.");
+                });
+              }
+            } },
+          { label: "Save to Notes", act: function () {
+              var ns = getNotes();
+              ns.unshift({ text: ans, ts: Date.now() });
+              setNotes(ns);
+              renderNotes();
+              say("Saved to Notes.");
+            } }
+        ];
+        items.forEach(function (it, idx) {
+          var mi = document.createElement("button");
+          mi.type = "button";
+          mi.className = "button";
+          mi.setAttribute("role", "menuitem");
+          mi.textContent = it.label;
+          mi.style.display = "block";
+          mi.style.margin = "0.3em 0";
+          mi.addEventListener("click", function () { it.act(); closeMenu(true); });
+          mi.addEventListener("keydown", function (ev) {
+            var count = menu.children.length;
+            if (ev.key === "ArrowDown") { ev.preventDefault(); menu.children[(idx + 1) % count].focus(); }
+            if (ev.key === "ArrowUp") { ev.preventDefault(); menu.children[(idx - 1 + count) % count].focus(); }
+          });
+          menu.appendChild(mi);
+        });
+        btn.setAttribute("aria-expanded", "true");
+        btn.parentNode.insertBefore(menu, btn.nextSibling);
+        openMenu = { menu: menu, btn: btn };
+        menu.children[0].focus();
+        say("Actions menu opened.");
+      });
+      return btn;
+    }
+
     function addPara(text, cls) {
       var p = document.createElement("p");
       p.className = cls;
@@ -102,30 +254,34 @@
       chat.appendChild(p);
       return p;
     }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var msg = input.value.trim();
       if (!msg) return;
       input.value = "";
       addPara("You: " + msg, "ai-q");
-      var thinking = addPara("Assistant is thinking. Please wait.", "ai-a");
+      var thinking = addPara("VTV Assistant is thinking. Please wait.", "ai-a");
       fetch(WORKER, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: msg })
       }).then(function (r) { return r.json(); }).then(function (d) {
         var ans = d.answer || d.error || "Sorry, something went wrong. Please try again.";
-        thinking.textContent = "Assistant: " + ans;
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "button";
-        btn.textContent = "Listen to this answer";
-        btn.addEventListener("click", function () { speak(ans); });
-        chat.appendChild(btn);
+        thinking.textContent = "VTV Assistant: " + ans;
+        var listenBtn = document.createElement("button");
+        listenBtn.type = "button";
+        listenBtn.className = "button";
+        listenBtn.textContent = "Listen to this answer";
+        listenBtn.addEventListener("click", function () { speak(ans); });
+        chat.appendChild(listenBtn);
+        chat.appendChild(makeActionsButton(ans));
       }).catch(function () {
-        thinking.textContent = "Assistant: Sorry, I could not reach the service. Please check your internet and try again.";
+        thinking.textContent = "VTV Assistant: Sorry, I could not reach the service. Please check your internet and try again.";
       });
     });
+
+    renderNotes();
   })();
   </script>
   <h2>More AI Tools Are Coming</h2>
