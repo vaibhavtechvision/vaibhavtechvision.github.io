@@ -265,3 +265,50 @@ button.action.secondary:hover { background: var(--soft); }
 }
 .tag-soon { background: #fef3c7; border: 1px solid #b45309; color: #7c2d12; }
 .tag-available { background: #dcfce7; border: 1px solid #15803d; color: #14532d; }
+
+/* Single "Menu" disclosure button (all screen sizes) */
+.menu-toggle {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #fff;
+  background: var(--link);
+  border: 2px solid var(--link);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.menu-toggle::before { content: "\2630  "; }
+.menu-toggle:hover, .menu-toggle:focus { background: #16324f; }
+.main-nav { text-align: left; }
+.menu {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-width: 26rem;
+}
+.menu.open { display: flex; }
+.menu > li > a, .menu > li > .submenu-toggle {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+.menu .submenu {
+  position: static;
+  box-shadow: none;
+  min-width: 0;
+  width: 100%;
+  border: none;
+  border-left: 3px solid var(--border);
+  border-radius: 0;
+  margin-left: 0.75rem;
+  padding-left: 0.5rem;
+}
+.menu .submenu a { width: 100%; }
