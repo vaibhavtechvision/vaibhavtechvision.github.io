@@ -339,3 +339,7 @@ button.action.secondary:hover { background: var(--soft); }
 .hero a.button { color: #16324f; background: #fff; border: 2px solid #fff; }
 .hero a.button:hover, .hero a.button:focus { background: #dbeafe; }
 .tool-card h3 { margin-top: 0; }
+.plain-list { margin: 1em 0 1.5em 1.2em; }
+.plain-list li { margin: 0.7em 0; line-height: 1.6; }
+.plain-list h3 { margin: 0.6em 0 0.2em; font-size: 1.1em; }
+.plain-list p { margin: 0.1em 0 0.3em; }
