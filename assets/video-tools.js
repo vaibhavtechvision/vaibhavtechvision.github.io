@@ -113,10 +113,45 @@
     return i > 0 ? n.slice(0, i) : n;
   }
 
+
+  /* The first MediaRecorder in a browser session can take a couple of seconds
+     to start producing data, which ruins short recordings. Warm it up once. */
+  var recorderWarmed = false;
+  function warmRecorder() {
+    if (recorderWarmed) return Promise.resolve();
+    return new Promise(function (resolve) {
+      var done = false;
+      function fin() { if (!done) { done = true; recorderWarmed = true; resolve(); } }
+      var c = document.createElement('canvas');
+      c.width = 160; c.height = 90;
+      var g = c.getContext('2d');
+      g.fillStyle = '#000'; g.fillRect(0, 0, 160, 90);
+      var st;
+      try { st = c.captureStream(30); } catch (e) { fin(); return; }
+      var r;
+      try { r = new MediaRecorder(st, { mimeType: pickVideoMime(false) || undefined }); }
+      catch (e) { st.getTracks().forEach(function (t) { t.stop(); }); fin(); return; }
+      r.onstop = function () { st.getTracks().forEach(function (t) { t.stop(); }); fin(); };
+      try { r.start(250); } catch (e) { fin(); return; }
+      var n = 0;
+      var iv = setInterval(function () {
+        g.fillStyle = '#777'; g.fillRect((n * 23) % 150, 10, 8, 8);
+        n++;
+        if (n >= 8) { clearInterval(iv); try { r.stop(); } catch (e) { fin(); } }
+      }, 250);
+      setTimeout(function () {
+        clearInterval(iv);
+        try { if (r.state !== 'inactive') r.stop(); } catch (e) {}
+        fin();
+      }, 3000);
+    });
+  }
+
   /* Play a video (or part of it) through a canvas and record the result.
      o: {video, seconds, offsetSec, rate, mime, vbps, withAudio, canvas, statusId, label} */
   function playRecord(o) {
-    return new Promise(function (resolve, reject) {
+    return warmRecorder().then(function () {
+      return new Promise(function (resolve, reject) {
       var video = o.video;
       var canvas = o.canvas || document.createElement('canvas');
       canvas.width = video.videoWidth;
@@ -195,6 +230,7 @@
         }).catch(function () {
           reject(new Error('Your browser refused to play this video, so it could not be processed.'));
         });
+      });
       });
     });
   }
@@ -571,6 +607,9 @@
       if (loaded.length < 2) { setText('mg-error', 'Please choose at least two videos first.'); unbusy(btn); return; }
       var mime = pickVideoMime(false);
       if (!mime) { setText('mg-error', 'Sorry: your browser cannot record video.'); unbusy(btn); return; }
+      setText('mg-status', 'Getting the recorder ready...');
+      warmRecorder().then(function () { startMerge(); });
+      function startMerge() {
       var canvas = document.createElement('canvas');
       canvas.width = loaded[0].w; canvas.height = loaded[0].h;
       var g2d = canvas.getContext('2d');
@@ -578,6 +617,7 @@
       var g = getAudioGraph();
       var vstream = canvas.captureStream(30);
       var stream = new MediaStream(vstream.getVideoTracks().concat(g.dest.stream.getAudioTracks()));
+      /* recorder already warmed by earlier tools; warm here if this is the first */
       var rec;
       try { rec = new MediaRecorder(stream, { mimeType: mime, audioBitsPerSecond: 96000 }); }
       catch (e) { setText('mg-error', 'Sorry: your browser could not start a video recorder.'); unbusy(btn); return; }
@@ -635,6 +675,7 @@
         });
       }
       playNext();
+      }
     });
   })();
 
