@@ -131,47 +131,56 @@
     return format === 'wav' ? encodeWav(buffer) : encodeMp3(buffer, kbps);
   }
 
-  /* WebAssembly audio engine (ffmpeg), loaded on first use only. */
-  var ffmpegPromise = null;
-  function loadEngine(onStatus) {
-    if (!ffmpegPromise) {
-      onStatus('Downloading the audio engine (about 30 MB). This happens only once; please wait.');
-      var coreURL = new URL('../assets/lib/ffmpeg/ffmpeg-core.js', window.location.href).href;
-      var ff = FFmpeg.createFFmpeg({ log: false, corePath: coreURL });
-      ffmpegPromise = ff.load().then(function () { return ff; });
+  /* Change the tempo of an AudioBuffer without changing pitch (WSOLA). */
+  function changeTempo(buffer, rate) {
+    var sr = buffer.sampleRate;
+    var nCh = Math.min(2, buffer.numberOfChannels);
+    var inLen = buffer.length;
+    var win = 2048;
+    var hopIn = 1024;
+    var hopOut = Math.max(64, Math.round(hopIn / rate));
+    var outCap = Math.ceil(inLen / rate) + 2 * win;
+    var outs = [];
+    var c, k;
+    for (c = 0; c < nCh; c++) outs.push(new Float32Array(outCap));
+    var norms = new Float32Array(outCap);
+    var hann = new Float32Array(win);
+    for (k = 0; k < win; k++) hann[k] = 0.5 * (1 - Math.cos(2 * Math.PI * k / (win - 1)));
+    var src0 = buffer.getChannelData(0);
+    var inPos = 0, outPos = 0, search = 320;
+    while (inPos + win + search < inLen && outPos + win < outCap) {
+      var offset = 0;
+      if (outPos > 0) {
+        var best = -Infinity, off, ip, sum;
+        for (off = -search; off <= search; off += 8) {
+          ip = inPos + off; if (ip < 0) continue;
+          sum = 0;
+          for (k = 0; k < win; k += 8) sum += outs[0][outPos + k] * src0[ip + k];
+          if (sum > best) { best = sum; offset = off; }
+        }
+        for (off = offset - 8; off <= offset + 8; off += 2) {
+          ip = inPos + off; if (ip < 0) continue;
+          sum = 0;
+          for (k = 0; k < win; k += 4) sum += outs[0][outPos + k] * src0[ip + k];
+          if (sum > best) { best = sum; offset = off; }
+        }
+      }
+      var ipos = inPos + offset;
+      for (c = 0; c < nCh; c++) {
+        var src = buffer.getChannelData(c), dst = outs[c];
+        for (k = 0; k < win; k++) dst[outPos + k] += src[ipos + k] * hann[k];
+      }
+      for (k = 0; k < win; k++) norms[outPos + k] += hann[k];
+      inPos += hopIn;
+      outPos += hopOut;
     }
-    return ffmpegPromise;
-  }
-
-  function atempoChain(rate) {
-    var parts = [];
-    var r = rate;
-    while (r > 2) { parts.push('atempo=2.0'); r = r / 2; }
-    while (r < 0.5) { parts.push('atempo=0.5'); r = r / 0.5; }
-    parts.push('atempo=' + (Math.round(r * 1000) / 1000));
-    return parts.join(',');
-  }
-
-  /* Change tempo with the engine, keeping pitch natural. Returns a Blob. */
-  function engineTempo(file, rate, format, onStatus) {
-    return loadEngine(onStatus).then(function (ff) {
-      onStatus('Changing the speed. Long files can take a few minutes; please wait.');
-      var ext = (file.name.match(/\.[a-z0-9]+$/i) || ['.mp3'])[0].toLowerCase();
-      var inName = 'vtv-in' + ext;
-      var outName = format === 'wav' ? 'vtv-out.wav' : 'vtv-out.mp3';
-      return FFmpeg.fetchFile(file).then(function (data) {
-        ff.FS('writeFile', inName, data);
-        var args = ['-i', inName, '-filter:a', atempoChain(rate)];
-        if (format === 'wav') args.push('-acodec', 'pcm_s16le');
-        else args.push('-codec:a', 'libmp3lame', '-b:a', '128k');
-        args.push('-y', outName);
-        return ff.run.apply(ff, args).then(function () {
-          var out = ff.FS('readFile', outName);
-          try { ff.FS('unlink', inName); ff.FS('unlink', outName); } catch (e) {}
-          return new Blob([out.buffer], { type: format === 'wav' ? 'audio/wav' : 'audio/mpeg' });
-        });
-      });
-    });
+    var finalLen = Math.min(outPos + win, outCap);
+    var out = actx().createBuffer(nCh, finalLen, sr);
+    for (c = 0; c < nCh; c++) {
+      var d = out.getChannelData(c);
+      for (k = 0; k < finalLen; k++) d[k] = norms[k] > 0.0001 ? outs[c][k] / norms[k] : 0;
+    }
+    return out;
   }
 
   /* Wire a file input: decode on change and announce what was loaded. */
@@ -391,43 +400,27 @@
 
   /* ---------- 5. Speed Changer ---------- */
   (function () {
-    var file = null, fileName = 'audio';
-    $('sp-file').addEventListener('change', function () {
-      file = this.files && this.files[0];
-      setError('sp-error', '');
-      if (!file) { $('sp-controls').hidden = true; setStatus('sp-info', ''); return; }
-      fileName = baseName(file.name);
-      setStatus('sp-info', file.name + ' (' + fmtSize(file.size) + ') is ready.');
-      $('sp-controls').hidden = false;
-    });
+    var buffer = null, fileName = 'audio';
+    wireFile('sp-file', 'sp-info', 'sp-error', 'sp-controls', function (b, f) { buffer = b; fileName = baseName(f.name); });
     $('sp-go').addEventListener('click', function () {
-      if (!file) return;
+      if (!buffer) return;
       var pct = num('sp-percent', 100);
       if (pct < 25 || pct > 400) { setError('sp-error', 'Speed must be between 25 and 400 percent.'); return; }
       setError('sp-error', '');
       var format = $('sp-format').value;
-      setStatus('sp-status', 'Starting. Please wait.');
-      engineTempo(file, pct / 100, format, function (m) { setStatus('sp-status', m); })
-        .then(function (blob) {
-          var audio = $('sp-audio');
-          audio.src = URL.createObjectURL(blob);
-          audio.addEventListener('loadedmetadata', function once() {
-            audio.removeEventListener('loadedmetadata', once);
-            blob._dur = audio.duration;
-            showResult('sp-result', 'sp-audio', 'sp-dl', 'sp-status', blob,
-              fileName + '.' + pct + '-percent-speed.' + format,
-              'Done. The recording now plays at ' + pct + ' percent speed.');
-          }, { once: true });
-          $('sp-result').hidden = false;
-          setStatus('sp-status', 'Done. The recording now plays at ' + pct + ' percent speed. The new file is ' + fmtSize(blob.size) + '.');
-          var dl = $('sp-dl');
-          dl.onclick = function () {
-            var a = document.createElement('a');
-            a.href = audio.src; a.download = fileName + '.' + pct + '-percent-speed.' + format;
-            document.body.appendChild(a); a.click(); a.remove();
-          };
-        })
-        .catch(function () { setStatus('sp-status', 'Sorry, changing the speed failed. Try a smaller file, or reload the page and try again.'); });
+      setStatus('sp-status', 'Changing the speed. Long files can take a minute; please wait.');
+      setTimeout(function () {
+        try {
+          var out = changeTempo(buffer, pct / 100);
+          var blob = encode(out, format, 128);
+          blob._dur = out.duration;
+          showResult('sp-result', 'sp-audio', 'sp-dl', 'sp-status', blob,
+            fileName + '.' + pct + '-percent-speed.' + format,
+            'Done. The recording now plays at ' + pct + ' percent speed.');
+        } catch (e) {
+          setStatus('sp-status', 'Sorry, changing the speed failed. Try a shorter file.');
+        }
+      }, 30);
     });
   })();
 
