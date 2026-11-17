@@ -382,3 +382,12 @@ input[type="text"][inputmode="decimal"] { max-width: 20rem; }
   outline: 3px solid currentColor;
   outline-offset: 2px;
 }
+
+/* Print only the opened DOCX document (DOCX to PDF and Reader page) */
+@media print {
+  body.print-docx header, body.print-docx footer, body.print-docx h1,
+  body.print-docx main > p, body.print-docx main > label, body.print-docx main > input,
+  body.print-docx #dr-result > p, body.print-docx #dr-result > h2 {
+    display: none !important;
+  }
+}
