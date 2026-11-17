@@ -152,6 +152,100 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+/* Merge Photos */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('mg-files');
+  var infoEl = document.getElementById('mg-file-info');
+  var errorEl = document.getElementById('mg-error');
+  var statusEl = document.getElementById('mg-status');
+  var controlsEl = document.getElementById('mg-controls');
+  var resultBox = document.getElementById('mg-result-box');
+  var preview = document.getElementById('mg-preview');
+  var images = null;
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    images = null;
+    var files = Array.prototype.slice.call(fileEl.files || []);
+    if (!files.length) { return; }
+    if (files.length < 2) { fail('Please choose at least two photos to join.'); infoEl.textContent = ''; return; }
+    if (files.length > 6) { fail('Please choose at most 6 photos.'); infoEl.textContent = ''; return; }
+    infoEl.textContent = 'Opening ' + files.length + ' photos, please wait.';
+    var loaded = [];
+    var seq = Promise.resolve();
+    files.forEach(function (f, i) {
+      seq = seq.then(function () {
+        return VTV.loadImage(f).then(function (r) {
+          loaded[i] = VTV.imageToCanvas(r.img);
+          URL.revokeObjectURL(r.url);
+        });
+      });
+    });
+    seq.then(function () {
+      images = loaded;
+      controlsEl.hidden = false;
+      var dims = loaded.map(function (c, i) { return 'photo ' + (i + 1) + ' is ' + c.width + ' by ' + c.height + ' pixels'; }).join(', ');
+      infoEl.textContent = 'Your ' + loaded.length + ' photos are ready: ' + dims + '. Now choose how to join them.';
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, one of the files could not be opened as a photo. Please try JPG, PNG, WebP, GIF or BMP files.');
+    });
+  });
+
+  document.getElementById('mg-go-btn').addEventListener('click', function () {
+    clearErr();
+    if (!images || !images.length) { fail('Please choose the photos first.'); return; }
+    var dir = document.getElementById('mg-direction').value;
+    var bg = document.getElementById('mg-bg').value;
+    var mime = document.getElementById('mg-format').value;
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    var W = 0, H = 0, i;
+    if (dir === 'row') {
+      for (i = 0; i < images.length; i++) { W += images[i].width; H = Math.max(H, images[i].height); }
+    } else {
+      for (i = 0; i < images.length; i++) { H += images[i].height; W = Math.max(W, images[i].width); }
+    }
+    if (W > 15000 || H > 15000) { fail('The joined photo would be bigger than 15000 pixels. Please resize the photos first in the Image Editor section.'); return; }
+    var out = document.createElement('canvas');
+    out.width = W; out.height = H;
+    var ctx = out.getContext('2d');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+    var pos = 0;
+    for (i = 0; i < images.length; i++) {
+      if (dir === 'row') { ctx.drawImage(images[i], pos, 0); pos += images[i].width; }
+      else { ctx.drawImage(images[i], 0, pos); pos += images[i].height; }
+    }
+    statusEl.textContent = 'Joining, please wait.';
+    resultBox.hidden = false;
+    VTV.toBlob(out, mime, 0.92).then(function (blob) {
+      lastBlob = blob;
+      lastName = 'joined-photos.' + ext;
+      preview.width = W; preview.height = H;
+      preview.getContext('2d').drawImage(out, 0, 0);
+      var how = dir === 'row' ? 'side by side, left to right' : 'stacked, top to bottom';
+      statusEl.textContent = 'Done. Your ' + images.length + ' photos are joined ' + how + ' into one photo, ' +
+        W + ' by ' + H + ' pixels, ' + VTV.formatBytes(blob.size) + '. Download it below.';
+      preview.setAttribute('aria-label', 'Preview of the joined photo, ' + W + ' by ' + H + ' pixels.');
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photos could not be joined. Please try smaller photos.');
+    });
+  });
+
+  document.getElementById('mg-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

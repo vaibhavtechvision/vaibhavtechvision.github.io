@@ -143,6 +143,97 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+/* Split a Photo into Parts */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('sp-file');
+  var infoEl = document.getElementById('sp-file-info');
+  var errorEl = document.getElementById('sp-error');
+  var statusEl = document.getElementById('sp-status');
+  var controlsEl = document.getElementById('sp-controls');
+  var resultBox = document.getElementById('sp-result-box');
+  var partsEl = document.getElementById('sp-parts');
+  var source = null, sourceName = 'photo';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    partsEl.innerHTML = '';
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Now choose how many rows and columns to cut it into.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('sp-go-btn').addEventListener('click', function () {
+    clearErr();
+    var rows = parseInt(document.getElementById('sp-rows').value, 10);
+    var cols = parseInt(document.getElementById('sp-cols').value, 10);
+    if (!(rows >= 1 && rows <= 4 && cols >= 1 && cols <= 4)) { fail('Rows and columns must be between 1 and 4.'); return; }
+    if (rows === 1 && cols === 1) { fail('One row and one column means no cutting. Please choose at least 2 rows or 2 columns.'); return; }
+    var mime = document.getElementById('sp-format').value;
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    var baseW = Math.floor(source.width / cols), baseH = Math.floor(source.height / rows);
+    if (baseW < 1 || baseH < 1) { fail('The photo is too small to cut into that many parts.'); return; }
+    statusEl.textContent = 'Cutting the photo, please wait.';
+    resultBox.hidden = false;
+    partsEl.innerHTML = '';
+    var jobs = [];
+    var n = 0;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        n++;
+        var x = c * baseW, y = r * baseH;
+        // the last column and row take the leftover pixels
+        var w = (c === cols - 1) ? source.width - x : baseW;
+        var h = (r === rows - 1) ? source.height - y : baseH;
+        var part = document.createElement('canvas');
+        part.width = w; part.height = h;
+        part.getContext('2d').drawImage(source, x, y, w, h, 0, 0, w, h);
+        jobs.push({ canvas: part, num: n, row: r + 1, col: c + 1, w: w, h: h });
+      }
+    }
+    var seq = Promise.resolve();
+    jobs.forEach(function (job) {
+      seq = seq.then(function () {
+        return VTV.toBlob(job.canvas, mime, 0.92).then(function (blob) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'action';
+          btn.textContent = 'Download part ' + job.num + ' (row ' + job.row + ', column ' + job.col + ')';
+          btn.addEventListener('click', function () {
+            VTV.download(blob, sourceName + '-part-' + job.num + '.' + ext);
+          });
+          var p = document.createElement('p');
+          p.appendChild(btn);
+          partsEl.appendChild(p);
+        });
+      });
+    });
+    seq.then(function () {
+      statusEl.textContent = 'Done. Your photo is cut into ' + jobs.length + ' parts (' + rows + ' rows, ' + cols +
+        ' columns). Each part is about ' + baseW + ' by ' + baseH + ' pixels. The download buttons for the parts are below; each button says its row and column.';
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be split. Please try a different photo.');
+    });
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

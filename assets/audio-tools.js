@@ -185,7 +185,9 @@
 
   /* Wire a file input: decode on change and announce what was loaded. */
   function wireFile(inputId, infoId, errorId, controlsId, onBuffer) {
-    $(inputId).addEventListener('change', function () {
+    var input = $(inputId);
+    if (!input) return;
+    input.addEventListener('change', function () {
       var file = this.files && this.files[0];
       setError(errorId, '');
       if (!file) { $(controlsId).hidden = true; setStatus(infoId, ''); return; }
@@ -226,6 +228,7 @@
 
   /* ---------- 1. Audio Trimmer ---------- */
   (function () {
+    if (!document.getElementById('tr-go')) return;
     var buffer = null, fileName = 'audio';
     wireFile('tr-file', 'tr-info', 'tr-error', 'tr-controls', function (b, f) {
       buffer = b; fileName = baseName(f.name);
@@ -274,6 +277,7 @@
 
   /* ---------- 2. Audio Merger ---------- */
   (function () {
+    if (!document.getElementById('mg-file')) return;
     var items = []; /* {file, buffer, name} */
     function renderList() {
       var ol = $('mg-list');
@@ -347,6 +351,7 @@
 
   /* ---------- 3. Audio Converter ---------- */
   (function () {
+    if (!document.getElementById('cv-go')) return;
     var buffer = null, fileName = 'audio';
     wireFile('cv-file', 'cv-info', 'cv-error', 'cv-controls', function (b, f) { buffer = b; fileName = baseName(f.name); });
     $('cv-format').addEventListener('change', function () {
@@ -372,6 +377,7 @@
 
   /* ---------- 4. Volume Changer ---------- */
   (function () {
+    if (!document.getElementById('vl-go')) return;
     var buffer = null, fileName = 'audio';
     wireFile('vl-file', 'vl-info', 'vl-error', 'vl-controls', function (b, f) { buffer = b; fileName = baseName(f.name); });
     $('vl-go').addEventListener('click', function () {
@@ -400,6 +406,7 @@
 
   /* ---------- 5. Speed Changer ---------- */
   (function () {
+    if (!document.getElementById('sp-go')) return;
     var buffer = null, fileName = 'audio';
     wireFile('sp-file', 'sp-info', 'sp-error', 'sp-controls', function (b, f) { buffer = b; fileName = baseName(f.name); });
     $('sp-go').addEventListener('click', function () {
@@ -426,6 +433,7 @@
 
   /* ---------- 6. Voice Over Mixer ---------- */
   (function () {
+    if (!document.getElementById('vo-voice')) return;
     var voice = null, music = null;
     function checkReady() {
       if (voice && music) {
@@ -485,6 +493,7 @@
 
   /* ---------- 7. Multi-Track Mixer ---------- */
   (function () {
+    if (!document.getElementById('mx-file')) return;
     var tracks = [];
     $('mx-file').addEventListener('change', function () {
       var files = Array.prototype.slice.call(this.files || []);
@@ -539,6 +548,7 @@
 
   /* ---------- 8. Fade In and Fade Out ---------- */
   (function () {
+    if (!document.getElementById('fd-go')) return;
     var buffer = null, fileName = 'audio';
     wireFile('fd-file', 'fd-info', 'fd-error', 'fd-controls', function (b, f) { buffer = b; fileName = baseName(f.name); });
     $('fd-go').addEventListener('click', function () {
@@ -570,6 +580,7 @@
 
   /* ---------- 9. Audio Reverser ---------- */
   (function () {
+    if (!document.getElementById('rv-go')) return;
     var buffer = null, fileName = 'audio';
     wireFile('rv-file', 'rv-info', 'rv-error', 'rv-controls', function (b, f) { buffer = b; fileName = baseName(f.name); });
     $('rv-go').addEventListener('click', function () {
@@ -597,6 +608,7 @@
 
   /* ---------- 10. Clear Phone Speaker ---------- */
   (function () {
+    if (!document.getElementById('cs-start')) return;
     var osc = null, gain = null, sweepTimer = null, stopTimer = null, leftTimer = null, deadline = 0;
     function stop(msg) {
       if (sweepTimer) { clearInterval(sweepTimer); sweepTimer = null; }

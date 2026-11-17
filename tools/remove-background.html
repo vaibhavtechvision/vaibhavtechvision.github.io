@@ -139,6 +139,93 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+/* Remove White Background */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('rb-file');
+  var infoEl = document.getElementById('rb-file-info');
+  var errorEl = document.getElementById('rb-error');
+  var statusEl = document.getElementById('rb-status');
+  var controlsEl = document.getElementById('rb-controls');
+  var resultBox = document.getElementById('rb-result-box');
+  var preview = document.getElementById('rb-preview');
+  var source = null, sourceName = 'photo';
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Now press the button to remove its white background.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('rb-go-btn').addEventListener('click', function () {
+    clearErr();
+    var pct = parseFloat(document.getElementById('rb-threshold').value);
+    if (!(pct >= 10 && pct <= 100)) { fail('Strength must be between 10 and 100 percent.'); return; }
+    statusEl.textContent = 'Removing the background, please wait.';
+    resultBox.hidden = false;
+    try {
+      var out = VTV.copyCanvas(source);
+      var ctx = out.getContext('2d');
+      var img = ctx.getImageData(0, 0, out.width, out.height);
+      var d = img.data;
+      // Fully white (>=250) becomes see-through; fully dark (below the limit) stays; between is a soft edge.
+      var full = 250;
+      var keep = Math.min(249, Math.round((100 - pct) / 100 * 255));
+      if (keep >= full) { keep = full - 1; }
+      var removed = 0, total = out.width * out.height;
+      for (var i = 0; i < d.length; i += 4) {
+        var m = Math.min(d[i], d[i + 1], d[i + 2]);
+        var a;
+        if (m >= full) { a = 0; }
+        else if (m <= keep) { a = 255; }
+        else { a = Math.round((full - m) / (full - keep) * 255); }
+        if (a === 0) { removed++; }
+        d[i + 3] = Math.min(d[i + 3], a);
+      }
+      ctx.putImageData(img, 0, 0);
+      VTV.toBlob(out, 'image/png', 1).then(function (blob) {
+        lastBlob = blob;
+        lastName = sourceName + '-no-background.png';
+        preview.width = out.width; preview.height = out.height;
+        preview.getContext('2d').drawImage(out, 0, 0);
+        statusEl.textContent = 'Done. The white background is now see-through: ' + Math.round(removed / total * 100) +
+          ' percent of the photo became transparent. Your photo is ' + out.width + ' by ' + out.height +
+          ' pixels. Check it below and download it. If parts of your signature or logo went missing, lower the strength and press the button again.';
+        preview.setAttribute('aria-label', 'Preview of the photo with its white background removed.');
+      }).catch(function () {
+        statusEl.textContent = '';
+        fail('Sorry, the photo could not be processed. Please try a different photo.');
+      });
+    } catch (e) {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be processed. It may be too big for your device.');
+    }
+  });
+
+  document.getElementById('rb-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

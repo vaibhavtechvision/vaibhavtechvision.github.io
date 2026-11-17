@@ -157,6 +157,98 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('cmp-file');
+  var infoEl = document.getElementById('cmp-file-info');
+  var errorEl = document.getElementById('cmp-error');
+  var statusEl = document.getElementById('cmp-status');
+  var controlsEl = document.getElementById('cmp-controls');
+  var resultBox = document.getElementById('cmp-result-box');
+  var preview = document.getElementById('cmp-preview');
+  var source = null; // canvas of the loaded photo
+  var sourceName = 'photo';
+  var sourceSize = 0;
+  var lastBlob = null, lastName = '';
+
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      sourceSize = f.size;
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels and its file size is ' + VTV.formatBytes(f.size) + '. Now type the size you want.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('cmp-go-btn').addEventListener('click', function () {
+    clearErr();
+    var amount = parseFloat(document.getElementById('cmp-target').value);
+    var unit = document.getElementById('cmp-unit').value;
+    if (!(amount >= 1)) { fail('Please type the file size you want, at least 1.'); return; }
+    var targetBytes = Math.round(amount * (unit === 'mb' ? 1024 * 1024 : 1024));
+    var mime = document.getElementById('cmp-format').value;
+    var ext = { 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/png': 'png' }[mime];
+
+    if (sourceSize <= targetBytes) {
+      statusEl.textContent = 'Good news: your photo is already ' + VTV.formatBytes(sourceSize) +
+        ', which is smaller than the ' + VTV.formatBytes(targetBytes) + ' you asked for. You can use the original photo as it is, or press Compress anyway to convert it.';
+    }
+
+    infoEl.textContent = '';
+    statusEl.textContent = 'Working, please wait. This can take a few seconds for a big photo.';
+    resultBox.hidden = false;
+
+    VTV.compressToTarget(source, targetBytes, mime).then(function (r) {
+      lastBlob = r.blob;
+      lastName = sourceName + '-' + VTV.formatBytes(r.blob.size).replace(' ', '-') + '.' + ext;
+      preview.width = r.width;
+      preview.height = r.height;
+      preview.getContext('2d').drawImage(r.canvas, 0, 0);
+      var sizeText = VTV.formatBytes(r.blob.size);
+      if (r.reached === false) {
+        statusEl.textContent = 'Honest answer: ' + VTV.formatBytes(targetBytes) +
+          ' is too small for this photo without making it unusable. The smallest clear version we could make is ' +
+          sizeText + ', ' + r.width + ' by ' + r.height + ' pixels. You can download it below, or crop the photo first in the Image Editor and try again.';
+        preview.setAttribute('aria-label', 'Preview of the compressed photo, ' + r.width + ' by ' + r.height + ' pixels, ' + sizeText + '. The requested size could not be reached.');
+      } else {
+        var parts = 'Done. Your photo is now ' + sizeText + ', which fits inside the ' + VTV.formatBytes(targetBytes) + ' you asked for.';
+        parts += ' It is ' + r.width + ' by ' + r.height + ' pixels';
+        if (r.quality) { parts += ', saved at ' + r.quality + ' percent quality'; }
+        parts += '. Download it below.';
+        if ((r.quality && r.quality < 20) || (r.scalePercent && r.scalePercent < 60)) {
+          parts += ' Honest warning: the photo had to be squeezed very hard to reach this size, so it may look blurry. If the form allows a bigger size, type a bigger number, or crop the photo first in the Image Editor.';
+        }
+        statusEl.textContent = parts;
+        preview.setAttribute('aria-label', 'Preview of the compressed photo, ' + r.width + ' by ' + r.height + ' pixels, ' + sizeText + '.');
+      }
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be compressed. Please try a different photo or a bigger target size.');
+    });
+  });
+
+  document.getElementById('cmp-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

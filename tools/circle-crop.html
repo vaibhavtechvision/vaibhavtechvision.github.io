@@ -148,6 +148,94 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+/* Circle Crop */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('cc-file');
+  var infoEl = document.getElementById('cc-file-info');
+  var errorEl = document.getElementById('cc-error');
+  var statusEl = document.getElementById('cc-status');
+  var controlsEl = document.getElementById('cc-controls');
+  var resultBox = document.getElementById('cc-result-box');
+  var preview = document.getElementById('cc-preview');
+  var source = null, sourceName = 'photo';
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. The tool cuts a square from its centre. Now choose the shape.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('cc-shape').addEventListener('change', function () {
+    document.getElementById('cc-radius-box').hidden = this.value !== 'rounded';
+  });
+
+  document.getElementById('cc-go-btn').addEventListener('click', function () {
+    clearErr();
+    var shape = document.getElementById('cc-shape').value;
+    var size = parseFloat(document.getElementById('cc-size').value);
+    if (!(size >= 50 && size <= 2000)) { fail('Size must be between 50 and 2000 pixels.'); return; }
+    var radiusPct = shape === 'rounded' ? parseFloat(document.getElementById('cc-radius').value) : 50;
+    if (!(radiusPct >= 0 && radiusPct <= 50)) { fail('Corner roundness must be between 0 and 50 percent.'); return; }
+    var side = Math.min(source.width, source.height);
+    var sx = Math.round((source.width - side) / 2);
+    var sy = Math.round((source.height - side) / 2);
+    var out = document.createElement('canvas');
+    out.width = size; out.height = size;
+    var ctx = out.getContext('2d');
+    var rad = size * radiusPct / 100;
+    ctx.beginPath();
+    ctx.moveTo(rad, 0);
+    ctx.arcTo(size, 0, size, size, rad);
+    ctx.arcTo(size, size, 0, size, rad);
+    ctx.arcTo(0, size, 0, 0, rad);
+    ctx.arcTo(0, 0, size, 0, rad);
+    ctx.closePath();
+    ctx.clip();
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(source, sx, sy, side, side, 0, 0, size, size);
+    statusEl.textContent = 'Cutting, please wait.';
+    resultBox.hidden = false;
+    VTV.toBlob(out, 'image/png', 1).then(function (blob) {
+      lastBlob = blob;
+      lastName = sourceName + (shape === 'circle' ? '-circle.png' : '-rounded.png');
+      preview.width = size; preview.height = size;
+      preview.getContext('2d').drawImage(out, 0, 0);
+      var shapeText = shape === 'circle' ? 'a circle' : 'a square with ' + radiusPct + ' percent rounded corners';
+      statusEl.textContent = 'Done. Your photo is now ' + shapeText + ', ' + size + ' by ' + size +
+        ' pixels, with a see-through background outside the shape. Download it below.';
+      preview.setAttribute('aria-label', 'Preview of the cut photo, ' + shapeText + ', ' + size + ' by ' + size + ' pixels.');
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be cut. Please try a different photo.');
+    });
+  });
+
+  document.getElementById('cc-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

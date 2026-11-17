@@ -179,6 +179,146 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var VISION_BASE = '../assets/lib/vision';
+  var DPI = 300;
+  var fileEl = document.getElementById('pp-file');
+  var infoEl = document.getElementById('pp-file-info');
+  var errorEl = document.getElementById('pp-error');
+  var statusEl = document.getElementById('pp-status');
+  var controlsEl = document.getElementById('pp-controls');
+  var resultBox = document.getElementById('pp-result-box');
+  var preview = document.getElementById('pp-preview');
+  var source = null;
+  var lastBlob = null, lastName = '';
+
+  function fail(msg) { errorEl.textContent = msg; statusEl.textContent = ''; }
+  function clearErr() { errorEl.textContent = ''; }
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Now choose the size and press "Make my passport photo".';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('pp-size').addEventListener('change', function () {
+    document.getElementById('pp-custom-box').hidden = this.value !== 'custom';
+  });
+
+  function targetSize() {
+    var v = document.getElementById('pp-size').value;
+    if (v === 'custom') {
+      var w = num('pp-custom-w'), h = num('pp-custom-h');
+      if (!(w >= 10 && w <= 200 && h >= 10 && h <= 200)) { return null; }
+      return { mmW: w, mmH: h, pxW: VTV.mmToPx(w, DPI), pxH: VTV.mmToPx(h, DPI),
+        label: w + ' by ' + h + ' millimetres' };
+    }
+    if (v === '51x51') {
+      // Exactly 2 x 2 inch: 600 x 600 pixels at 300 DPI.
+      return { mmW: 51, mmH: 51, pxW: 600, pxH: 600, label: '2 by 2 inch (51 by 51 millimetres)' };
+    }
+    var parts = v.split('x');
+    var mw = parseFloat(parts[0]), mh = parseFloat(parts[1]);
+    return { mmW: mw, mmH: mh, pxW: VTV.mmToPx(mw, DPI), pxH: VTV.mmToPx(mh, DPI),
+      label: mw + ' by ' + mh + ' millimetres' };
+  }
+
+  document.getElementById('pp-go-btn').addEventListener('click', function () {
+    clearErr();
+    var t = targetSize();
+    if (!t) { fail('Please type a width and height between 10 and 200 millimetres.'); return; }
+    var outW = t.pxW;
+    var outH = t.pxH;
+    var zoom = num('pp-zoom');
+    var mx = num('pp-move-x') || 0, my = num('pp-move-y') || 0;
+    if (!(zoom >= 100 && zoom <= 400)) { fail('Zoom must be between 100 and 400 percent.'); return; }
+    if (!(mx >= -2000 && mx <= 2000 && my >= -2000 && my <= 2000)) { fail('Move numbers must be between minus 2000 and 2000.'); return; }
+    var whiteBg = document.querySelector('input[name="bg"]:checked').value === 'white';
+    var limitOn = document.getElementById('pp-limit-on').checked;
+    var limitKb = num('pp-limit-kb');
+    if (limitOn && !(limitKb >= 5 && limitKb <= 2048)) { fail('The file size limit must be between 5 and 2048 KB.'); return; }
+
+    // 1. Cut the photo to the exact passport shape.
+    var crop = VTV.coverCrop(source.width, source.height, outW, outH, zoom, mx, my);
+    var out = document.createElement('canvas');
+    out.width = outW; out.height = outH;
+    var ctx = out.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(source, crop.sx, crop.sy, crop.sw, crop.sh, 0, 0, outW, outH);
+
+    resultBox.hidden = false;
+    var dimText = outW + ' by ' + outH + ' pixels, exactly ' + t.label + ' at ' + DPI + ' DPI';
+
+    // 2. Background.
+    var bgStep;
+    if (whiteBg) {
+      statusEl.textContent = 'Making the background white with the in-browser AI. The first time, it downloads about 10 MB of model files to your device, so please wait.';
+      bgStep = VTV.whiteBackgroundAI(out, VISION_BASE).catch(function () {
+        statusEl.textContent = 'The AI background remover could not load (no internet or an old browser). Trying the simple plain-background method instead.';
+        try { return VTV.whiteBackgroundFlood(out, 42); }
+        catch (e) { return out; }
+      });
+    } else {
+      bgStep = Promise.resolve(out);
+    }
+
+    // 3. File size and encoding.
+    bgStep.then(function (canvas) {
+      if (limitOn) {
+        return VTV.compressToTarget(canvas, Math.round(limitKb * 1024), 'image/jpeg').then(function (r) {
+          return { blob: r.blob, canvas: canvas, width: outW, height: outH, reached: r.reached, limited: true, quality: r.quality };
+        });
+      }
+      return VTV.toBlob(canvas, 'image/jpeg', 0.92).then(function (blob) {
+        return { blob: blob, canvas: canvas, width: outW, height: outH, reached: true, limited: false };
+      });
+    }).then(function (r) {
+      lastBlob = r.blob;
+      lastName = 'passport-photo-' + t.mmW + 'x' + t.mmH + 'mm.jpg';
+      preview.width = r.width;
+      preview.height = r.height;
+      preview.getContext('2d').drawImage(r.canvas, 0, 0);
+      var bgText = whiteBg ? 'white background' : 'original background';
+      var msg;
+      if (r.limited && r.reached === false) {
+        msg = 'Honest answer: ' + limitKb + ' KB is too small for this photo. The smallest clear version we could make is ' +
+          VTV.formatBytes(r.blob.size) + '. Your photo is ' + dimText + ' with a ' + bgText + '. Download it below, or try a bigger KB number.';
+      } else {
+        msg = 'Done. Your passport photo is ready: ' + dimText + ', ' + bgText + ', file size ' + VTV.formatBytes(r.blob.size) + '.';
+        if (r.limited) { msg += ' It fits inside your ' + limitKb + ' KB limit.'; }
+        if (r.limited && r.quality && r.quality < 40) { msg += ' Honest warning: to fit the limit the quality had to be lowered a lot, so check that your face still looks clear.'; }
+        msg += ' Check it below and download it.';
+      }
+      statusEl.textContent = msg;
+      preview.setAttribute('aria-label', 'Your finished passport photo, ' + dimText + ', ' + bgText + ', ' + VTV.formatBytes(r.blob.size) + '.');
+    }).catch(function () {
+      fail('Sorry, the photo could not be prepared. Please try a different photo.');
+    });
+  });
+
+  document.getElementById('pp-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

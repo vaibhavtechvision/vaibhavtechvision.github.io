@@ -145,6 +145,76 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+/* Image Format Converter */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('fc-file');
+  var infoEl = document.getElementById('fc-file-info');
+  var errorEl = document.getElementById('fc-error');
+  var statusEl = document.getElementById('fc-status');
+  var controlsEl = document.getElementById('fc-controls');
+  var resultBox = document.getElementById('fc-result-box');
+  var preview = document.getElementById('fc-preview');
+  var source = null, sourceName = 'photo', sourceSize = 0, sourceType = '';
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      sourceSize = f.size;
+      sourceType = (f.type || 'unknown').replace('image/', '').toUpperCase();
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is a ' + sourceType + ' file, ' + source.width + ' by ' + source.height +
+        ' pixels, ' + VTV.formatBytes(f.size) + '. Now choose the new file type.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('fc-go-btn').addEventListener('click', function () {
+    clearErr();
+    var mime = document.getElementById('fc-format').value;
+    var q = parseFloat(document.getElementById('fc-quality').value);
+    if (!(q >= 1 && q <= 100)) { fail('Quality must be between 1 and 100.'); return; }
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    var typeName = { 'image/jpeg': 'JPG', 'image/png': 'PNG', 'image/webp': 'WebP' }[mime];
+    statusEl.textContent = 'Converting, please wait.';
+    resultBox.hidden = false;
+    var canvas = mime === 'image/png' ? source : VTV.flattenOnWhite(source);
+    VTV.toBlob(canvas, mime, q / 100).then(function (blob) {
+      lastBlob = blob;
+      lastName = sourceName + '-converted.' + ext;
+      preview.width = source.width;
+      preview.height = source.height;
+      preview.getContext('2d').drawImage(source, 0, 0);
+      statusEl.textContent = 'Done. Your photo was a ' + sourceType + ' of ' + VTV.formatBytes(sourceSize) +
+        '. It is now a ' + typeName + ' of ' + VTV.formatBytes(blob.size) + ', same ' + source.width + ' by ' + source.height +
+        ' pixels. Download it below.';
+      preview.setAttribute('aria-label', 'Preview of the converted photo, ' + source.width + ' by ' + source.height + ' pixels.');
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be converted. Please try a different photo or file type.');
+    });
+  });
+
+  document.getElementById('fc-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

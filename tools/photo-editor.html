@@ -305,6 +305,340 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('file');
+  var infoEl = document.getElementById('file-info');
+  var errorEl = document.getElementById('error');
+  var statusEl = document.getElementById('status');
+  var editorEl = document.getElementById('editor');
+  var preview = document.getElementById('preview');
+  var original = null;   // canvas of the photo as loaded
+  var work = null;       // canvas being edited
+  var originalName = 'photo';
+  var originalMime = 'image/jpeg';
+
+  function say(msg) { statusEl.textContent = msg; }
+  function fail(msg) { errorEl.textContent = msg; infoEl.textContent = ''; }
+  function clearErr() { errorEl.textContent = ''; }
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+  function describe(prefix) {
+    var label = (prefix ? prefix + ' ' : '') + 'The photo is now ' + work.width + ' pixels wide and ' + work.height + ' pixels high.';
+    preview.setAttribute('aria-label', label);
+    say(label);
+  }
+  function refresh() {
+    preview.width = work.width;
+    preview.height = work.height;
+    preview.getContext('2d').drawImage(work, 0, 0);
+  }
+  function applyDraw(fn, message) {
+    var next = document.createElement('canvas');
+    fn(next);
+    work = next;
+    refresh();
+    describe(message);
+  }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      original = VTV.imageToCanvas(r.img);
+      work = VTV.copyCanvas(original);
+      originalName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      originalMime = /^image\/(jpeg|png|webp)$/.test(f.type) ? f.type : 'image/png';
+      editorEl.hidden = false;
+      refresh();
+      var label = 'Your photo is ready. It is ' + work.width + ' pixels wide and ' + work.height +
+        ' pixels high, file size ' + VTV.formatBytes(f.size) + '. Use the steps below to edit it.';
+      preview.setAttribute('aria-label', label);
+      infoEl.textContent = label;
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  /* Resize */
+  var rsPercentBox = document.getElementById('rs-percent-box');
+  var rsPixelsBox = document.getElementById('rs-pixels-box');
+  var rsCmBox = document.getElementById('rs-cm-box');
+  document.querySelectorAll('input[name="rs-mode"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var mode = document.querySelector('input[name="rs-mode"]:checked').value;
+      rsPercentBox.hidden = mode !== 'percent';
+      rsPixelsBox.hidden = mode !== 'pixels';
+      rsCmBox.hidden = mode !== 'cm';
+      if (mode === 'pixels') {
+        document.getElementById('rs-w').value = work.width;
+        document.getElementById('rs-h').value = work.height;
+      }
+      if (mode === 'cm') {
+        document.getElementById('rs-cm-w').value = (work.width / 300 * 2.54).toFixed(1);
+        document.getElementById('rs-cm-h').value = (work.height / 300 * 2.54).toFixed(1);
+      }
+    });
+  });
+  document.getElementById('rs-w').addEventListener('input', function () {
+    if (document.getElementById('rs-keep').checked && work && work.width) {
+      var w = num('rs-w');
+      if (w > 0) { document.getElementById('rs-h').value = Math.max(1, Math.round(work.height * w / work.width)); }
+    }
+  });
+  document.getElementById('rs-h').addEventListener('input', function () {
+    if (document.getElementById('rs-keep').checked && work && work.height) {
+      var h = num('rs-h');
+      if (h > 0) { document.getElementById('rs-w').value = Math.max(1, Math.round(work.width * h / work.height)); }
+    }
+  });
+  document.getElementById('rs-apply').addEventListener('click', function () {
+    clearErr();
+    var mode = document.querySelector('input[name="rs-mode"]:checked').value;
+    var w, h;
+    if (mode === 'percent') {
+      var p = num('rs-percent');
+      if (!(p > 0 && p <= 800)) { fail('Please type a percent between 1 and 800.'); return; }
+      w = Math.round(work.width * p / 100);
+      h = Math.round(work.height * p / 100);
+    } else if (mode === 'pixels') {
+      w = num('rs-w'); h = num('rs-h');
+      if (!(w >= 1 && h >= 1 && w <= 10000 && h <= 10000)) { fail('Please type a width and height between 1 and 10000 pixels.'); return; }
+    } else {
+      var cw = num('rs-cm-w'), ch = num('rs-cm-h'), dpi = num('rs-dpi');
+      if (!(cw >= 0.5 && cw <= 100 && ch >= 0.5 && ch <= 100)) { fail('Please type a width and height between 0.5 and 100 centimetres.'); return; }
+      if (!(dpi >= 50 && dpi <= 1200)) { fail('DPI must be between 50 and 1200.'); return; }
+      w = Math.round(cw / 2.54 * dpi);
+      h = Math.round(ch / 2.54 * dpi);
+      if (w > 10000 || h > 10000) { fail('That size at ' + dpi + ' DPI needs more than 10000 pixels. Please type a smaller size or a lower DPI.'); return; }
+    }
+    work = VTV.resizedCanvas(work, w, h);
+    refresh();
+    describe('Resized.');
+  });
+
+  /* Crop */
+  document.getElementById('crop-preset').addEventListener('change', function () {
+    var v = this.value;
+    if (!v) { return; }
+    var parts = v.split(':');
+    var ratio = parseFloat(parts[0]) / parseFloat(parts[1]);
+    var cw = work.width, ch = work.height;
+    if (cw / ch > ratio) { cw = Math.round(ch * ratio); } else { ch = Math.round(cw / ratio); }
+    document.getElementById('crop-x').value = Math.round((work.width - cw) / 2);
+    document.getElementById('crop-y').value = Math.round((work.height - ch) / 2);
+    document.getElementById('crop-w').value = cw;
+    document.getElementById('crop-h').value = ch;
+    say('The crop numbers are filled for the ' + v + ' shape, centred on the photo. Press Apply crop to cut, or change the numbers first.');
+  });
+  document.getElementById('crop-apply').addEventListener('click', function () {
+    clearErr();
+    var x = num('crop-x'), y = num('crop-y'), w = num('crop-w'), h = num('crop-h');
+    if (!(x >= 0 && y >= 0 && w >= 1 && h >= 1)) { fail('Please type crop numbers: Left and Top zero or more, Width and Height at least 1.'); return; }
+    if (x + w > work.width || y + h > work.height) {
+      fail('The crop box goes outside the photo. The photo is ' + work.width + ' by ' + work.height + ' pixels, so Left plus Width must be at most ' + work.width + ' and Top plus Height at most ' + work.height + '.');
+      return;
+    }
+    applyDraw(function (next) {
+      next.width = Math.round(w); next.height = Math.round(h);
+      next.getContext('2d').drawImage(work, Math.round(x), Math.round(y), Math.round(w), Math.round(h), 0, 0, Math.round(w), Math.round(h));
+    }, 'Cropped.');
+  });
+
+  /* Rotate and flip */
+  function rotate(deg) {
+    applyDraw(function (next) {
+      var swap = Math.abs(deg) === 90;
+      next.width = swap ? work.height : work.width;
+      next.height = swap ? work.width : work.height;
+      var ctx = next.getContext('2d');
+      ctx.translate(next.width / 2, next.height / 2);
+      ctx.rotate(deg * Math.PI / 180);
+      ctx.drawImage(work, -work.width / 2, -work.height / 2);
+    }, deg === 180 ? 'Turned upside down.' : 'Rotated ' + (deg > 0 ? 'right' : 'left') + ' 90 degrees.');
+  }
+  function flip(horizontal) {
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.translate(horizontal ? work.width : 0, horizontal ? 0 : work.height);
+      ctx.scale(horizontal ? -1 : 1, horizontal ? 1 : -1);
+      ctx.drawImage(work, 0, 0);
+    }, horizontal ? 'Flipped left to right.' : 'Flipped top to bottom.');
+  }
+  document.getElementById('rot-left').addEventListener('click', function () { clearErr(); rotate(-90); });
+  document.getElementById('rot-right').addEventListener('click', function () { clearErr(); rotate(90); });
+  document.getElementById('rot-180').addEventListener('click', function () { clearErr(); rotate(180); });
+  document.getElementById('flip-h').addEventListener('click', function () { clearErr(); flip(true); });
+  document.getElementById('flip-v').addEventListener('click', function () { clearErr(); flip(false); });
+
+  /* Brightness, contrast, colour */
+  document.getElementById('adj-apply').addEventListener('click', function () {
+    clearErr();
+    var b = num('adj-bright'), c = num('adj-contrast'), s = num('adj-sat');
+    if (!(b >= 0 && b <= 300 && c >= 0 && c <= 300 && s >= 0 && s <= 300)) {
+      fail('Brightness, contrast and colour must be between 0 and 300 percent.'); return;
+    }
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.filter = 'brightness(' + b + '%) contrast(' + c + '%) saturate(' + s + '%)';
+      ctx.drawImage(work, 0, 0);
+    }, 'Brightness ' + b + ' percent, contrast ' + c + ' percent and colour ' + s + ' percent applied.');
+  });
+
+  /* Filters */
+  document.getElementById('filter-apply').addEventListener('click', function () {
+    clearErr();
+    var f = document.getElementById('filter').value;
+    var css = { grayscale: 'grayscale(1)', sepia: 'sepia(1)', invert: 'invert(1)', contrast: 'grayscale(1) contrast(1.4)' }[f];
+    var names = { grayscale: 'Black and white', sepia: 'Sepia', invert: 'Inverted colours', contrast: 'Black and white high contrast' };
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.filter = css;
+      ctx.drawImage(work, 0, 0);
+    }, names[f] + ' filter applied.');
+  });
+
+  /* Add text */
+  document.getElementById('text-apply').addEventListener('click', function () {
+    clearErr();
+    var t = document.getElementById('text-value').value.trim();
+    if (!t) { fail('Please type the text to write on the photo.'); return; }
+    var size = num('text-size');
+    if (!(size >= 8 && size <= 400)) { fail('Letter size must be between 8 and 400 pixels.'); return; }
+    var color = document.getElementById('text-color').value;
+    var pos = document.getElementById('text-pos').value;
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.drawImage(work, 0, 0);
+      ctx.font = 'bold ' + size + 'px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      var margin = size;
+      var y = pos === 'top' ? margin : pos === 'bottom' ? work.height - margin : work.height / 2;
+      ctx.lineWidth = Math.max(2, size / 12);
+      ctx.strokeStyle = color === '#000000' ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.85)';
+      ctx.strokeText(t, work.width / 2, y);
+      ctx.fillStyle = color;
+      ctx.fillText(t, work.width / 2, y);
+    }, 'Text added.');
+  });
+
+  /* Watermark */
+  document.getElementById('wm-apply').addEventListener('click', function () {
+    clearErr();
+    var t = document.getElementById('wm-text').value.trim();
+    if (!t) { fail('Please type the watermark text.'); return; }
+    var size = num('wm-size');
+    if (!(size >= 8 && size <= 200)) { fail('Letter size must be between 8 and 200 pixels.'); return; }
+    var op = num('wm-opacity');
+    if (!(op >= 5 && op <= 100)) { fail('Visibility must be between 5 and 100 percent.'); return; }
+    var color = document.getElementById('wm-color').value;
+    var mode = document.getElementById('wm-mode').value;
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.drawImage(work, 0, 0);
+      ctx.font = 'bold ' + size + 'px Arial, sans-serif';
+      ctx.fillStyle = color;
+      ctx.globalAlpha = op / 100;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      if (mode === 'tile') {
+        var gapX = Math.max(size * 6, ctx.measureText(t).width + size * 3);
+        var gapY = size * 5;
+        ctx.save();
+        ctx.translate(work.width / 2, work.height / 2);
+        ctx.rotate(-Math.PI / 6);
+        var R = Math.sqrt(work.width * work.width + work.height * work.height) / 2 + gapX;
+        for (var y = -R; y <= R; y += gapY) {
+          for (var x = -R; x <= R; x += gapX) { ctx.fillText(t, x, y); }
+        }
+        ctx.restore();
+      } else if (mode === 'corner') {
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(t, work.width - size / 2, work.height - size / 2);
+      } else {
+        ctx.fillText(t, work.width / 2, work.height / 2);
+      }
+      ctx.globalAlpha = 1;
+    }, mode === 'tile' ? 'Watermark repeated all over the photo.' : 'Watermark added.');
+  });
+
+  /* Blur or cover a region */
+  document.querySelectorAll('input[name="bl-mode"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var blur = document.querySelector('input[name="bl-mode"]:checked').value === 'blur';
+      document.getElementById('bl-blur-box').hidden = !blur;
+      document.getElementById('bl-cover-box').hidden = blur;
+    });
+  });
+  document.getElementById('bl-apply').addEventListener('click', function () {
+    clearErr();
+    var x = num('bl-x'), y = num('bl-y'), w = num('bl-w'), h = num('bl-h');
+    if (!(x >= 0 && y >= 0 && w >= 1 && h >= 1)) { fail('Please type the part numbers: Left and Top zero or more, Width and Height at least 1.'); return; }
+    if (x + w > work.width || y + h > work.height) {
+      fail('The part goes outside the photo. The photo is ' + work.width + ' by ' + work.height + ' pixels, so Left plus Width must be at most ' + work.width + ' and Top plus Height at most ' + work.height + '.');
+      return;
+    }
+    var mode = document.querySelector('input[name="bl-mode"]:checked').value;
+    if (mode === 'blur') {
+      var amount = num('bl-amount');
+      if (!(amount >= 2 && amount <= 100)) { fail('Blur strength must be between 2 and 100 pixels.'); return; }
+      applyDraw(function (next) {
+        next.width = work.width; next.height = work.height;
+        var ctx = next.getContext('2d');
+        ctx.drawImage(work, 0, 0);
+        ctx.save();
+        ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+        ctx.filter = 'blur(' + amount + 'px)';
+        ctx.drawImage(work, 0, 0);
+        ctx.restore();
+      }, 'The part is now blurred.');
+    } else {
+      var color = document.getElementById('bl-color').value;
+      applyDraw(function (next) {
+        next.width = work.width; next.height = work.height;
+        var ctx = next.getContext('2d');
+        ctx.drawImage(work, 0, 0);
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, w, h);
+      }, 'The part is now covered with ' + (color === '#000000' ? 'black' : 'white') + '.');
+    }
+  });
+
+  /* Save and reset */
+  document.getElementById('save-btn').addEventListener('click', function () {
+    clearErr();
+    var fmt = document.getElementById('save-format').value;
+    var mime = fmt === 'original' ? originalMime : fmt;
+    var q = num('save-quality');
+    if (!(q >= 1 && q <= 100)) { fail('Quality must be between 1 and 100.'); return; }
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    say('Saving, please wait.');
+    VTV.toBlob(work, mime, q / 100).then(function (blob) {
+      VTV.download(blob, originalName + '-edited.' + ext);
+      say('Done. Your photo downloaded as ' + originalName + '-edited.' + ext + ', ' + work.width + ' by ' + work.height + ' pixels, ' + VTV.formatBytes(blob.size) + '.');
+    }).catch(function () {
+      fail('Sorry, the photo could not be saved in this format. Please try JPG or PNG.');
+    });
+  });
+  document.getElementById('reset-btn').addEventListener('click', function () {
+    clearErr();
+    work = VTV.copyCanvas(original);
+    refresh();
+    describe('Started over.');
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>

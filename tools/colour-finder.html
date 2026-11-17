@@ -130,6 +130,122 @@
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
 <script src="../assets/image-tools.js?v=1"></script>
+<script>
+/* Colour Finder */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('cp-file');
+  var infoEl = document.getElementById('cp-file-info');
+  var errorEl = document.getElementById('cp-error');
+  var statusEl = document.getElementById('cp-status');
+  var controlsEl = document.getElementById('cp-controls');
+  var resultBox = document.getElementById('cp-result-box');
+  var listEl = document.getElementById('cp-list');
+  var source = null;
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  var NAMES = [
+    ['White', 255, 255, 255], ['Light grey', 192, 192, 192], ['Grey', 128, 128, 128],
+    ['Dark grey', 64, 64, 64], ['Black', 0, 0, 0],
+    ['Red', 220, 30, 30], ['Dark red', 140, 20, 20], ['Pink', 245, 160, 190],
+    ['Orange', 240, 130, 25], ['Brown', 130, 85, 40], ['Beige (skin tone)', 225, 190, 155],
+    ['Yellow', 240, 225, 40], ['Dark yellow (mustard)', 190, 160, 30],
+    ['Light green', 140, 220, 120], ['Green', 40, 160, 60], ['Dark green', 20, 95, 45],
+    ['Teal (blue-green)', 30, 150, 150], ['Cyan (sky blue)', 80, 200, 220],
+    ['Light blue', 130, 180, 235], ['Blue', 40, 90, 210], ['Dark blue (navy)', 25, 40, 110],
+    ['Purple', 130, 60, 180], ['Violet (light purple)', 185, 140, 220]
+  ];
+  function colourName(r, g, b) {
+    var best = NAMES[0], bestD = Infinity, i, d;
+    for (i = 0; i < NAMES.length; i++) {
+      d = (r - NAMES[i][1]) * (r - NAMES[i][1]) + (g - NAMES[i][2]) * (g - NAMES[i][2]) + (b - NAMES[i][3]) * (b - NAMES[i][3]);
+      if (d < bestD) { bestD = d; best = NAMES[i]; }
+    }
+    return best[0];
+  }
+  function hex(r, g, b) {
+    return '#' + [r, g, b].map(function (v) { return ('0' + v.toString(16)).slice(-2); }).join('');
+  }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Press the button to hear its main colours.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('cp-go-btn').addEventListener('click', function () {
+    clearErr();
+    try {
+      var sample = VTV.resizedCanvas(source, 80, Math.max(1, Math.round(80 * source.height / source.width)));
+      var ctx = sample.getContext('2d');
+      var d = ctx.getImageData(0, 0, sample.width, sample.height).data;
+      var buckets = {};
+      var total = 0;
+      for (var i = 0; i < d.length; i += 4) {
+        if (d[i + 3] < 128) { continue; }
+        var r = Math.round(d[i] / 32) * 32; if (r > 255) { r = 255; }
+        var g = Math.round(d[i + 1] / 32) * 32; if (g > 255) { g = 255; }
+        var b = Math.round(d[i + 2] / 32) * 32; if (b > 255) { b = 255; }
+        var key = r + ',' + g + ',' + b;
+        buckets[key] = (buckets[key] || 0) + 1;
+        total++;
+      }
+      var entries = Object.keys(buckets).map(function (k) {
+        var parts = k.split(',');
+        return { r: +parts[0], g: +parts[1], b: +parts[2], n: buckets[k] };
+      }).sort(function (a, b) { return b.n - a.n; });
+      // Merge near-duplicate buckets: skip a bucket if a kept one is very close.
+      var kept = [];
+      entries.forEach(function (e) {
+        if (kept.length >= 5) { return; }
+        var dup = kept.some(function (k) {
+          return Math.abs(k.r - e.r) <= 32 && Math.abs(k.g - e.g) <= 32 && Math.abs(k.b - e.b) <= 32;
+        });
+        if (!dup) { kept.push(e); }
+      });
+      listEl.innerHTML = '';
+      var spoken = [];
+      var seenNames = {};
+      var shown = 0;
+      kept.forEach(function (e) {
+        var share = Math.round(e.n / total * 100);
+        var name = colourName(e.r, e.g, e.b);
+        if (share < 2 || seenNames[name]) { return; }
+        seenNames[name] = true;
+        shown++;
+        var code = hex(e.r, e.g, e.b);
+        var li = document.createElement('li');
+        li.textContent = name + ', colour code ' + code + ', about ' + share + ' percent of the photo.';
+        listEl.appendChild(li);
+        spoken.push(shown + '. ' + name + ', about ' + share + ' percent');
+      });
+      kept = kept.filter(function (e) {
+        var share = Math.round(e.n / total * 100);
+        return share >= 2;
+      });
+      resultBox.hidden = false;
+      statusEl.textContent = 'Your photo has ' + kept.length + ' main colour' + (kept.length === 1 ? '' : 's') +
+        ': ' + spoken.join('; ') + '. The list below gives each colour with its exact code.';
+    } catch (e) {
+      fail('Sorry, the colours could not be read. Please try a different photo.');
+    }
+  });
+})();
+</script>
 <script src="../assets/main.js?v=3"></script>
 </body>
 </html>
