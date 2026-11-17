@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Speaker | Vaibhav Tech Vision</title>
+<meta name="description" content="Type or paste any text and this free tool reads it out loud, with your choice of voice, speed and pitch.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Text Speaker</h1>
+  <p>Type or paste any text, and the tool reads it out loud using the voices built into your phone or computer. You can choose the voice, the speed and the pitch.</p>
+  <p class="hint">Everything is spoken by your own device; your text is not sent anywhere. This tool speaks the text aloud; it cannot save the speech as a sound file.</p>
+
+<label for="ts-text">Text to read aloud</label>
+    <textarea id="ts-text" rows="5"></textarea>
+    <label for="ts-voice">Voice</label>
+    <select id="ts-voice"><option value="">Default voice</option></select>
+    <label for="ts-rate">Speed, from 0.5 (slow) to 2 (fast); 1 is normal</label>
+    <input type="number" id="ts-rate" min="0.5" max="2" step="0.1" value="1">
+    <label for="ts-pitch">Pitch, from 0.5 (deep) to 2 (high); 1 is normal</label>
+    <input type="number" id="ts-pitch" min="0.5" max="2" step="0.1" value="1">
+    <p>
+      <button class="action" type="button" id="ts-speak">Read it aloud</button>
+      <button class="action" type="button" id="ts-stop">Stop</button>
+    </p>
+    <p id="ts-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/main.js?v=3"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var voices=[];
+  function fill(){
+    if(!window.speechSynthesis) return;
+    voices=speechSynthesis.getVoices();
+    var sel=$('ts-voice');
+    sel.innerHTML='<option value="">Default voice</option>';
+    voices.forEach(function(v,i){
+      var o=document.createElement('option');
+      o.value=i; o.textContent=v.name+' ('+v.lang+')';
+      sel.appendChild(o);
+    });
+  }
+  fill();
+  if(window.speechSynthesis) speechSynthesis.onvoiceschanged=fill;
+  $('ts-speak').addEventListener('click',function(){
+    var t=$('ts-text').value.trim();
+    if(!t){$('ts-status').textContent='Sorry: please type some text first.';return;}
+    if(!window.speechSynthesis){$('ts-status').textContent='Sorry: this browser cannot speak text.';return;}
+    if(!voices.length) fill();
+    if(!voices.length){$('ts-status').textContent='Sorry: no speaking voices were found on this device.';return;}
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(t);
+    var vi=$('ts-voice').value;
+    if(vi!=='' && voices[vi]) u.voice=voices[vi];
+    u.rate=Math.min(2,Math.max(0.5,parseFloat($('ts-rate').value)||1));
+    u.pitch=Math.min(2,Math.max(0.5,parseFloat($('ts-pitch').value)||1));
+    u.onstart=function(){$('ts-status').textContent='Speaking...';};
+    u.onend=function(){$('ts-status').textContent='Finished speaking.';};
+    u.onerror=function(){$('ts-status').textContent='Sorry: speaking failed on this device.';};
+    speechSynthesis.speak(u);
+  });
+  $('ts-stop').addEventListener('click',function(){
+    if(window.speechSynthesis){speechSynthesis.cancel();$('ts-status').textContent='Stopped.';}
+  });
+})();
+</script>
+</body>
+</html>

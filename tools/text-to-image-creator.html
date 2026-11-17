@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text to Image Creator | Vaibhav Tech Vision</title>
+<meta name="description" content="Type a description of a picture, and this free tool creates the image for you. You can then download it as a JPEG file.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Text to Image Creator</h1>
+  <p>Type a few words describing the picture you want, choose a size, and the tool creates the image for you.</p>
+  <p class="hint">Your words are sent to a free public picture-making service so it can create the image. Do not type names, addresses or other private information. The tool makes still pictures only; it cannot make videos.</p>
+
+<label for="ti-prompt">Describe the picture, for example: a red apple on a white table</label>
+    <textarea id="ti-prompt" rows="3"></textarea>
+    <label for="ti-size">Picture shape</label>
+    <select id="ti-size">
+      <option value="768x768" selected>Square</option>
+      <option value="1024x576">Wide, like a phone screen</option>
+      <option value="576x1024">Tall, like a phone held upright</option>
+    </select>
+    <p><button class="action" type="button" id="ti-go">Make my picture</button></p>
+    <p id="ti-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div id="ti-result" hidden>
+      <img id="ti-img" src="" alt="">
+      <p><button class="action" type="button" id="ti-dl">Download the picture</button></p>
+    </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/main.js?v=3"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var blob=null;
+  $('ti-go').addEventListener('click',function(){
+    var q=$('ti-prompt').value.trim();
+    if(!q){$('ti-status').textContent='Sorry: please describe the picture first.';return;}
+    var wh=$('ti-size').value.split('x');
+    var btn=$('ti-go'); btn.disabled=true;
+    $('ti-result').hidden=true;
+    $('ti-status').textContent='Making your picture. This can take up to half a minute, please wait...';
+    var url='https://image.pollinations.ai/prompt/'+encodeURIComponent(q)+'?width='+wh[0]+'&height='+wh[1]+'&nologo=true&seed='+Math.floor(Math.random()*1000000);
+    fetch(url).then(function(r){
+      if(!r.ok) throw new Error('the picture service is busy');
+      return r.blob();
+    }).then(function(b){
+      if(!b || b.size<1000) throw new Error('the picture service returned nothing');
+      if(blob) URL.revokeObjectURL(blob);
+      blob=b;
+      var img=$('ti-img');
+      img.src=URL.createObjectURL(b);
+      img.alt='Picture created from your words: '+q;
+      $('ti-result').hidden=false;
+      $('ti-status').textContent='Done. Your picture is ready below. Press the download button to save it as a JPEG file.';
+      btn.disabled=false;
+    }).catch(function(e){
+      $('ti-status').textContent='Sorry: '+e.message+'. Please wait a moment and try again.';
+      btn.disabled=false;
+    });
+  });
+  $('ti-dl').addEventListener('click',function(){
+    if(!blob) return;
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='my-picture.jpg';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
+</body>
+</html>
