@@ -119,4 +119,25 @@
     return 'tel:' + n.replace(/[ ()-]/g, '');
   });
 
+  wire('qu', 'upi-qr-code.png', function () {
+    var id = $('qu-id').value.trim();
+    if (!id) return '';
+    if (!/^[\w.\-]{2,}@[a-zA-Z][a-zA-Z0-9]{1,}$/.test(id)) {
+      throw new Error('please type a valid UPI ID, for example yourname@okhdfcbank.');
+    }
+    var out = 'upi://pay?pa=' + encodeURIComponent(id) + '&cu=INR';
+    var name = $('qu-name').value.trim();
+    if (name) out += '&pn=' + encodeURIComponent(name);
+    var amt = $('qu-amount').value.trim();
+    if (amt) {
+      if (!/^[0-9]+(\.[0-9]{1,2})?$/.test(amt) || parseFloat(amt) <= 0) {
+        throw new Error('the amount must be a plain number in rupees, for example 150 or 99.50.');
+      }
+      out += '&am=' + amt;
+    }
+    var note = $('qu-note').value.trim();
+    if (note) out += '&tn=' + encodeURIComponent(note);
+    return out;
+  });
+
 })();
