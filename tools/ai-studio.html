@@ -83,6 +83,7 @@
   <section aria-labelledby="notes-heading">
     <h2 id="notes-heading">My Saved Notes</h2>
     <p>Answers that you save with the Save to Notes action appear here. They stay only on this device, in this browser.</p>
+    <button type="button" id="ai-download-notes" class="button">Download Notes</button>
     <div id="ai-notes"></div>
   </section>
   <script>
@@ -178,7 +179,26 @@
       try { return JSON.parse(localStorage.getItem(NOTES_KEY)) || []; } catch (e) { return []; }
     }
     function setNotes(notes) {
-      try { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); } catch (e) {}
+      try { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); return true; } catch (e) { return false; }
+    }
+    function downloadNotes() {
+      var notes = getNotes();
+      if (!notes.length) { say("There are no saved notes to download."); return; }
+      var out = notes.map(function (n, i) {
+        return "Note " + (i + 1) + " (" + new Date(n.ts).toLocaleString() + ")\n" + n.text;
+      }).join("\n\n----------\n\n");
+      try {
+        var blob = new Blob([out], { type: "text/plain;charset=utf-8" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "vtv-assistant-notes.txt";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        say("Your notes were downloaded as a text file named vtv-assistant-notes.txt.");
+      } catch (e) {
+        say("Download failed on this device. Please try the Listen button or copy the notes instead.");
+      }
     }
 
     function renderNotes() {
@@ -218,6 +238,8 @@
         box.appendChild(wrap);
       });
     }
+
+    document.getElementById("ai-download-notes").addEventListener("click", downloadNotes);
 
     function closeMenu(refocus) {
       if (!openMenu) return;
@@ -264,9 +286,8 @@
           { label: "Save to Notes", act: function () {
               var ns = getNotes();
               ns.unshift({ text: ans, ts: Date.now() });
-              setNotes(ns);
-              renderNotes();
-              say("Saved to Notes.");
+              if (setNotes(ns)) { renderNotes(); say("Saved to Notes."); }
+              else { say("Error: the note could not be saved. Your browser may be blocking storage. Please use Copy or Share to keep this answer."); }
             } }
         ];
         items.forEach(function (it, idx) {
