@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Merge | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to merge two or more PDF files into one PDF, in the order you choose.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Merge</h1>
+<p>This tool joins two or more PDF files into one single PDF. You choose the files and the order, and the tool makes one combined PDF for you.</p>
+<p>Choose your PDF files one after another, put them in the order you want with the Move up and Move down buttons, and press Merge PDFs. Your files stay inside your browser; they are never uploaded anywhere.</p>
+
+<label for="pdf-files">Choose PDF files to add</label>
+<input type="file" id="pdf-files" accept="application/pdf,.pdf" multiple>
+
+<div class="result-box" id="list-box" hidden>
+  <h2>Files to merge, in order</h2>
+  <ul id="file-list"></ul>
+</div>
+
+<div class="button-row">
+  <button class="action" type="button" id="merge-btn">Merge PDFs</button>
+  <button class="action secondary" type="button" id="clear-btn">Clear list</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+
+  var fileInput = document.getElementById('pdf-files');
+  var mergeBtn = document.getElementById('merge-btn');
+  var clearBtn = document.getElementById('clear-btn');
+  var listBox = document.getElementById('list-box');
+  var list = document.getElementById('file-list');
+  var files = [];
+
+  function render() {
+    list.innerHTML = '';
+    listBox.hidden = files.length === 0;
+    files.forEach(function (f, i) {
+      var li = document.createElement('li');
+      var span = document.createElement('span');
+      span.textContent = (i + 1) + '. ' + f.name + ' ';
+      li.appendChild(span);
+      if (i > 0) {
+        var up = document.createElement('button');
+        up.type = 'button'; up.className = 'action secondary';
+        up.textContent = 'Move up';
+        up.setAttribute('aria-label', 'Move ' + f.name + ' up');
+        up.addEventListener('click', function () {
+          var t = files[i - 1]; files[i - 1] = files[i]; files[i] = t;
+          render(); say(f.name + ' moved up. It is now number ' + i + ' in the list.');
+        });
+        li.appendChild(up);
+      }
+      if (i < files.length - 1) {
+        var down = document.createElement('button');
+        down.type = 'button'; down.className = 'action secondary';
+        down.textContent = 'Move down';
+        down.setAttribute('aria-label', 'Move ' + f.name + ' down');
+        down.addEventListener('click', function () {
+          var t = files[i + 1]; files[i + 1] = files[i]; files[i] = t;
+          render(); say(f.name + ' moved down. It is now number ' + (i + 2) + ' in the list.');
+        });
+        li.appendChild(down);
+      }
+      var rm = document.createElement('button');
+      rm.type = 'button'; rm.className = 'action secondary';
+      rm.textContent = 'Remove';
+      rm.setAttribute('aria-label', 'Remove ' + f.name + ' from the list');
+      rm.addEventListener('click', function () {
+        files.splice(i, 1); render(); say(f.name + ' removed. ' + files.length + ' file(s) in the list.');
+      });
+      li.appendChild(rm);
+      list.appendChild(li);
+    });
+  }
+
+  fileInput.addEventListener('change', function () {
+    if (!fileInput.files.length) return;
+    var picked = Array.prototype.slice.call(fileInput.files);
+    say('Reading ' + picked.length + ' file(s), please wait...');
+    Promise.all(picked.map(function (f) {
+      return readAsArrayBuffer(f).then(function (buf) { files.push({ name: f.name, bytes: buf }); });
+    })).then(function () {
+      render();
+      fileInput.value = '';
+      say(files.length + ' PDF file(s) in the list. Add more files, change the order, or press Merge PDFs.');
+    });
+  });
+
+  clearBtn.addEventListener('click', function () {
+    files = []; render();
+    say('List cleared.');
+  });
+
+  mergeBtn.addEventListener('click', function () {
+    if (files.length < 2) { say('Please add at least two PDF files to merge.'); fileInput.focus(); return; }
+    mergeBtn.disabled = true;
+    say('Merging, please wait...');
+    PDFLib.PDFDocument.create().then(function (out) {
+      var chain = Promise.resolve();
+      files.forEach(function (f) {
+        chain = chain.then(function () {
+          return PDFLib.PDFDocument.load(f.bytes.slice(0), { ignoreEncryption: true }).then(function (src) {
+            return out.copyPages(src, src.getPageIndices()).then(function (pages) {
+              pages.forEach(function (pg) { out.addPage(pg); });
+            });
+          });
+        });
+      });
+      return chain.then(function () { return out.save(); });
+    }).then(function (data) {
+      mergeBtn.disabled = false;
+      saveBlob(new Blob([data], { type: 'application/pdf' }), 'merged.pdf');
+      say('Done. ' + files.length + ' PDF files were merged into one file. It has been downloaded as merged.pdf.');
+    }).catch(function () {
+      mergeBtn.disabled = false;
+      say('Sorry, one of the files could not be merged. It may be damaged or locked with a password.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>

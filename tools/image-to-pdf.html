@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image to PDF Converter | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to turn photos and images into one PDF file.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>Image to PDF Converter</h1>
+<p>This tool turns your photos and pictures into one PDF file. Each picture becomes one page of the PDF.</p>
+<p>Choose one or more images, put them in the order you want with the Move up and Move down buttons, and press Create PDF. Your pictures stay inside your browser; they are never uploaded anywhere.</p>
+
+<label for="image-files">Choose image files to add</label>
+<input type="file" id="image-files" accept="image/*" multiple>
+
+<div class="result-box" id="list-box" hidden>
+  <h2>Images to use, in order</h2>
+  <ul id="file-list"></ul>
+</div>
+
+<div class="button-row">
+  <button class="action" type="button" id="create-btn">Create PDF</button>
+  <button class="action secondary" type="button" id="clear-btn">Clear list</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/jspdf.umd.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+
+  var fileInput = document.getElementById('image-files');
+  var createBtn = document.getElementById('create-btn');
+  var clearBtn = document.getElementById('clear-btn');
+  var listBox = document.getElementById('list-box');
+  var list = document.getElementById('file-list');
+  var images = [];
+
+  function readAsDataURL(file) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () { res(r.result); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+  function loadImage(url) {
+    return new Promise(function (res, rej) {
+      var img = new Image();
+      img.onload = function () { res(img); };
+      img.onerror = rej;
+      img.src = url;
+    });
+  }
+
+  function render() {
+    list.innerHTML = '';
+    listBox.hidden = images.length === 0;
+    images.forEach(function (f, i) {
+      var li = document.createElement('li');
+      var span = document.createElement('span');
+      span.textContent = (i + 1) + '. ' + f.name + ' ';
+      li.appendChild(span);
+      if (i > 0) {
+        var up = document.createElement('button');
+        up.type = 'button'; up.className = 'action secondary'; up.textContent = 'Move up';
+        up.setAttribute('aria-label', 'Move ' + f.name + ' up');
+        up.addEventListener('click', function () {
+          var t = images[i - 1]; images[i - 1] = images[i]; images[i] = t;
+          render(); say(f.name + ' moved up. It is now number ' + i + ' in the list.');
+        });
+        li.appendChild(up);
+      }
+      if (i < images.length - 1) {
+        var down = document.createElement('button');
+        down.type = 'button'; down.className = 'action secondary'; down.textContent = 'Move down';
+        down.setAttribute('aria-label', 'Move ' + f.name + ' down');
+        down.addEventListener('click', function () {
+          var t = images[i + 1]; images[i + 1] = images[i]; images[i] = t;
+          render(); say(f.name + ' moved down. It is now number ' + (i + 2) + ' in the list.');
+        });
+        li.appendChild(down);
+      }
+      var rm = document.createElement('button');
+      rm.type = 'button'; rm.className = 'action secondary'; rm.textContent = 'Remove';
+      rm.setAttribute('aria-label', 'Remove ' + f.name + ' from the list');
+      rm.addEventListener('click', function () {
+        images.splice(i, 1); render(); say(f.name + ' removed. ' + images.length + ' image(s) in the list.');
+      });
+      li.appendChild(rm);
+      list.appendChild(li);
+    });
+  }
+
+  fileInput.addEventListener('change', function () {
+    if (!fileInput.files.length) return;
+    var picked = Array.prototype.slice.call(fileInput.files);
+    Promise.all(picked.map(function (f) {
+      return readAsDataURL(f).then(function (url) { images.push({ name: f.name, url: url }); });
+    })).then(function () {
+      render();
+      fileInput.value = '';
+      say(images.length + ' image(s) in the list. Add more images, change the order, or press Create PDF.');
+    });
+  });
+
+  clearBtn.addEventListener('click', function () { images = []; render(); say('List cleared.'); });
+
+  createBtn.addEventListener('click', function () {
+    if (!images.length) { say('Please add at least one image first.'); fileInput.focus(); return; }
+    createBtn.disabled = true;
+    say('Creating the PDF, please wait...');
+    var doc = new jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+    var pageW = 595.28, pageH = 841.89, margin = 36;
+    var chain = Promise.resolve();
+    images.forEach(function (f, i) {
+      chain = chain.then(function () { return loadImage(f.url); }).then(function (img) {
+        if (i > 0) doc.addPage();
+        var maxW = pageW - margin * 2, maxH = pageH - margin * 2;
+        var scale = Math.min(maxW / img.width, maxH / img.height, 1);
+        var w = img.width * scale, h = img.height * scale;
+        var x = (pageW - w) / 2, y = (pageH - h) / 2;
+        var fmt = (f.url.indexOf('data:image/png') === 0) ? 'PNG' : 'JPEG';
+        doc.addImage(f.url, fmt, x, y, w, h);
+      });
+    });
+    chain.then(function () {
+      doc.save('images.pdf');
+      createBtn.disabled = false;
+      say('Done. Your PDF with ' + images.length + ' page(s) has been downloaded as images.pdf.');
+    }).catch(function () {
+      createBtn.disabled = false;
+      say('Sorry, one of the images could not be used. Please try a different image.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>

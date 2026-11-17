@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Reader | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to read the text of a PDF file, listen to it aloud and save it as a text file.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Reader</h1>
+<p>This tool reads the text inside a PDF file and shows it on the screen, so your screen reader can read it to you. You can also listen to the text aloud or save it as a plain text file.</p>
+<p>Choose a PDF file and press Read PDF text. The file is opened inside your browser only; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<div class="button-row">
+  <button class="action" type="button" id="read-btn">Read PDF text</button>
+  <button class="action secondary" type="button" id="listen-btn" disabled>Listen to the text</button>
+  <button class="action secondary" type="button" id="stop-btn" disabled>Stop listening</button>
+  <button class="action secondary" type="button" id="download-btn" disabled>Download as text file</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+
+<div class="result-box" id="results" hidden>
+  <h2>Text from the PDF</h2>
+  <div id="pdf-text" tabindex="0" style="white-space:pre-wrap"></div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '../assets/lib/pdf.worker.min.js';
+  var fileInput = document.getElementById('pdf-file');
+  var readBtn = document.getElementById('read-btn');
+  var listenBtn = document.getElementById('listen-btn');
+  var stopBtn = document.getElementById('stop-btn');
+  var downloadBtn = document.getElementById('download-btn');
+  var results = document.getElementById('results');
+  var pdfText = document.getElementById('pdf-text');
+  var extractedText = '';
+  var fileName = 'document';
+
+  fileInput.addEventListener('change', function () {
+    extractedText = '';
+    results.hidden = true;
+    listenBtn.disabled = true; stopBtn.disabled = true; downloadBtn.disabled = true;
+    if (fileInput.files.length) {
+      fileName = baseName(fileInput.files[0].name);
+      say('File selected: ' + fileInput.files[0].name + '. Now press the Read PDF text button.');
+    }
+  });
+
+  readBtn.addEventListener('click', function () {
+    if (!fileInput.files.length) { say('Please choose a PDF file first.'); fileInput.focus(); return; }
+    readBtn.disabled = true;
+    say('Opening the PDF, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      return pdfjsLib.getDocument({ data: buf }).promise;
+    }).then(function (pdf) {
+      var total = pdf.numPages;
+      var parts = [];
+      var p = 1;
+      function next() {
+        if (p > total) { finish(); return; }
+        say('Reading page ' + p + ' of ' + total + '...');
+        pdf.getPage(p).then(function (pg) {
+          return pg.getTextContent();
+        }).then(function (tc) {
+          var t = tc.items.map(function (i) { return i.str; }).join(' ');
+          parts.push('Page ' + p + '.\n' + t);
+          p++; next();
+        }).catch(function () { p++; next(); });
+      }
+      function finish() {
+        readBtn.disabled = false;
+        extractedText = parts.join('\n\n');
+        if (!extractedText.replace(/\s/g, '')) {
+          say('No readable text was found in this PDF. It is probably made of scanned pictures of pages, not real text.');
+          return;
+        }
+        pdfText.textContent = extractedText;
+        results.hidden = false;
+        listenBtn.disabled = false;
+        downloadBtn.disabled = false;
+        say('Done. This PDF has ' + total + ' page' + (total > 1 ? 's' : '') + '. The text is below. You can also listen to it or download it as a text file.');
+      }
+      next();
+    }).catch(function () {
+      readBtn.disabled = false;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  });
+
+  var speaking = false, chunks = [], ci = 0;
+  function chunkText(text) {
+    var pieces = text.split(/\n+/);
+    var out = [], cur = '';
+    pieces.forEach(function (piece) {
+      if ((cur + ' ' + piece).length > 500) {
+        if (cur) out.push(cur);
+        while (piece.length > 500) { out.push(piece.slice(0, 500)); piece = piece.slice(500); }
+        cur = piece;
+      } else {
+        cur = cur ? cur + ' ' + piece : piece;
+      }
+    });
+    if (cur) out.push(cur);
+    return out;
+  }
+  function speakNext() {
+    if (!speaking || ci >= chunks.length) {
+      speaking = false; stopBtn.disabled = true;
+      if (ci >= chunks.length) say('Finished reading the document.');
+      return;
+    }
+    var u = new SpeechSynthesisUtterance(chunks[ci]);
+    u.onend = function () { ci++; speakNext(); };
+    speechSynthesis.speak(u);
+  }
+  listenBtn.addEventListener('click', function () {
+    if (!extractedText) { say('Please read the PDF text first.'); return; }
+    speechSynthesis.cancel();
+    chunks = chunkText(extractedText);
+    ci = 0; speaking = true; stopBtn.disabled = false;
+    say('Reading aloud. Press Stop listening to stop.');
+    speakNext();
+  });
+  stopBtn.addEventListener('click', function () {
+    speaking = false;
+    speechSynthesis.cancel();
+    stopBtn.disabled = true;
+    say('Stopped.');
+  });
+  downloadBtn.addEventListener('click', function () {
+    if (!extractedText) { say('Please read the PDF text first.'); return; }
+    saveBlob(new Blob([extractedText], { type: 'text/plain;charset=utf-8' }), fileName + '.txt');
+    say('Text file downloaded.');
+  });
+  window.addEventListener('pagehide', function () { speechSynthesis.cancel(); });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>

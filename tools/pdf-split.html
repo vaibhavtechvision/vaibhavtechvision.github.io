@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Split | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to split a PDF and save the pages you choose as a new PDF file.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Split</h1>
+<p>This tool takes out the pages you choose from a PDF and saves them as a new PDF file. For example, if your PDF has 50 pages and you only need pages 10 to 15, this tool makes a new PDF with just those pages.</p>
+<p>Choose a PDF file, type the first and last page you want, and press Split PDF. The file stays inside your browser; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<label for="from-page">From page</label>
+<input type="number" id="from-page" min="1" inputmode="numeric" placeholder="First page, for example 10">
+
+<label for="to-page">To page</label>
+<input type="number" id="to-page" min="1" inputmode="numeric" placeholder="Last page, for example 15">
+
+<div class="button-row">
+  <button class="action" type="button" id="split-btn">Split PDF</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+
+  var fileInput = document.getElementById('pdf-file');
+  var fromInput = document.getElementById('from-page');
+  var toInput = document.getElementById('to-page');
+  var splitBtn = document.getElementById('split-btn');
+  var bytes = null, totalPages = 0, fileName = 'document';
+
+  fileInput.addEventListener('change', function () {
+    bytes = null; totalPages = 0;
+    if (!fileInput.files.length) return;
+    fileName = baseName(fileInput.files[0].name);
+    say('Reading the PDF, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      bytes = buf;
+      return PDFLib.PDFDocument.load(buf.slice(0), { ignoreEncryption: true });
+    }).then(function (doc) {
+      totalPages = doc.getPageCount();
+      say('File selected: ' + fileInput.files[0].name + '. It has ' + totalPages + ' pages. Now type the first and last page you want and press Split PDF.');
+      fromInput.max = totalPages; toInput.max = totalPages;
+      fromInput.focus();
+    }).catch(function () {
+      bytes = null;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  });
+
+  splitBtn.addEventListener('click', function () {
+    if (!bytes) { say('Please choose a PDF file first.'); fileInput.focus(); return; }
+    var from = parseInt(fromInput.value, 10);
+    var to = parseInt(toInput.value, 10);
+    if (!from || !to || from < 1 || to < from || to > totalPages) {
+      say('Please enter a valid page range between 1 and ' + totalPages + '.');
+      fromInput.focus();
+      return;
+    }
+    splitBtn.disabled = true;
+    say('Working, please wait...');
+    PDFLib.PDFDocument.load(bytes.slice(0), { ignoreEncryption: true }).then(function (src) {
+      return PDFLib.PDFDocument.create().then(function (out) {
+        var idx = [];
+        for (var i = from - 1; i <= to - 1; i++) idx.push(i);
+        return out.copyPages(src, idx).then(function (pages) {
+          pages.forEach(function (pg) { out.addPage(pg); });
+          return out.save();
+        });
+      });
+    }).then(function (data) {
+      splitBtn.disabled = false;
+      saveBlob(new Blob([data], { type: 'application/pdf' }), fileName + '-pages-' + from + '-to-' + to + '.pdf');
+      say('Done. Your new PDF with pages ' + from + ' to ' + to + ' has been downloaded.');
+    }).catch(function () {
+      splitBtn.disabled = false;
+      say('Sorry, something went wrong while splitting this PDF.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>

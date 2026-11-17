@@ -125,6 +125,94 @@
   </nav>
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
+<script>
+(function () {
+  var input = document.getElementById('text-input');
+  var password = document.getElementById('password');
+  var status = document.getElementById('status');
+  function say(msg) { status.textContent = msg; }
+  var enc = new TextEncoder();
+  var dec = new TextDecoder();
+
+  function deriveKey(pw, salt) {
+    return crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveKey']).then(function (baseKey) {
+      return crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: salt, iterations: 100000, hash: 'SHA-256' },
+        baseKey,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt', 'decrypt']
+      );
+    });
+  }
+  function toBase64(bytes) {
+    var s = '';
+    for (var i = 0; i < bytes.length; i += 8192) {
+      s += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+    }
+    return btoa(s);
+  }
+  function fromBase64(b64) {
+    var s = atob(b64);
+    var bytes = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) bytes[i] = s.charCodeAt(i);
+    return bytes;
+  }
+
+  document.getElementById('lock-btn').addEventListener('click', function () {
+    if (!input.value) { say('Please type or paste some text first.'); input.focus(); return; }
+    if (!password.value) { say('Please choose a password first.'); password.focus(); return; }
+    say('Locking your text, please wait...');
+    var salt = crypto.getRandomValues(new Uint8Array(16));
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    deriveKey(password.value, salt).then(function (key) {
+      return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, enc.encode(input.value));
+    }).then(function (ct) {
+      var all = new Uint8Array(16 + 12 + ct.byteLength);
+      all.set(salt, 0);
+      all.set(iv, 16);
+      all.set(new Uint8Array(ct), 28);
+      input.value = toBase64(all);
+      say('Done. Your text is locked. Copy the coded message and share it. Only the same password can unlock it.');
+    }).catch(function () {
+      say('Sorry, locking failed in this browser.');
+    });
+  });
+
+  document.getElementById('unlock-btn').addEventListener('click', function () {
+    if (!input.value) { say('Please paste the coded message first.'); input.focus(); return; }
+    if (!password.value) { say('Please enter the password first.'); password.focus(); return; }
+    say('Unlocking, please wait...');
+    var all;
+    try { all = fromBase64(input.value.trim()); } catch (e) {
+      say('This does not look like a coded message from this tool.'); return;
+    }
+    var salt = all.slice(0, 16);
+    var iv = all.slice(16, 28);
+    var data = all.slice(28);
+    deriveKey(password.value, salt).then(function (key) {
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, data);
+    }).then(function (pt) {
+      input.value = dec.decode(pt);
+      say('Done. Your message is unlocked and shown in the box.');
+    }).catch(function () {
+      say('Could not unlock. Please check the password and the coded message.');
+    });
+  });
+
+  document.getElementById('copy-btn').addEventListener('click', function () {
+    if (!input.value) { say('There is nothing to copy.'); return; }
+    function done() { say('Copied to clipboard.'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(input.value).then(done, function () { input.select(); document.execCommand('copy'); done(); });
+    } else { input.select(); document.execCommand('copy'); done(); }
+  });
+  document.getElementById('clear-btn').addEventListener('click', function () {
+    input.value = ''; password.value = '';
+    say('Cleared.'); input.focus();
+  });
+})();
+</script>
 <script src="../assets/main.js?v=2"></script>
 </body>
 </html>

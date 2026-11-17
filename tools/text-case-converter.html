@@ -128,6 +128,54 @@
   </nav>
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
+<script>
+(function () {
+  var input = document.getElementById('text-input');
+  var status = document.getElementById('status');
+  function say(msg) { status.textContent = msg; }
+  function toTitle(s) {
+    return s.toLowerCase().replace(/(^|\s)(\S)/g, function (m, pre, ch) { return pre + ch.toUpperCase(); });
+  }
+  function toSentence(s) {
+    return s.toLowerCase().replace(/(^\s*\S|[.!?]\s*\S)/g, function (m) { return m.toUpperCase(); });
+  }
+  document.querySelectorAll('button[data-case]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = input.value;
+      if (!text) { say('Please type or paste some text first.'); input.focus(); return; }
+      var mode = btn.getAttribute('data-case');
+      if (mode === 'upper') input.value = text.toUpperCase();
+      else if (mode === 'lower') input.value = text.toLowerCase();
+      else if (mode === 'title') input.value = toTitle(text);
+      else input.value = toSentence(text);
+      say('Done. Your text was converted to ' + btn.textContent + '.');
+    });
+  });
+  document.getElementById('copy-btn').addEventListener('click', function () {
+    if (!input.value) { say('There is nothing to copy.'); return; }
+    function done() { say('Copied to clipboard.'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(input.value).then(done, function () { input.select(); document.execCommand('copy'); done(); });
+    } else { input.select(); document.execCommand('copy'); done(); }
+  });
+  var speaking = false;
+  document.getElementById('listen-btn').addEventListener('click', function () {
+    if (speaking) { speechSynthesis.cancel(); speaking = false; say('Stopped.'); return; }
+    if (!input.value) { say('There is nothing to listen to.'); return; }
+    var u = new SpeechSynthesisUtterance(input.value);
+    u.onend = function () { speaking = false; };
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+    speaking = true;
+    say('Reading aloud. Press Listen to result again to stop.');
+  });
+  document.getElementById('clear-btn').addEventListener('click', function () {
+    input.value = ''; speechSynthesis.cancel(); speaking = false;
+    say('Cleared.'); input.focus();
+  });
+  window.addEventListener('pagehide', function () { speechSynthesis.cancel(); });
+})();
+</script>
 <script src="../assets/main.js?v=2"></script>
 </body>
 </html>

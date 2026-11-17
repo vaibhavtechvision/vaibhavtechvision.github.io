@@ -125,6 +125,51 @@
   </nav>
   <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
 </footer>
+<script>
+(function () {
+  var input = document.getElementById('text-input');
+  var status = document.getElementById('status');
+  var results = document.getElementById('results');
+  var resultList = document.getElementById('result-list');
+  function say(msg) { status.textContent = msg; }
+  document.getElementById('analyse-btn').addEventListener('click', function () {
+    var text = input.value;
+    if (!text) { say('Please type or paste some text first.'); input.focus(); return; }
+    var chars = text.length;
+    var charsNoSpaces = text.replace(/\s/g, '').length;
+    var words = (text.match(/\S+/g) || []);
+    var wordCount = words.length;
+    var lines = text.split('\n').length;
+    var freq = {};
+    var best = '', bestCount = 0;
+    words.forEach(function (w) {
+      var k = w.toLowerCase().replace(/^[.,;:!?"'()\[\]]+|[.,;:!?"'()\[\]]+$/g, '');
+      if (!k) return;
+      freq[k] = (freq[k] || 0) + 1;
+      if (freq[k] > bestCount) { best = k; bestCount = freq[k]; }
+    });
+    resultList.innerHTML = '';
+    var items = [
+      'Characters (with spaces): ' + chars,
+      'Characters (without spaces): ' + charsNoSpaces,
+      'Words: ' + wordCount,
+      'Lines: ' + lines
+    ];
+    if (best) items.push('Most used word: "' + best + '", used ' + bestCount + ' time' + (bestCount > 1 ? 's' : ''));
+    items.forEach(function (t) {
+      var li = document.createElement('li');
+      li.textContent = t;
+      resultList.appendChild(li);
+    });
+    results.hidden = false;
+    say('Analysis complete. ' + wordCount + ' words, ' + chars + ' characters, ' + lines + ' lines. Full results are below.');
+  });
+  document.getElementById('clear-btn').addEventListener('click', function () {
+    input.value = ''; results.hidden = true; resultList.innerHTML = '';
+    say('Cleared.'); input.focus();
+  });
+})();
+</script>
 <script src="../assets/main.js?v=2"></script>
 </body>
 </html>
