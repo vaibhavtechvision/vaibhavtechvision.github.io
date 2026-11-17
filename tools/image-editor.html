@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Image Editor | Vaibhav Tech Vision</title>
-<meta name="description" content="Free accessible image tools in one page: edit photos (resize, crop, rotate, colours, text, watermark, blur), convert between JPG, PNG and WebP, join photos into one, split a photo into parts, compress a photo to an exact file size like 20 KB, and make a passport size photo with a white background. Everything stays on your own device.">
+<meta name="description" content="Free accessible image tools in one page: edit photos (resize, crop, rotate, colours, text, watermark, blur), convert between JPG, PNG and WebP, join photos into one, split a photo into parts, compress a photo to an exact file size like 20 KB, make a passport size photo with a white background, circle-crop a profile photo, remove a white background, and hear the colours of a photo. Everything stays on your own device.">
 <link rel="stylesheet" href="../assets/style.css?v=3">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
@@ -71,7 +71,7 @@
   <h1>Image Editor</h1>
   <p>This free tool works on your photos right inside your browser. Your photo never leaves your device; nothing is uploaded to any server. Every control works with a keyboard and a screen reader: you type numbers or choose options, then press a button. The result is read out after every change.</p>
   <nav aria-label="Tools on this page">
-    <p>This one page has six tools:</p>
+    <p>This one page has nine tools:</p>
     <ul>
       <li><a href="#edit-photo">Image Editor: make a photo bigger or smaller (pixels, percent or centimetres), crop it, rotate or flip it, fix brightness and colours, add text, add a watermark, blur or cover a part, and save it as JPG, PNG or WebP.</a></li>
       <li><a href="#format-converter">Image Format Converter: change a photo from JPG, PNG or WebP to another type.</a></li>
@@ -79,6 +79,9 @@
       <li><a href="#split-photo">Split a Photo: cut one photo into smaller parts.</a></li>
       <li><a href="#image-compressor">Image Compressor: make a photo fit an exact file size you type, like 20 KB or 1 MB, for form and document uploads.</a></li>
       <li><a href="#passport-photo">Passport Size Photo: turn a photo into a correct passport size photo with exact dimensions and an automatic white background.</a></li>
+      <li><a href="#circle-crop">Circle Crop: cut a photo into a circle or rounded corners, for profile photos.</a></li>
+      <li><a href="#remove-background">Remove White Background: make the white background of a signature or logo see-through.</a></li>
+      <li><a href="#colour-palette">Colour Finder: hear the main colours of a photo read out in words.</a></li>
     </ul>
   </nav>
 
@@ -87,7 +90,7 @@
     <p>Edit your photo step by step below. When you are done, you can make it an exact file size in the Image Compressor section, or turn it into a passport photo in the Passport Size Photo section.</p>
 <h3>Step 1: Choose your photo</h3>
   <label for="file">Photo file</label>
-  <input type="file" id="file" accept="image/*">
+  <input type="file" id="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
   <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. The photo opens on your device only.</p>
   <p id="file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
   <p id="error" class="status" role="alert" aria-atomic="true"></p>
@@ -281,7 +284,7 @@
     <p>Change a photo from one file type to another: JPG, PNG or WebP. For example, turn a PNG into a JPG when a form only accepts JPG photos.</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="fc-file">Photo file</label>
-    <input type="file" id="fc-file" accept="image/*">
+    <input type="file" id="fc-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
     <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
     <p id="fc-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
     <p id="fc-error" class="status" role="alert" aria-atomic="true"></p>
@@ -315,7 +318,7 @@
     <p>Join two or more photos into a single photo: side by side (left to right) or stacked (top to bottom). Useful for before-and-after photos or for putting two pictures on one print.</p>
     <h3>Step 1: Choose the photos</h3>
     <label for="mg-files">Photo files (choose two or more; they are joined in the order you choose them)</label>
-    <input type="file" id="mg-files" accept="image/*" multiple>
+    <input type="file" id="mg-files" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp" multiple>
     <p class="hint">You can join up to 6 photos. JPG, PNG, WebP, GIF and BMP photos work.</p>
     <p id="mg-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
     <p id="mg-error" class="status" role="alert" aria-atomic="true"></p>
@@ -356,7 +359,7 @@
     <p>Cut one photo into smaller parts, for example to print a big photo on small papers, or to post one photo as a grid. You choose how many rows and columns; each part downloads as its own file.</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="sp-file">Photo file</label>
-    <input type="file" id="sp-file" accept="image/*">
+    <input type="file" id="sp-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
     <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
     <p id="sp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
     <p id="sp-error" class="status" role="alert" aria-atomic="true"></p>
@@ -390,7 +393,7 @@
   <p>Your photo never leaves your device. Everything happens inside your browser. First the tool tries quality settings; if that is not enough, it gently makes the photo smaller until it fits. The final size and dimensions are read out, so you always know exactly what you got.</p>
 <h3>Step 1: Choose your photo</h3>
   <label for="cmp-file">Photo file</label>
-  <input type="file" id="cmp-file" accept="image/*">
+  <input type="file" id="cmp-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
   <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
   <p id="cmp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
   <p id="cmp-error" class="status" role="alert" aria-atomic="true"></p>
@@ -438,7 +441,7 @@
   <p><strong>For the best result:</strong> take the photo facing the camera, in good daylight, against a plain light-coloured wall, with no shadow behind you. The automatic white background works well with such photos but may not be perfect around hair; it is made by a small AI model that runs inside your browser, not on any server. If the result is not good enough for an official document, take the photo again against a plain white wall and choose "Keep the original background".</p>
 <h3>Step 1: Choose your photo</h3>
   <label for="pp-file">Photo file</label>
-  <input type="file" id="pp-file" accept="image/*">
+  <input type="file" id="pp-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
   <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. A photo where you face the camera gives the best result.</p>
   <p id="pp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
   <p id="pp-error" class="status" role="alert" aria-atomic="true"></p>
@@ -497,6 +500,90 @@
   </div>
 
   <p class="hint">Honest limits: the automatic white background is very good with plain backgrounds, but it can leave small mistakes around hair or shadows, and it cannot remove objects behind you like doors or trees. Very strict authorities (for example some embassies) may still ask for a studio photo. To edit the photo first, use the <a href="#edit-photo">Image Editor section above</a>. To squeeze any photo to an exact file size, use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
+  </section>
+
+  <section aria-labelledby="circle-crop">
+    <h2 id="circle-crop">7. Circle Crop (profile photo)</h2>
+    <p>Cut your photo into a circle, or into a square with rounded corners. This is popular for profile photos on WhatsApp, Telegram and other apps. The part outside the circle becomes see-through (transparent).</p>
+    <h3>Step 1: Choose your photo</h3>
+    <label for="cc-file">Photo file</label>
+    <input type="file" id="cc-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
+    <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. The tool cuts a square from the centre of the photo, so place your face in the centre before using it.</p>
+    <p id="cc-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="cc-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="cc-controls" hidden>
+      <h3>Step 2: Choose the shape</h3>
+      <label for="cc-shape">Shape</label>
+      <select id="cc-shape">
+        <option value="circle" selected>Circle</option>
+        <option value="rounded">Square with rounded corners</option>
+      </select>
+      <div id="cc-radius-box" hidden>
+        <label for="cc-radius">Corner roundness in percent (0 is square, 50 is a circle)</label>
+        <input type="number" id="cc-radius" min="0" max="50" step="1" value="15">
+      </div>
+      <label for="cc-size">Size of the result in pixels (width and height)</label>
+      <input type="number" id="cc-size" min="50" max="2000" step="10" value="500">
+      <div class="button-row" role="group" aria-label="Circle crop actions">
+        <button class="action" type="button" id="cc-go-btn">Cut my photo</button>
+      </div>
+    </div>
+    <div id="cc-result-box" hidden>
+      <h3>Step 3: Download the result</h3>
+      <p id="cc-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <canvas id="cc-preview" role="img" aria-label="Preview of the cut photo"></canvas>
+      <div class="button-row" role="group" aria-label="Download actions">
+        <button class="action" type="button" id="cc-dl-btn">Download cut photo</button>
+      </div>
+      <p class="hint">The result is a PNG file, which keeps the see-through part. To move the cut away from the centre, first crop the photo in the <a href="#edit-photo">Image Editor section above</a>.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="remove-background">
+    <h2 id="remove-background">8. Remove White Background</h2>
+    <p>Make the white background of a photo see-through. This is made for signatures and logos scanned or photographed on white paper: sign on white paper, take a photo, and this tool gives you a signature with a see-through background that you can put on any document.</p>
+    <h3>Step 1: Choose your photo</h3>
+    <label for="rb-file">Photo file</label>
+    <input type="file" id="rb-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
+    <p class="hint">Works best when the background is white or nearly white. JPG, PNG, WebP, GIF and BMP photos work.</p>
+    <p id="rb-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="rb-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="rb-controls" hidden>
+      <h3>Step 2: Choose how much to remove</h3>
+      <label for="rb-threshold">Strength in percent (higher removes more; if parts of your signature disappear, lower it)</label>
+      <input type="number" id="rb-threshold" min="10" max="100" step="5" value="80">
+      <div class="button-row" role="group" aria-label="Remove background actions">
+        <button class="action" type="button" id="rb-go-btn">Remove the background</button>
+      </div>
+    </div>
+    <div id="rb-result-box" hidden>
+      <h3>Step 3: Download the result</h3>
+      <p id="rb-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <canvas id="rb-preview" role="img" aria-label="Preview of the photo without its background"></canvas>
+      <div class="button-row" role="group" aria-label="Download actions">
+        <button class="action" type="button" id="rb-dl-btn">Download photo without background</button>
+      </div>
+      <p class="hint">The result is a PNG file, which keeps the see-through background. Honest note: this tool removes light backgrounds only. To remove the background behind a person, use the <a href="#passport-photo">Passport Size Photo section</a>, which has a smarter tool for people.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="colour-palette">
+    <h2 id="colour-palette">9. Colour Finder (hear the colours of a photo)</h2>
+    <p>This tool looks at your photo and tells you its main colours in plain words, with the exact colour codes. It is made for blind and low-vision users who want to know what a photo looks like, and for anyone matching colours for a design.</p>
+    <h3>Step 1: Choose your photo</h3>
+    <label for="cp-file">Photo file</label>
+    <input type="file" id="cp-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
+    <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
+    <p id="cp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="cp-error" class="status" role="alert" aria-atomic="true"></p>
+    <div class="button-row" role="group" aria-label="Colour finder actions" id="cp-controls" hidden>
+      <button class="action" type="button" id="cp-go-btn">Tell me the colours</button>
+    </div>
+    <div id="cp-result-box" hidden>
+      <h3>Step 2: The colours</h3>
+      <p id="cp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <ol id="cp-list"></ol>
+    </div>
   </section>
 </main>
 <footer class="site-footer">
@@ -1357,6 +1444,297 @@
       statusEl.textContent = '';
       fail('Sorry, the photo could not be split. Please try a different photo.');
     });
+  });
+})();
+</script>
+<script>
+/* Circle Crop */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('cc-file');
+  var infoEl = document.getElementById('cc-file-info');
+  var errorEl = document.getElementById('cc-error');
+  var statusEl = document.getElementById('cc-status');
+  var controlsEl = document.getElementById('cc-controls');
+  var resultBox = document.getElementById('cc-result-box');
+  var preview = document.getElementById('cc-preview');
+  var source = null, sourceName = 'photo';
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. The tool cuts a square from its centre. Now choose the shape.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('cc-shape').addEventListener('change', function () {
+    document.getElementById('cc-radius-box').hidden = this.value !== 'rounded';
+  });
+
+  document.getElementById('cc-go-btn').addEventListener('click', function () {
+    clearErr();
+    var shape = document.getElementById('cc-shape').value;
+    var size = parseFloat(document.getElementById('cc-size').value);
+    if (!(size >= 50 && size <= 2000)) { fail('Size must be between 50 and 2000 pixels.'); return; }
+    var radiusPct = shape === 'rounded' ? parseFloat(document.getElementById('cc-radius').value) : 50;
+    if (!(radiusPct >= 0 && radiusPct <= 50)) { fail('Corner roundness must be between 0 and 50 percent.'); return; }
+    var side = Math.min(source.width, source.height);
+    var sx = Math.round((source.width - side) / 2);
+    var sy = Math.round((source.height - side) / 2);
+    var out = document.createElement('canvas');
+    out.width = size; out.height = size;
+    var ctx = out.getContext('2d');
+    var rad = size * radiusPct / 100;
+    ctx.beginPath();
+    ctx.moveTo(rad, 0);
+    ctx.arcTo(size, 0, size, size, rad);
+    ctx.arcTo(size, size, 0, size, rad);
+    ctx.arcTo(0, size, 0, 0, rad);
+    ctx.arcTo(0, 0, size, 0, rad);
+    ctx.closePath();
+    ctx.clip();
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(source, sx, sy, side, side, 0, 0, size, size);
+    statusEl.textContent = 'Cutting, please wait.';
+    resultBox.hidden = false;
+    VTV.toBlob(out, 'image/png', 1).then(function (blob) {
+      lastBlob = blob;
+      lastName = sourceName + (shape === 'circle' ? '-circle.png' : '-rounded.png');
+      preview.width = size; preview.height = size;
+      preview.getContext('2d').drawImage(out, 0, 0);
+      var shapeText = shape === 'circle' ? 'a circle' : 'a square with ' + radiusPct + ' percent rounded corners';
+      statusEl.textContent = 'Done. Your photo is now ' + shapeText + ', ' + size + ' by ' + size +
+        ' pixels, with a see-through background outside the shape. Download it below.';
+      preview.setAttribute('aria-label', 'Preview of the cut photo, ' + shapeText + ', ' + size + ' by ' + size + ' pixels.');
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be cut. Please try a different photo.');
+    });
+  });
+
+  document.getElementById('cc-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
+<script>
+/* Remove White Background */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('rb-file');
+  var infoEl = document.getElementById('rb-file-info');
+  var errorEl = document.getElementById('rb-error');
+  var statusEl = document.getElementById('rb-status');
+  var controlsEl = document.getElementById('rb-controls');
+  var resultBox = document.getElementById('rb-result-box');
+  var preview = document.getElementById('rb-preview');
+  var source = null, sourceName = 'photo';
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Now press the button to remove its white background.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('rb-go-btn').addEventListener('click', function () {
+    clearErr();
+    var pct = parseFloat(document.getElementById('rb-threshold').value);
+    if (!(pct >= 10 && pct <= 100)) { fail('Strength must be between 10 and 100 percent.'); return; }
+    statusEl.textContent = 'Removing the background, please wait.';
+    resultBox.hidden = false;
+    try {
+      var out = VTV.copyCanvas(source);
+      var ctx = out.getContext('2d');
+      var img = ctx.getImageData(0, 0, out.width, out.height);
+      var d = img.data;
+      // Fully white (>=250) becomes see-through; fully dark (below the limit) stays; between is a soft edge.
+      var full = 250;
+      var keep = Math.min(249, Math.round((100 - pct) / 100 * 255));
+      if (keep >= full) { keep = full - 1; }
+      var removed = 0, total = out.width * out.height;
+      for (var i = 0; i < d.length; i += 4) {
+        var m = Math.min(d[i], d[i + 1], d[i + 2]);
+        var a;
+        if (m >= full) { a = 0; }
+        else if (m <= keep) { a = 255; }
+        else { a = Math.round((full - m) / (full - keep) * 255); }
+        if (a === 0) { removed++; }
+        d[i + 3] = Math.min(d[i + 3], a);
+      }
+      ctx.putImageData(img, 0, 0);
+      VTV.toBlob(out, 'image/png', 1).then(function (blob) {
+        lastBlob = blob;
+        lastName = sourceName + '-no-background.png';
+        preview.width = out.width; preview.height = out.height;
+        preview.getContext('2d').drawImage(out, 0, 0);
+        statusEl.textContent = 'Done. The white background is now see-through: ' + Math.round(removed / total * 100) +
+          ' percent of the photo became transparent. Your photo is ' + out.width + ' by ' + out.height +
+          ' pixels. Check it below and download it. If parts of your signature or logo went missing, lower the strength and press the button again.';
+        preview.setAttribute('aria-label', 'Preview of the photo with its white background removed.');
+      }).catch(function () {
+        statusEl.textContent = '';
+        fail('Sorry, the photo could not be processed. Please try a different photo.');
+      });
+    } catch (e) {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be processed. It may be too big for your device.');
+    }
+  });
+
+  document.getElementById('rb-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
+<script>
+/* Colour Finder */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('cp-file');
+  var infoEl = document.getElementById('cp-file-info');
+  var errorEl = document.getElementById('cp-error');
+  var statusEl = document.getElementById('cp-status');
+  var controlsEl = document.getElementById('cp-controls');
+  var resultBox = document.getElementById('cp-result-box');
+  var listEl = document.getElementById('cp-list');
+  var source = null;
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  var NAMES = [
+    ['White', 255, 255, 255], ['Light grey', 192, 192, 192], ['Grey', 128, 128, 128],
+    ['Dark grey', 64, 64, 64], ['Black', 0, 0, 0],
+    ['Red', 220, 30, 30], ['Dark red', 140, 20, 20], ['Pink', 245, 160, 190],
+    ['Orange', 240, 130, 25], ['Brown', 130, 85, 40], ['Beige (skin tone)', 225, 190, 155],
+    ['Yellow', 240, 225, 40], ['Dark yellow (mustard)', 190, 160, 30],
+    ['Light green', 140, 220, 120], ['Green', 40, 160, 60], ['Dark green', 20, 95, 45],
+    ['Teal (blue-green)', 30, 150, 150], ['Cyan (sky blue)', 80, 200, 220],
+    ['Light blue', 130, 180, 235], ['Blue', 40, 90, 210], ['Dark blue (navy)', 25, 40, 110],
+    ['Purple', 130, 60, 180], ['Violet (light purple)', 185, 140, 220]
+  ];
+  function colourName(r, g, b) {
+    var best = NAMES[0], bestD = Infinity, i, d;
+    for (i = 0; i < NAMES.length; i++) {
+      d = (r - NAMES[i][1]) * (r - NAMES[i][1]) + (g - NAMES[i][2]) * (g - NAMES[i][2]) + (b - NAMES[i][3]) * (b - NAMES[i][3]);
+      if (d < bestD) { bestD = d; best = NAMES[i]; }
+    }
+    return best[0];
+  }
+  function hex(r, g, b) {
+    return '#' + [r, g, b].map(function (v) { return ('0' + v.toString(16)).slice(-2); }).join('');
+  }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Press the button to hear its main colours.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('cp-go-btn').addEventListener('click', function () {
+    clearErr();
+    try {
+      var sample = VTV.resizedCanvas(source, 80, Math.max(1, Math.round(80 * source.height / source.width)));
+      var ctx = sample.getContext('2d');
+      var d = ctx.getImageData(0, 0, sample.width, sample.height).data;
+      var buckets = {};
+      var total = 0;
+      for (var i = 0; i < d.length; i += 4) {
+        if (d[i + 3] < 128) { continue; }
+        var r = Math.round(d[i] / 32) * 32; if (r > 255) { r = 255; }
+        var g = Math.round(d[i + 1] / 32) * 32; if (g > 255) { g = 255; }
+        var b = Math.round(d[i + 2] / 32) * 32; if (b > 255) { b = 255; }
+        var key = r + ',' + g + ',' + b;
+        buckets[key] = (buckets[key] || 0) + 1;
+        total++;
+      }
+      var entries = Object.keys(buckets).map(function (k) {
+        var parts = k.split(',');
+        return { r: +parts[0], g: +parts[1], b: +parts[2], n: buckets[k] };
+      }).sort(function (a, b) { return b.n - a.n; });
+      // Merge near-duplicate buckets: skip a bucket if a kept one is very close.
+      var kept = [];
+      entries.forEach(function (e) {
+        if (kept.length >= 5) { return; }
+        var dup = kept.some(function (k) {
+          return Math.abs(k.r - e.r) <= 32 && Math.abs(k.g - e.g) <= 32 && Math.abs(k.b - e.b) <= 32;
+        });
+        if (!dup) { kept.push(e); }
+      });
+      listEl.innerHTML = '';
+      var spoken = [];
+      var seenNames = {};
+      var shown = 0;
+      kept.forEach(function (e) {
+        var share = Math.round(e.n / total * 100);
+        var name = colourName(e.r, e.g, e.b);
+        if (share < 2 || seenNames[name]) { return; }
+        seenNames[name] = true;
+        shown++;
+        var code = hex(e.r, e.g, e.b);
+        var li = document.createElement('li');
+        li.textContent = name + ', colour code ' + code + ', about ' + share + ' percent of the photo.';
+        listEl.appendChild(li);
+        spoken.push(shown + '. ' + name + ', about ' + share + ' percent');
+      });
+      kept = kept.filter(function (e) {
+        var share = Math.round(e.n / total * 100);
+        return share >= 2;
+      });
+      resultBox.hidden = false;
+      statusEl.textContent = 'Your photo has ' + kept.length + ' main colour' + (kept.length === 1 ? '' : 's') +
+        ': ' + spoken.join('; ') + '. The list below gives each colour with its exact code.';
+    } catch (e) {
+      fail('Sorry, the colours could not be read. Please try a different photo.');
+    }
   });
 })();
 </script>
