@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Editor | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible audio tools in one page: trim or cut a recording, join many audio files into one, convert audio to MP3 or WAV, make audio louder or quieter, change speed, mix a voice over background music, mix several tracks together, add a fade, reverse audio, and clear a phone speaker with sound. Everything stays on your own device.">
+<link rel="stylesheet" href="../assets/style.css?v=3">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="../tools/image-editor.html">Image Editor</a></li>
+          <li><a href="../tools/audio-editor.html" aria-current="page">Audio Editor</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Audio Editor</h1>
+  <p>These free tools work on your audio files right inside your browser. Your file never leaves your device; nothing is uploaded to any server. Every control works with a keyboard and a screen reader: you type numbers or choose options, then press a button. The result is read out after every step. MP3, WAV, OGG, M4A and most other common audio files work, and some tools can also take the sound out of a video file.</p>
+  <nav aria-label="Tools on this page">
+    <p>This one page has ten tools:</p>
+    <ul>
+      <li><a href="#audio-trimmer">Audio Trimmer: keep only the part you need, or cut a part out of a recording.</a></li>
+      <li><a href="#audio-merger">Audio Merger: join two or more audio files into one, in the order you choose.</a></li>
+      <li><a href="#audio-converter">Audio Converter: change an audio file, or the sound of a video, into MP3 or WAV.</a></li>
+      <li><a href="#volume-changer">Volume Changer: make a recording louder or quieter.</a></li>
+      <li><a href="#speed-changer">Speed Changer: make audio faster or slower while the voice still sounds natural.</a></li>
+      <li><a href="#voice-over">Voice Over Mixer: put your voice on top of background music, and the music turns itself down while you speak.</a></li>
+      <li><a href="#multi-mixer">Multi-Track Mixer: play up to four audio files together, each with its own loudness.</a></li>
+      <li><a href="#fade-tool">Fade In and Fade Out: make audio start and end smoothly.</a></li>
+      <li><a href="#reverser">Audio Reverser: play a recording backwards.</a></li>
+      <li><a href="#clear-speaker">Clear Phone Speaker: play a cleaning sound to push water or dust out of your phone speaker.</a></li>
+    </ul>
+  </nav>
+
+  <section aria-labelledby="audio-trimmer">
+    <h2 id="audio-trimmer">1. Audio Trimmer</h2>
+    <p>Keep only the part of a recording you need, or remove a part from the middle. You type the times in seconds, so it works fully with a keyboard.</p>
+    <label for="tr-file">Audio or video file</label>
+    <input type="file" id="tr-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,video/mp4,video/webm,video/quicktime,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr,.mp4,.mov,.mkv">
+    <p class="hint">MP3, WAV, OGG, M4A and most audio files work. You can also choose a video to trim its sound.</p>
+    <p id="tr-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="tr-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="tr-controls" hidden>
+      <fieldset>
+        <legend>What should happen to the part you choose?</legend>
+        <label><input type="radio" name="tr-mode" value="keep" checked> Keep only this part</label>
+        <label><input type="radio" name="tr-mode" value="remove"> Remove this part and keep the rest</label>
+      </fieldset>
+      <label for="tr-start">Start time in seconds</label>
+      <input type="number" id="tr-start" min="0" step="0.1" value="0">
+      <label for="tr-end">End time in seconds</label>
+      <input type="number" id="tr-end" min="0" step="0.1" value="10">
+      <label for="tr-format">Save as</label>
+      <select id="tr-format">
+        <option value="mp3" selected>MP3 (smaller file, good quality)</option>
+        <option value="wav">WAV (largest file, perfect quality)</option>
+      </select>
+      <p><button class="action" type="button" id="tr-go">Trim my audio</button></p>
+      <p id="tr-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="tr-result" hidden>
+        <audio id="tr-audio" controls></audio>
+        <p><button class="action" type="button" id="tr-dl">Download trimmed audio</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="audio-merger">
+    <h2 id="audio-merger">2. Audio Merger</h2>
+    <p>Join two or more audio files into one single file. After choosing your files you can change their order with the Move up and Move down buttons, and add a short silence between them.</p>
+    <label for="mg-file">Audio files (choose two or more)</label>
+    <input type="file" id="mg-file" multiple accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="mg-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="mg-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="mg-controls" hidden>
+      <h3>Order of your files</h3>
+      <ol id="mg-list"></ol>
+      <label for="mg-gap">Silence between files in seconds</label>
+      <input type="number" id="mg-gap" min="0" max="10" step="0.5" value="0">
+      <label for="mg-format">Save as</label>
+      <select id="mg-format">
+        <option value="mp3" selected>MP3 (smaller file, good quality)</option>
+        <option value="wav">WAV (largest file, perfect quality)</option>
+      </select>
+      <p><button class="action" type="button" id="mg-go">Join my files</button></p>
+      <p id="mg-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="mg-result" hidden>
+        <audio id="mg-audio" controls></audio>
+        <p><button class="action" type="button" id="mg-dl">Download joined audio</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="audio-converter">
+    <h2 id="audio-converter">3. Audio Converter</h2>
+    <p>Change an audio file into MP3 or WAV. You can also choose a video file here: its sound will be taken out and saved as audio.</p>
+    <label for="cv-file">Audio or video file</label>
+    <input type="file" id="cv-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,video/mp4,video/webm,video/quicktime,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr,.mp4,.mov,.mkv">
+    <p id="cv-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="cv-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="cv-controls" hidden>
+      <label for="cv-format">Convert to</label>
+      <select id="cv-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <div id="cv-quality-box">
+        <label for="cv-bitrate">MP3 quality</label>
+        <select id="cv-bitrate">
+          <option value="64">64 kbps - smallest, fine for speech</option>
+          <option value="128" selected>128 kbps - good for speech and music</option>
+          <option value="192">192 kbps - high quality</option>
+        </select>
+      </div>
+      <p><button class="action" type="button" id="cv-go">Convert my file</button></p>
+      <p id="cv-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="cv-result" hidden>
+        <audio id="cv-audio" controls></audio>
+        <p><button class="action" type="button" id="cv-dl">Download converted audio</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="volume-changer">
+    <h2 id="volume-changer">4. Volume Changer</h2>
+    <p>Make a recording louder or quieter. For example, 50 makes it half as loud and 200 makes it twice as loud. There is also an option to make the recording as loud as possible without distortion.</p>
+    <label for="vl-file">Audio file</label>
+    <input type="file" id="vl-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="vl-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="vl-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="vl-controls" hidden>
+      <label for="vl-percent">Loudness in percent (100 means no change)</label>
+      <input type="number" id="vl-percent" min="1" max="500" step="5" value="150">
+      <label><input type="checkbox" id="vl-max"> Make it as loud as possible without distortion instead</label>
+      <label for="vl-format">Save as</label>
+      <select id="vl-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <p><button class="action" type="button" id="vl-go">Change the volume</button></p>
+      <p id="vl-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="vl-result" hidden>
+        <audio id="vl-audio" controls></audio>
+        <p><button class="action" type="button" id="vl-dl">Download audio with new volume</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="speed-changer">
+    <h2 id="speed-changer">5. Speed Changer</h2>
+    <p>Make a recording faster or slower while voices still sound natural, without turning into chipmunks or monsters. For example, 150 plays the recording in two thirds of the time. The first time you use this tool, your browser downloads a small audio engine (about 30 MB) once; after that it works straight away.</p>
+    <label for="sp-file">Audio file</label>
+    <input type="file" id="sp-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="sp-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="sp-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="sp-controls" hidden>
+      <label for="sp-percent">Speed in percent (100 means no change, 200 is double speed, 50 is half speed)</label>
+      <input type="number" id="sp-percent" min="25" max="400" step="5" value="150">
+      <label for="sp-format">Save as</label>
+      <select id="sp-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <p><button class="action" type="button" id="sp-go">Change the speed</button></p>
+      <p id="sp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="sp-result" hidden>
+        <audio id="sp-audio" controls></audio>
+        <p><button class="action" type="button" id="sp-dl">Download audio with new speed</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="voice-over">
+    <h2 id="voice-over">6. Voice Over Mixer</h2>
+    <p>Put your voice recording on top of background music. The music automatically becomes quieter while your voice plays, and louder again when your voice ends. This is perfect for making a voice over for a video or a presentation.</p>
+    <label for="vo-voice">Your voice recording</label>
+    <input type="file" id="vo-voice" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <label for="vo-music">Background music</label>
+    <input type="file" id="vo-music" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="vo-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="vo-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="vo-controls" hidden>
+      <label for="vo-duck">Music loudness while the voice plays, in percent</label>
+      <input type="number" id="vo-duck" min="0" max="100" step="5" value="15">
+      <label for="vo-after">Music loudness after the voice ends, in percent</label>
+      <input type="number" id="vo-after" min="0" max="100" step="5" value="100">
+      <label for="vo-fade">Seconds for the music to become louder again after the voice</label>
+      <input type="number" id="vo-fade" min="0" max="10" step="0.5" value="2">
+      <label for="vo-format">Save as</label>
+      <select id="vo-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <p class="hint">If the music is shorter than the voice, it starts again from the beginning. The result is as long as the longer of the two files.</p>
+      <p><button class="action" type="button" id="vo-go">Mix my voice over</button></p>
+      <p id="vo-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="vo-result" hidden>
+        <audio id="vo-audio" controls></audio>
+        <p><button class="action" type="button" id="vo-dl">Download voice over</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="multi-mixer">
+    <h2 id="multi-mixer">7. Multi-Track Mixer</h2>
+    <p>Play up to four audio files together, all starting at the same time, each with its own loudness. The result is as long as the longest file.</p>
+    <label for="mx-file">Audio files (choose two to four)</label>
+    <input type="file" id="mx-file" multiple accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="mx-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="mx-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="mx-controls" hidden>
+      <div id="mx-tracks"></div>
+      <label for="mx-format">Save as</label>
+      <select id="mx-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <p><button class="action" type="button" id="mx-go">Mix my tracks</button></p>
+      <p id="mx-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="mx-result" hidden>
+        <audio id="mx-audio" controls></audio>
+        <p><button class="action" type="button" id="mx-dl">Download mixed audio</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="fade-tool">
+    <h2 id="fade-tool">8. Fade In and Fade Out</h2>
+    <p>Make a recording start and end smoothly instead of beginning or stopping suddenly.</p>
+    <label for="fd-file">Audio file</label>
+    <input type="file" id="fd-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="fd-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="fd-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="fd-controls" hidden>
+      <label for="fd-in">Fade in length in seconds (0 means no fade in)</label>
+      <input type="number" id="fd-in" min="0" max="30" step="0.5" value="2">
+      <label for="fd-out">Fade out length in seconds (0 means no fade out)</label>
+      <input type="number" id="fd-out" min="0" max="30" step="0.5" value="3">
+      <label for="fd-format">Save as</label>
+      <select id="fd-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <p><button class="action" type="button" id="fd-go">Add fades</button></p>
+      <p id="fd-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="fd-result" hidden>
+        <audio id="fd-audio" controls></audio>
+        <p><button class="action" type="button" id="fd-dl">Download audio with fades</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="reverser">
+    <h2 id="reverser">9. Audio Reverser</h2>
+    <p>Turn a recording around so it plays backwards, from the end to the beginning.</p>
+    <label for="rv-file">Audio file</label>
+    <input type="file" id="rv-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
+    <p id="rv-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="rv-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="rv-controls" hidden>
+      <label for="rv-format">Save as</label>
+      <select id="rv-format">
+        <option value="mp3" selected>MP3</option>
+        <option value="wav">WAV</option>
+      </select>
+      <p><button class="action" type="button" id="rv-go">Reverse my audio</button></p>
+      <p id="rv-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="rv-result" hidden>
+        <audio id="rv-audio" controls></audio>
+        <p><button class="action" type="button" id="rv-dl">Download reversed audio</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="clear-speaker">
+    <h2 id="clear-speaker">10. Clear Phone Speaker</h2>
+    <p>If water or dust has entered your phone's speaker and the sound feels muffled, this tool plays a special cleaning tone that shakes the speaker and pushes the water or dust out. Hold the phone with the speaker facing down while it plays.</p>
+    <p><strong>Warning:</strong> the cleaning sound is loud. Do not hold the phone near your ear while it plays.</p>
+    <label for="cs-seconds">How long should the sound play?</label>
+    <select id="cs-seconds">
+      <option value="30" selected>30 seconds</option>
+      <option value="60">1 minute</option>
+      <option value="120">2 minutes</option>
+    </select>
+    <p>
+      <button class="action" type="button" id="cs-start">Start the cleaning sound</button>
+      <button class="action secondary" type="button" id="cs-stop" disabled>Stop the sound</button>
+    </p>
+    <p id="cs-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/lib/audio/lame.min.js"></script>
+<script src="../assets/lib/ffmpeg/ffmpeg.min.js"></script>
+<script src="../assets/audio-tools.js?v=1"></script>
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>
