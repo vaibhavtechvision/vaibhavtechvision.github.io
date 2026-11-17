@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Editor | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible video tools in one page: trim a video, take the sound out of a video as MP3 or WAV, compress a video to an exact file size, convert a video to MP4 or WebM, change video speed, remove the sound, join videos together, make a slideshow video from photos, and save any frame of a video as a picture. Everything stays on your own device.">
+<link rel="stylesheet" href="../assets/style.css?v=3">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="../tools/image-editor.html">Image Editor</a></li>
+          <li><a href="../tools/audio-editor.html">Audio Editor</a></li>
+          <li><a href="../tools/video-editor.html" aria-current="page">Video Editor</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Video Editor</h1>
+  <p>These free tools work on your video files right inside your browser. Your video never leaves your device; nothing is uploaded to any server. Every control works with a keyboard and a screen reader: you type numbers or choose options, then press a button. The result is read out after every step.</p>
+  <p>Everything happens right on your device with no downloads to install and nothing uploaded. Video work is heavy, so these tools work in real time: a one-minute video takes about one minute to process, and the tool reads out its progress as it goes. New videos are saved in WebM format, which plays in all modern browsers and phones; where your browser can make MP4 directly, that is offered too.</p>
+  <nav aria-label="Tools on this page">
+    <p>This one page has nine tools:</p>
+    <ul>
+      <li><a href="#video-trimmer">Video Trimmer: keep only the part of a video you need.</a></li>
+      <li><a href="#video-to-audio">Video to Audio: save the sound of a video as an MP3 or WAV file.</a></li>
+      <li><a href="#video-compressor">Video Compressor: make a video fit an exact file size you type, like 10 MB.</a></li>
+      <li><a href="#format-converter">Video Format Converter: change a video into MP4 or WebM.</a></li>
+      <li><a href="#speed-changer">Video Speed Changer: make a video faster or slower.</a></li>
+      <li><a href="#remove-sound">Remove Sound: make a silent copy of a video.</a></li>
+      <li><a href="#merge-videos">Merge Videos: join two or more videos into one.</a></li>
+      <li><a href="#slideshow">Slideshow Creator: turn your photos into a video, with music if you want.</a></li>
+      <li><a href="#frame-photo">Take a Photo from a Video: save any moment of a video as a picture.</a></li>
+    </ul>
+  </nav>
+
+  <section aria-labelledby="video-trimmer">
+    <h2 id="video-trimmer">1. Video Trimmer</h2>
+    <p>Keep only the part of a video between two times you type, in seconds.</p>
+    <label for="tr-file">Video file</label>
+    <input type="file" id="tr-file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="tr-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="tr-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="tr-controls" hidden>
+      <label for="tr-start">Keep from second</label>
+      <input type="number" id="tr-start" min="0" step="0.1" value="0">
+      <label for="tr-end">Keep until second</label>
+      <input type="number" id="tr-end" min="0" step="0.1" value="10">
+      <p><button class="action" type="button" id="tr-go">Trim my video</button></p>
+      <p id="tr-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="tr-result" hidden>
+        <video id="tr-video" controls></video>
+        <p><button class="action" type="button" id="tr-dl">Download trimmed video</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="video-to-audio">
+    <h2 id="video-to-audio">2. Video to Audio</h2>
+    <p>Take the sound out of a video and save it as an audio file. Useful for songs, speeches and lectures you have as video.</p>
+    <label for="va-file">Video file</label>
+    <input type="file" id="va-file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="va-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="va-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="va-controls" hidden>
+      <label for="va-format">Save the sound as</label>
+      <select id="va-format">
+        <option value="mp3" selected>MP3 (smaller file)</option>
+        <option value="wav">WAV (largest file, perfect quality)</option>
+      </select>
+      <p><button class="action" type="button" id="va-go">Take out the sound</button></p>
+      <p id="va-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="va-result" hidden>
+        <audio id="va-audio" controls></audio>
+        <p><button class="action" type="button" id="va-dl">Download the audio</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="video-compressor">
+    <h2 id="video-compressor">3. Video Compressor</h2>
+    <p>Make a video smaller so it is easier to send or upload. Type the exact size you want, and the tool works out the right quality. Making a video smaller always lowers its quality a little; the smaller you go, the more you will notice.</p>
+    <label for="cp-file">Video file</label>
+    <input type="file" id="cp-file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="cp-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="cp-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="cp-controls" hidden>
+      <label for="cp-target">Target size in MB (for example 10)</label>
+      <input type="number" id="cp-target" min="1" max="2000" step="1" value="10">
+      <p><button class="action" type="button" id="cp-go">Compress my video</button></p>
+      <p id="cp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="cp-result" hidden>
+        <video id="cp-video" controls></video>
+        <p><button class="action" type="button" id="cp-dl">Download compressed video</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="format-converter">
+    <h2 id="format-converter">4. Video Format Converter</h2>
+    <p>Save a video in a new format. WebM works in every modern browser. MP4, which plays almost everywhere, is offered when your browser knows how to make it; if the MP4 choice is missing, your browser can only make WebM. Most MP4, WebM and phone MOV files can be read.</p>
+    <label for="fc-file">Video file</label>
+    <input type="file" id="fc-file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="fc-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="fc-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="fc-controls" hidden>
+      <label for="fc-format">Convert to</label>
+      <select id="fc-format">
+        <option value="mp4" selected>MP4 (plays everywhere)</option>
+        <option value="webm">WebM (can be slow to make)</option>
+      </select>
+      <p><button class="action" type="button" id="fc-go">Convert my video</button></p>
+      <p id="fc-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="fc-result" hidden>
+        <video id="fc-video" controls></video>
+        <p><button class="action" type="button" id="fc-dl">Download converted video</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="speed-changer">
+    <h2 id="speed-changer">5. Video Speed Changer</h2>
+    <p>Make a video faster or slower. The sound stays natural. For example, 200 plays the video in half the time, and 50 makes it twice as long.</p>
+    <label for="sp-file">Video file</label>
+    <input type="file" id="sp-file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="sp-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="sp-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="sp-controls" hidden>
+      <label for="sp-percent">Speed in percent (100 means no change)</label>
+      <input type="number" id="sp-percent" min="25" max="400" step="5" value="200">
+      <p><button class="action" type="button" id="sp-go">Change the speed</button></p>
+      <p id="sp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="sp-result" hidden>
+        <video id="sp-video" controls></video>
+        <p><button class="action" type="button" id="sp-dl">Download video with new speed</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="remove-sound">
+    <h2 id="remove-sound">6. Remove Sound</h2>
+    <p>Make a silent copy of a video, with the picture exactly as it was. It is saved in WebM format and the work happens in real time.</p>
+    <label for="rs-file">Video file</label>
+    <input type="file" id="rs-file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="rs-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="rs-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="rs-controls" hidden>
+      <p><button class="action" type="button" id="rs-go">Remove the sound</button></p>
+      <p id="rs-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="rs-result" hidden>
+        <video id="rs-video" controls></video>
+        <p><button class="action" type="button" id="rs-dl">Download silent video</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="merge-videos">
+    <h2 id="merge-videos">7. Merge Videos</h2>
+    <p>Join two or more videos into one, in the order you choose. For a clean join, the videos should have the same width and height; if they are very different, the tool will tell you honestly instead of making a broken file.</p>
+    <label for="mg-file">Video files (choose two to four)</label>
+    <input type="file" id="mg-file" multiple accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo,.mp4,.webm,.mov,.mkv,.avi,.m4v,.3gp">
+    <p id="mg-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="mg-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="mg-controls" hidden>
+      <h3>Order of your videos</h3>
+      <ol id="mg-list"></ol>
+      <p><button class="action" type="button" id="mg-go">Join my videos</button></p>
+      <p id="mg-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="mg-result" hidden>
+        <video id="mg-video" controls></video>
+        <p><button class="action" type="button" id="mg-dl">Download joined video</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="slideshow">
+    <h2 id="slideshow">8. Slideshow Creator</h2>
+    <p>Turn your photos into a video. Each photo is shown for the number of seconds you choose. You can add a music or voice file that plays through the whole video. The video is made in WebM format, which plays in all modern browsers and on phones. Making it happens in real time.</p>
+    <label for="ss-photos">Photos (choose one or more, in the order you want them)</label>
+    <input type="file" id="ss-photos" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+    <label for="ss-audio">Music or voice file (optional)</label>
+    <input type="file" id="ss-audio" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,.mp3,.wav,.ogg,.m4a,.aac">
+    <p id="ss-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="ss-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="ss-controls" hidden>
+      <label for="ss-seconds">Seconds to show each photo</label>
+      <input type="number" id="ss-seconds" min="1" max="30" step="1" value="3">
+      <label for="ss-width">Video width in pixels</label>
+      <select id="ss-width">
+        <option value="1280" selected>1280 (good quality)</option>
+        <option value="640">640 (smaller file, faster)</option>
+      </select>
+      <p><button class="action" type="button" id="ss-go">Make my slideshow</button></p>
+      <p class="hint">Making the video happens in real time: ten photos at three seconds each takes about thirty seconds.</p>
+      <p id="ss-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="ss-result" hidden>
+        <video id="ss-video" controls></video>
+        <p><button class="action" type="button" id="ss-dl">Download slideshow video</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="frame-photo">
+    <h2 id="frame-photo">9. Take a Photo from a Video</h2>
+    <p>Save any moment of a video as a picture. Type the second you want, and the tool takes that frame out as a photo.</p>
+    <label for="fp-file">Video file</label>
+    <input type="file" id="fp-file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov,.m4v,.3gp">
+    <p id="fp-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="fp-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="fp-controls" hidden>
+      <label for="fp-second">Take the frame at second</label>
+      <input type="number" id="fp-second" min="0" step="0.1" value="0">
+      <label for="fp-format">Save the photo as</label>
+      <select id="fp-format">
+        <option value="png" selected>PNG (best quality)</option>
+        <option value="jpeg">JPG (smaller file)</option>
+      </select>
+      <p><button class="action" type="button" id="fp-go">Take the photo</button></p>
+      <p id="fp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="fp-result" hidden>
+        <canvas id="fp-canvas" role="img" aria-label="The photo taken from your video"></canvas>
+        <p><button class="action" type="button" id="fp-dl">Download the photo</button></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/lib/audio/lame.min.js"></script>
+<script src="../assets/video-tools.js?v=1"></script>
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>
