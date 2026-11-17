@@ -136,7 +136,8 @@
   function loadEngine(onStatus) {
     if (!ffmpegPromise) {
       onStatus('Downloading the audio engine (about 30 MB). This happens only once; please wait.');
-      var ff = FFmpeg.createFFmpeg({ log: false, corePath: '../assets/lib/ffmpeg/ffmpeg-core.js' });
+      var coreURL = new URL('../assets/lib/ffmpeg/ffmpeg-core.js', window.location.href).href;
+      var ff = FFmpeg.createFFmpeg({ log: false, corePath: coreURL });
       ffmpegPromise = ff.load().then(function () { return ff; });
     }
     return ffmpegPromise;
