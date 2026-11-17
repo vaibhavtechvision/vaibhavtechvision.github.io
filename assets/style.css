@@ -343,3 +343,19 @@ button.action.secondary:hover { background: var(--soft); }
 .plain-list li { margin: 0.7em 0; line-height: 1.6; }
 .plain-list h3 { margin: 0.6em 0 0.2em; font-size: 1.1em; }
 .plain-list p { margin: 0.1em 0 0.3em; }
+
+/* Select boxes and hints (currency converter) */
+select {
+  width: 100%;
+  max-width: 40rem;
+  font-family: inherit;
+  font-size: 1.05rem;
+  padding: 0.6rem;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  min-height: 44px;
+}
+input[type="text"][inputmode="decimal"] { max-width: 20rem; }
+.hint { color: var(--muted); font-size: 0.95rem; }
+#error { color: #b00020; }

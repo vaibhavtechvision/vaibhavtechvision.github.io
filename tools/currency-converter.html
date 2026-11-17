@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Currency Converter | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible currency converter. Change an amount from one currency to another, for example rupees to dollars, euros or pounds.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html" aria-current="page">Currency Converter</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Currency Converter</h1>
+  <p>This tool changes an amount of money from one currency to another, for example Indian rupees to US dollars, euros or pounds.</p>
+  <p>Type the amount, choose the currency you have in "From" and the currency you want in "To", then press the Convert button. The result is read out by your screen reader. Use the Swap button to exchange the two currencies.</p>
+
+  <form id="cc-form" novalidate>
+    <label for="amount">Amount</label>
+    <input type="text" id="amount" inputmode="decimal" autocomplete="off" value="1" aria-describedby="amount-help">
+    <p id="amount-help" class="hint">Type numbers only, for example 1500 or 99.50.</p>
+
+    <label for="from">From currency</label>
+    <select id="from"></select>
+
+    <label for="to">To currency</label>
+    <select id="to"></select>
+
+    <div class="button-row" role="group" aria-label="Currency converter actions">
+      <button class="action" type="submit" id="convert-btn">Convert</button>
+      <button class="action secondary" type="button" id="swap-btn">Swap currencies</button>
+    </div>
+  </form>
+
+  <h2>Result</h2>
+  <div id="result" class="status" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="error" class="status" role="alert" aria-atomic="true"></div>
+  <p id="source" class="hint"></p>
+  <p class="hint">Rates come from free public services (Frankfurter, and Open Exchange Rates API as a backup). The result is only a guide and may differ from the rate your bank or money changer gives. Only the currencies and the amount are sent to these services. Nothing else leaves your device.</p>
+</main>
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script>
+(function () {
+  var CURRENCIES = [
+    ['INR','Indian Rupee'],['USD','US Dollar'],['EUR','Euro'],['GBP','British Pound'],['AED','UAE Dirham'],
+    ['SAR','Saudi Riyal'],['QAR','Qatari Riyal'],['KWD','Kuwaiti Dinar'],['OMR','Omani Rial'],['BHD','Bahraini Dinar'],
+    ['AUD','Australian Dollar'],['CAD','Canadian Dollar'],['SGD','Singapore Dollar'],['NZD','New Zealand Dollar'],
+    ['JPY','Japanese Yen'],['CNY','Chinese Yuan'],['HKD','Hong Kong Dollar'],['KRW','South Korean Won'],
+    ['CHF','Swiss Franc'],['SEK','Swedish Krona'],['NOK','Norwegian Krone'],['DKK','Danish Krone'],
+    ['MYR','Malaysian Ringgit'],['THB','Thai Baht'],['IDR','Indonesian Rupiah'],['TRY','Turkish Lira'],
+    ['ZAR','South African Rand'],['BRL','Brazilian Real'],['MXN','Mexican Peso'],
+    ['PKR','Pakistani Rupee'],['BDT','Bangladeshi Taka'],['LKR','Sri Lankan Rupee'],['NPR','Nepalese Rupee']
+  ];
+  var form = document.getElementById('cc-form');
+  var amountEl = document.getElementById('amount');
+  var fromEl = document.getElementById('from');
+  var toEl = document.getElementById('to');
+  var resultEl = document.getElementById('result');
+  var errorEl = document.getElementById('error');
+  var sourceEl = document.getElementById('source');
+  var busy = false;
+
+  function fill(sel, def) {
+    CURRENCIES.forEach(function (c) {
+      var o = document.createElement('option');
+      o.value = c[0];
+      o.textContent = c[0] + ' - ' + c[1];
+      if (c[0] === def) { o.selected = true; }
+      sel.appendChild(o);
+    });
+  }
+  fill(fromEl, 'USD');
+  fill(toEl, 'INR');
+
+  function name(code) {
+    for (var i = 0; i < CURRENCIES.length; i++) { if (CURRENCIES[i][0] === code) { return CURRENCIES[i][1]; } }
+    return code;
+  }
+  function fmt(n) {
+    var digits = Math.abs(n) >= 1 ? 2 : 6;
+    return n.toLocaleString('en-IN', { maximumFractionDigits: digits, minimumFractionDigits: 2 });
+  }
+  function fetchJson(url) {
+    var ctl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) { ctl.abort(); } }, 8000);
+    return fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) {
+      clearTimeout(timer);
+      if (!r.ok) { throw new Error('http ' + r.status); }
+      return r.json();
+    }, function (e) { clearTimeout(timer); throw e; });
+  }
+  function fromFrankfurter(from, to) {
+    var url = 'https://api.frankfurter.dev/v1/latest?base=' + from + '&symbols=' + to;
+    return fetchJson(url).then(function (d) {
+      var rate = d && d.rates && d.rates[to];
+      if (typeof rate !== 'number' || !(rate > 0)) { throw new Error('missing'); }
+      return { rate: rate, date: d.date, source: 'Frankfurter' };
+    });
+  }
+  function fromErApi(from, to) {
+    return fetchJson('https://open.er-api.com/v6/latest/' + from).then(function (d) {
+      var rate = d && d.result === 'success' && d.rates && d.rates[to];
+      if (typeof rate !== 'number' || !(rate > 0)) { throw new Error('missing'); }
+      var date = d.time_last_update_utc ? String(d.time_last_update_utc).replace(/ \+0000$/, '') : '';
+      return { rate: rate, date: date, source: 'Open Exchange Rates API' };
+    });
+  }
+  function getRate(from, to) {
+    if (from === to) { return Promise.resolve({ rate: 1, date: '', source: '' }); }
+    return fromFrankfurter(from, to).catch(function () { return fromErApi(from, to); });
+  }
+  function parseAmount(text) {
+    var s = String(text).replace(/[\s,]/g, '');
+    if (!/^\d+(\.\d+)?$|^\.\d+$/.test(s)) { return NaN; }
+    return parseFloat(s);
+  }
+  function convert(prefix) {
+    errorEl.textContent = '';
+    var amount = parseAmount(amountEl.value);
+    if (isNaN(amount)) {
+      resultEl.textContent = '';
+      sourceEl.textContent = '';
+      errorEl.textContent = 'Please type a valid amount using numbers only, for example 1500 or 99.50.';
+      amountEl.focus();
+      return;
+    }
+    if (busy) { return; }
+    busy = true;
+    var from = fromEl.value, to = toEl.value;
+    resultEl.textContent = 'Converting, please wait.';
+    sourceEl.textContent = '';
+    getRate(from, to).then(function (r) {
+      var out = amount * r.rate;
+      resultEl.textContent = (prefix || '') + fmt(amount) + ' ' + name(from) + ' (' + from + ') = ' + fmt(out) + ' ' + name(to) + ' (' + to + ').';
+      if (r.source) {
+        sourceEl.textContent = '1 ' + from + ' = ' + r.rate.toLocaleString('en-IN', { maximumSignificantDigits: 8 }) + ' ' + to +
+          '. Rate source: ' + r.source + (r.date ? ', rate date: ' + r.date : '') + '.';
+      } else {
+        sourceEl.textContent = 'Both currencies are the same, so the amount does not change.';
+      }
+    }).catch(function () {
+      resultEl.textContent = '';
+      errorEl.textContent = 'Sorry, the exchange rate could not be loaded. Please check your internet connection and try again.';
+    }).then(function () { busy = false; });
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); convert(''); });
+  document.getElementById('swap-btn').addEventListener('click', function () {
+    var f = fromEl.value;
+    fromEl.value = toEl.value;
+    toEl.value = f;
+    convert('Currencies swapped. ');
+  });
+})();
+</script>
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>
