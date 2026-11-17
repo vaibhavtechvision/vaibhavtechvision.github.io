@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Code for Text or a Link | Vaibhav Tech Vision</title>
+<meta name="description" content="Type any text or web address, and the tool makes a QR code for it. Anyone who scans the code sees your text, or goes straight to your link.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="../tools/photo-editor.html">Photo Editor</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>QR Code for Text or a Link</h1>
+  <p>Type any text or web address, and the tool makes a QR code for it. Anyone who scans the code sees your text, or goes straight to your link.</p>
+  <p class="hint">Everything happens on your own device. Nothing you choose here is uploaded anywhere.</p>
+
+<label for="qt-text">Text or link</label>
+    <textarea id="qt-text" rows="4" cols="40"></textarea>
+    <label for="qt-size">Image size</label>
+    <select id="qt-size">
+      <option value="400" selected>Medium (about 400 pixels)</option>
+      <option value="200">Small (about 200 pixels)</option>
+      <option value="800">Large (about 800 pixels)</option>
+    </select>
+    <p><button class="action" type="button" id="qt-go">Make my QR code</button></p>
+    <p id="qt-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div id="qt-result" hidden>
+      <canvas id="qt-canvas" role="img" aria-label="The QR code for your text"></canvas>
+      <p><button class="action" type="button" id="qt-dl">Download QR code image</button></p>
+    </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/lib/qrcode/qrcode.js"></script>
+<script src="../assets/qr-tools.js?v=1"></script>
+<script src="../assets/main.js?v=3"></script>
+</body>
+</html>

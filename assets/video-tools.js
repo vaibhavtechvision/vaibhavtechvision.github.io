@@ -154,7 +154,12 @@
           rec.onstop = function () {
             if (srcNode) { try { srcNode.disconnect(); } catch (e) {} }
             stream.getTracks().forEach(function (t) { t.stop(); });
-            resolve(new Blob(chunks, { type: o.mime.split(';')[0] }));
+            var blob = new Blob(chunks, { type: o.mime.split(';')[0] });
+            if (blob.size === 0) {
+              reject(new Error('nothing was recorded. Please press the button and try again.'));
+            } else {
+              resolve(blob);
+            }
           };
           rec.stop();
         } else {
@@ -166,7 +171,7 @@
       video.muted = false;
       video.currentTime = o.offsetSec || 0;
       once(video, 'seeked').then(function () {
-        rec.start(1000);
+        rec.start(250);
         video.play().then(function () {
           var draw = function () {
             if (done) return;
@@ -580,7 +585,7 @@
       rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
       var total = loaded.reduce(function (a, lv) { return a + lv.duration; }, 0);
       var idx = 0;
-      rec.start(1000);
+      rec.start(250);
       function playNext() {
         if (idx >= loaded.length) {
           setTimeout(function () {
@@ -714,7 +719,7 @@
           g2d.fillStyle = '#000'; g2d.fillRect(0, 0, width, height);
           g2d.drawImage(bmp, (width - w) / 2, (height - h) / 2, w, h);
         }
-        rec.start(1000);
+        rec.start(250);
         if (musicSrc) musicSrc.start();
         drawPhoto(0);
         var t0 = performance.now();

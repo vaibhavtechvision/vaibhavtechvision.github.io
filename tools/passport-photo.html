@@ -3,17 +3,182 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Passport Size Photo has moved | Vaibhav Tech Vision</title>
-<meta name="description" content="The Passport Size Photo is now a section of the Image Editor.">
-<meta http-equiv="refresh" content="0; url=image-editor.html#passport-photo">
-<link rel="canonical" href="image-editor.html">
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<title>Passport Size Photo Maker | Vaibhav Tech Vision</title>
+<meta name="description" content="This free tool turns any photo of you into a correct passport size photo, with the exact dimensions used for Indian passports, visas, exam forms and job applications. It runs fully inside your browser">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="../tools/photo-editor.html">Photo Editor</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
 <main id="main">
-  <h1>Passport Size Photo has moved</h1>
-  <p role="status">The Passport Size Photo is now a section of the Image Editor. Taking you there now.</p>
-  <p>If nothing happens, open the <a href="image-editor.html#passport-photo">Passport Size Photo section of the Image Editor</a>.</p>
+  <h1>Passport Size Photo Maker</h1>
+  <p>This free tool turns any photo of you into a correct passport size photo, with the exact dimensions used for Indian passports, visas, exam forms and job applications. It runs fully inside your browser: your photo never leaves your device.</p>
+  <p class="hint">Everything happens on your own device. Nothing you choose here is uploaded anywhere.</p>
+
+<p>It cuts your photo to the exact size, can put a white background behind you automatically, and can keep the file under a size limit like 50 KB, which many forms ask for.</p>
+  <p><strong>For the best result:</strong> take the photo facing the camera, in good daylight, against a plain light-coloured wall, with no shadow behind you. The automatic white background works well with such photos but may not be perfect around hair; it is made by a small AI model that runs inside your browser, not on any server. If the result is not good enough for an official document, take the photo again against a plain white wall and choose "Keep the original background".</p>
+<h3>Step 1: Choose your photo</h3>
+  <label for="pp-file">Photo file</label>
+  <input type="file" id="pp-file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
+  <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. A photo where you face the camera gives the best result.</p>
+  <p id="pp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <p id="pp-error" class="status" role="alert" aria-atomic="true"></p>
+
+  <div id="pp-controls" hidden>
+    <h3>Step 2: Choose the photo size</h3>
+    <label for="pp-size">Passport photo size</label>
+    <select id="pp-size">
+      <option value="35x45" selected>India passport and visa: 35 mm wide, 45 mm high (413 x 531 pixels)</option>
+      <option value="51x51">US visa and passport: 2 x 2 inch, 51 x 51 mm (600 x 600 pixels)</option>
+      <option value="25x35">Small exam photo: 25 mm wide, 35 mm high (295 x 413 pixels)</option>
+      <option value="custom">My own size in millimetres</option>
+    </select>
+    <div id="pp-custom-box" hidden>
+      <label for="pp-custom-w">Width in millimetres</label>
+      <input type="number" id="pp-custom-w" min="10" max="200" step="1" value="35">
+      <label for="pp-custom-h">Height in millimetres</label>
+      <input type="number" id="pp-custom-h" min="10" max="200" step="1" value="45">
+    </div>
+    <p class="hint">All sizes are made at 300 DPI, the quality required for printing. The exact pixel dimensions are always read out in the result.</p>
+
+    <h3>Step 3: Frame your face</h3>
+    <p class="hint">The tool cuts the centre of your photo to the passport shape. If your face is too small, increase the zoom. If the cut is not centred on your face, use the move numbers: positive numbers move your face right or down, negative numbers move it left or up.</p>
+    <label for="pp-zoom">Zoom in percent (100 is normal, 150 is closer)</label>
+    <input type="number" id="pp-zoom" min="100" max="400" step="5" value="100">
+    <label for="pp-move-x">Move left or right in pixels (negative is left, positive is right)</label>
+    <input type="number" id="pp-move-x" min="-2000" max="2000" step="5" value="0">
+    <label for="pp-move-y">Move up or down in pixels (negative is up, positive is down)</label>
+    <input type="number" id="pp-move-y" min="-2000" max="2000" step="5" value="0">
+
+    <h3>Step 4: Background</h3>
+    <fieldset>
+      <legend>Background of the photo</legend>
+      <label><input type="radio" name="bg" value="white" checked> White background (automatic, recommended)</label>
+      <label><input type="radio" name="bg" value="original"> Keep the original background</label>
+    </fieldset>
+
+    <h3>Step 5: File size limit (optional)</h3>
+    <label><input type="checkbox" id="pp-limit-on"> The file must be smaller than a size I type (many exam forms ask for this)</label>
+    <label for="pp-limit-kb">Maximum file size in KB</label>
+    <input type="number" id="pp-limit-kb" min="5" max="2048" step="1" value="50">
+
+    <div class="button-row" role="group" aria-label="Make photo actions">
+      <button class="action" type="button" id="pp-go-btn">Make my passport photo</button>
+    </div>
+  </div>
+
+  <div id="pp-result-box" hidden>
+    <h3>Step 6: Check and download</h3>
+    <p id="pp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <canvas id="pp-preview" role="img" aria-label="Preview of your passport photo"></canvas>
+    <div class="button-row" role="group" aria-label="Download actions">
+      <button class="action" type="button" id="pp-dl-btn">Download passport photo</button>
+    </div>
+    <p class="hint">If the framing is not right, change the zoom or move numbers above and press "Make my passport photo" again. There is no limit; try as many times as you like.</p>
+  </div>
+
+  <p class="hint">Honest limits: the automatic white background is very good with plain backgrounds, but it can leave small mistakes around hair or shadows, and it cannot remove objects behind you like doors or trees. Very strict authorities (for example some embassies) may still ask for a studio photo. To edit the photo first, use the <a href="#edit-photo">Image Editor section above</a>. To squeeze any photo to an exact file size, use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
+
 </main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/image-tools.js?v=1"></script>
+<script src="../assets/main.js?v=3"></script>
 </body>
 </html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Editor | Vaibhav Tech Vision</title>
+<meta name="description" content="Edit your photo step by step below. When you are done, you can make it an exact file size in the Image Compressor section, or turn it into a passport photo in the Passport Size Photo section.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="../tools/photo-editor.html">Photo Editor</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Image Editor</h1>
+  <p>Edit your photo step by step below. When you are done, you can make it an exact file size in the Image Compressor section, or turn it into a passport photo in the Passport Size Photo section.</p>
+  <p class="hint">Everything happens on your own device. Nothing you choose here is uploaded anywhere.</p>
+
+<h3>Step 1: Choose your photo</h3>
+  <label for="file">Photo file</label>
+  <input type="file" id="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp">
+  <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. The photo opens on your device only.</p>
+  <p id="file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <p id="error" class="status" role="alert" aria-atomic="true"></p>
+
+  <div id="editor" hidden>
+    <canvas id="preview" role="img" aria-label="Preview of your photo"></canvas>
+
+    <h3>Step 2: Make bigger or smaller (resize)</h3>
+    <fieldset>
+      <legend>Resize by</legend>
+      <label><input type="radio" name="rs-mode" value="percent" checked> Percent (for example 50 makes it half size)</label>
+      <label><input type="radio" name="rs-mode" value="pixels"> Exact pixels</label>
+      <label><input type="radio" name="rs-mode" value="cm"> Centimetres for printing (uses DPI)</label>
+    </fieldset>
+    <div id="rs-percent-box">
+      <label for="rs-percent">Size in percent</label>
+      <input type="number" id="rs-percent" min="1" max="800" step="1" value="50">
+    </div>
+    <div id="rs-pixels-box" hidden>
+      <label for="rs-w">New width in pixels</label>
+      <input type="number" id="rs-w" min="1" max="10000" step="1">
+      <label for="rs-h">New height in pixels</label>
+      <input type="number" id="rs-h" min="1" max="10000" step="1">
+      <label><input type="checkbox" id="rs-keep" checked> Keep the photo's shape (when you change one side, the other follows)</label>
+    </div>
+    <div id="rs-cm-box" hidden>
+      <label for="rs-cm-w">New width in centimetres</label>
+      <input type="number" id="rs-cm-w" min="0.5" max="100" step="0.1">
+      <label for="rs-cm-h">New height in centimetres</label>
+      <input type="number" id="rs-cm-h" min="0.5" max="100" step="0.1">
+      <label for="rs-dpi">Print quality in DPI (300 is the standard for printing)</label>
+      <input type="number" id="rs-dpi" min="50" max="1200" step="1" value="300">
+    </div>
+    <div class="button-row" role="group" aria-label="Resize actions">
+      <button class="action" type="button" id="rs-apply">Apply resize</button>
+    </div>
+
+    <h3>Step 3: Crop (cut out one part)</h3>
+    <p class="hint">The crop keeps the part of the photo inside a box. Left and Top say where the box starts, counted in pixels from the top-left corner of the photo. Width and Height say how big the box is.</p>
+    <label for="crop-preset">Quick shape (fills the numbers for you)</label>
+    <select id="crop-preset">
+      <option value="">Choose a shape, or type your own numbers below</option>
+      <option value="1:1">Square (1:1)</option>
+      <option value="4:3">Standard (4:3)</option>
+      <option value="3:2">Photo print (3:2)</option>
+      <option value="16:9">Wide screen (16:9)</option>
+      <option value="35:45">Passport shape (35 x 45 mm)</option>
+    </select>
+    <label for="crop-x">Left in pixels</label>
+    <input type="number" id="crop-x" min="0" step="1" value="0">
+    <label for="crop-y">Top in pixels</label>
+    <input type="number" id="crop-y" min="0" step="1" value="0">
+    <label for="crop-w">Width in pixels</label>
+    <input type="number" id="crop-w" min="1" step="1">
+    <label for="crop-h">Height in pixels</label>
+    <input type="number" id="crop-h" min="1" step="1">
+    <div class="button-row" role="group" aria-label="Crop actions">
+      <button class="action" type="button" id="crop-apply">Apply crop</button>
+    </div>
+
+    <h3>Step 4: Rotate and flip</h3>
+    <div class="button-row" role="group" aria-label="Rotate and flip actions">
+      <button class="action" type="button" id="rot-left">Rotate left 90 degrees</button>
+      <button class="action" type="button" id="rot-right">Rotate right 90 degrees</button>
+      <button class="action" type="button" id="rot-180">Turn upside down (180 degrees)</button>
+      <button class="action" type="button" id="flip-h">Flip left to right (mirror)</button>
+      <button class="action" type="button" id="flip-v">Flip top to bottom</button>
+    </div>
+
+    <h3>Step 5: Brightness, contrast and colour</h3>
+    <p class="hint">100 means no change. Higher is more, lower is less. Each time you press the button, the change is added to the current photo. Press Start over to return to the original.</p>
+    <label for="adj-bright">Brightness in percent</label>
+    <input type="number" id="adj-bright" min="0" max="300" step="5" value="100">
+    <label for="adj-contrast">Contrast in percent</label>
+    <input type="number" id="adj-contrast" min="0" max="300" step="5" value="100">
+    <label for="adj-sat">Colour strength in percent</label>
+    <input type="number" id="adj-sat" min="0" max="300" step="5" value="100">
+    <div class="button-row" role="group" aria-label="Brightness and colour actions">
+      <button class="action" type="button" id="adj-apply">Apply changes</button>
+    </div>
+
+    <h3>Step 6: Ready-made filters</h3>
+    <label for="filter">Filter</label>
+    <select id="filter">
+      <option value="grayscale">Black and white (grayscale)</option>
+      <option value="sepia">Sepia (old photo look)</option>
+      <option value="invert">Invert colours</option>
+      <option value="contrast">Black and white, high contrast</option>
+    </select>
+    <div class="button-row" role="group" aria-label="Filter actions">
+      <button class="action" type="button" id="filter-apply">Apply filter</button>
+    </div>
+
+    <h3>Step 7: Add text to the photo</h3>
+    <label for="text-value">Text to write</label>
+    <input type="text" id="text-value" autocomplete="off">
+    <label for="text-size">Letter size in pixels</label>
+    <input type="number" id="text-size" min="8" max="400" step="1" value="48">
+    <label for="text-color">Text colour</label>
+    <select id="text-color">
+      <option value="#ffffff">White</option>
+      <option value="#000000">Black</option>
+      <option value="#ffdd00">Yellow</option>
+      <option value="#d00000">Red</option>
+      <option value="#0044cc">Blue</option>
+    </select>
+    <label for="text-pos">Text position</label>
+    <select id="text-pos">
+      <option value="bottom">Bottom centre</option>
+      <option value="middle">Middle centre</option>
+      <option value="top">Top centre</option>
+    </select>
+    <div class="button-row" role="group" aria-label="Text actions">
+      <button class="action" type="button" id="text-apply">Add text</button>
+    </div>
+
+    <h3>Step 8: Add a watermark (see-through text)</h3>
+    <p class="hint">A watermark is see-through text on top of the photo, for example your name or website, so others do not misuse your photo.</p>
+    <label for="wm-text">Watermark text</label>
+    <input type="text" id="wm-text" autocomplete="off">
+    <label for="wm-size">Letter size in pixels</label>
+    <input type="number" id="wm-size" min="8" max="200" step="1" value="36">
+    <label for="wm-color">Watermark colour</label>
+    <select id="wm-color">
+      <option value="#ffffff">White</option>
+      <option value="#000000">Black</option>
+    </select>
+    <label for="wm-opacity">How visible in percent (100 is fully solid, 30 is lightly visible)</label>
+    <input type="number" id="wm-opacity" min="5" max="100" step="5" value="30">
+    <label for="wm-mode">Placement</label>
+    <select id="wm-mode">
+      <option value="tile">Repeated all over the photo</option>
+      <option value="center">Once, in the centre</option>
+      <option value="corner">Once, in the bottom right corner</option>
+    </select>
+    <div class="button-row" role="group" aria-label="Watermark actions">
+      <button class="action" type="button" id="wm-apply">Add watermark</button>
+    </div>
+
+    <h3>Step 9: Blur or cover one part of the photo</h3>
+    <p class="hint">Hide a face, a name or a number in the photo. Like the crop, Left and Top say where the part starts in pixels from the top-left corner, and Width and Height say how big it is.</p>
+    <label for="bl-x">Left in pixels</label>
+    <input type="number" id="bl-x" min="0" step="1" value="0">
+    <label for="bl-y">Top in pixels</label>
+    <input type="number" id="bl-y" min="0" step="1" value="0">
+    <label for="bl-w">Width in pixels</label>
+    <input type="number" id="bl-w" min="1" step="1">
+    <label for="bl-h">Height in pixels</label>
+    <input type="number" id="bl-h" min="1" step="1">
+    <fieldset>
+      <legend>How to hide the part</legend>
+      <label><input type="radio" name="bl-mode" value="blur" checked> Blur it (smudge it so it cannot be read)</label>
+      <label><input type="radio" name="bl-mode" value="cover"> Cover it with a solid colour</label>
+    </fieldset>
+    <div id="bl-blur-box">
+      <label for="bl-amount">Blur strength in pixels (10 is normal, higher is stronger)</label>
+      <input type="number" id="bl-amount" min="2" max="100" step="1" value="10">
+    </div>
+    <div id="bl-cover-box" hidden>
+      <label for="bl-color">Cover colour</label>
+      <select id="bl-color">
+        <option value="#000000">Black</option>
+        <option value="#ffffff">White</option>
+      </select>
+    </div>
+    <div class="button-row" role="group" aria-label="Blur or cover actions">
+      <button class="action" type="button" id="bl-apply">Hide this part</button>
+    </div>
+
+    <h3>Step 10: Save your photo</h3>
+    <label for="save-format">File type</label>
+    <select id="save-format">
+      <option value="original">Same as the original photo</option>
+      <option value="image/jpeg">JPG (best for photos, small file)</option>
+      <option value="image/png">PNG (best for text and graphics)</option>
+      <option value="image/webp">WebP (modern, small file)</option>
+    </select>
+    <label for="save-quality">Quality in percent (for JPG and WebP; higher looks better but makes a bigger file)</label>
+    <input type="number" id="save-quality" min="1" max="100" step="1" value="90">
+    <div class="button-row" role="group" aria-label="Save and reset actions">
+      <button class="action" type="button" id="save-btn">Download photo</button>
+      <button class="action secondary" type="button" id="reset-btn">Start over with the original photo</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="hint">Need a passport size photo with a white background? Use the <a href="#passport-photo">Passport Size Photo section on this page</a>. Need an exact file size like 20 KB for a form? Use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
+  </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/image-tools.js?v=1"></script>
+<script src="../assets/main.js?v=3"></script>
+</body>
+</html>
