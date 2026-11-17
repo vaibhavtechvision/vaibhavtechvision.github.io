@@ -55,3 +55,34 @@
     });
   });
 })();
+
+// Tool page sections: every tool starts closed and opens from its heading
+// button. Jump links to a section open it first.
+(function () {
+  var buttons = document.querySelectorAll('.tool-toggle');
+  if (!buttons.length) return;
+  buttons.forEach(function (button) {
+    var body = document.getElementById(button.getAttribute('aria-controls'));
+    if (!body) return;
+    button.addEventListener('click', function () {
+      var open = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!open));
+      body.hidden = open;
+    });
+  });
+  function openForHash() {
+    if (!location.hash) return;
+    var target = document.getElementById(location.hash.slice(1));
+    if (!target) return;
+    var section = target.closest('.tool-section');
+    if (!section) return;
+    var button = section.querySelector('.tool-toggle');
+    if (button && button.getAttribute('aria-expanded') !== 'true') {
+      button.setAttribute('aria-expanded', 'true');
+      var body = document.getElementById(button.getAttribute('aria-controls'));
+      if (body) body.hidden = false;
+    }
+  }
+  window.addEventListener('hashchange', openForHash);
+  openForHash();
+})();

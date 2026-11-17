@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Image Editor | Vaibhav Tech Vision</title>
 <meta name="description" content="Free accessible image tools in one page: edit photos (resize, crop, rotate, colours, text, watermark, blur), convert between JPG, PNG and WebP, join photos into one, split a photo into parts, compress a photo to an exact file size like 20 KB, make a passport size photo with a white background, circle-crop a profile photo, remove a white background, and hear the colours of a photo. Everything stays on your own device.">
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<link rel="stylesheet" href="../assets/style.css?v=4">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
 <body>
@@ -87,8 +87,9 @@
     </ul>
   </nav>
 
-  <section aria-labelledby="edit-photo">
-    <h2 id="edit-photo">1. Image Editor</h2>
+  <section aria-labelledby="edit-photo" class="tool-section">
+    <h2 id="edit-photo"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="edit-photo-body">1. Image Editor</button></h2>
+    <div class="tool-body" id="edit-photo-body" hidden>
     <p>Edit your photo step by step below. When you are done, you can make it an exact file size in the Image Compressor section, or turn it into a passport photo in the Passport Size Photo section.</p>
 <h3>Step 1: Choose your photo</h3>
   <label for="file">Photo file</label>
@@ -279,10 +280,13 @@
     <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
     <p class="hint">Need a passport size photo with a white background? Use the <a href="#passport-photo">Passport Size Photo section on this page</a>. Need an exact file size like 20 KB for a form? Use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
   </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="format-converter">
-    <h2 id="format-converter">2. Image Format Converter</h2>
+  <section aria-labelledby="format-converter" class="tool-section">
+    <h2 id="format-converter"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="format-converter-body">2. Image Format Converter</button></h2>
+    <div class="tool-body" id="format-converter-body" hidden>
     <p>Change a photo from one file type to another: JPG, PNG or WebP. For example, turn a PNG into a JPG when a form only accepts JPG photos.</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="fc-file">Photo file</label>
@@ -313,10 +317,13 @@
       </div>
     </div>
     <p class="hint">To change the photo itself (resize, crop, colours), use the <a href="#edit-photo">Image Editor section above</a>. To make the photo an exact file size like 20 KB, use the <a href="#image-compressor">Image Compressor section</a>.</p>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="merge-photos">
-    <h2 id="merge-photos">3. Merge Photos (join photos into one)</h2>
+  <section aria-labelledby="merge-photos" class="tool-section">
+    <h2 id="merge-photos"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="merge-photos-body">3. Merge Photos (join photos into one)</button></h2>
+    <div class="tool-body" id="merge-photos-body" hidden>
     <p>Join two or more photos into a single photo: side by side (left to right) or stacked (top to bottom). Useful for before-and-after photos or for putting two pictures on one print.</p>
     <h3>Step 1: Choose the photos</h3>
     <label for="mg-files">Photo files (choose two or more; they are joined in the order you choose them)</label>
@@ -354,10 +361,13 @@
         <button class="action" type="button" id="mg-dl-btn">Download joined photo</button>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="split-photo">
-    <h2 id="split-photo">4. Split a Photo into Parts</h2>
+  <section aria-labelledby="split-photo" class="tool-section">
+    <h2 id="split-photo"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="split-photo-body">4. Split a Photo into Parts</button></h2>
+    <div class="tool-body" id="split-photo-body" hidden>
     <p>Cut one photo into smaller parts, for example to print a big photo on small papers, or to post one photo as a grid. You choose how many rows and columns; each part downloads as its own file.</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="sp-file">Photo file</label>
@@ -386,10 +396,13 @@
       <p id="sp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
       <div id="sp-parts" role="group" aria-label="Download buttons for each part"></div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="image-compressor">
-    <h2 id="image-compressor">5. Image Compressor</h2>
+  <section aria-labelledby="image-compressor" class="tool-section">
+    <h2 id="image-compressor"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="image-compressor-body">5. Image Compressor</button></h2>
+    <div class="tool-body" id="image-compressor-body" hidden>
 
   <p>This free tool makes your photo fit an exact file size that you type, for example 20 KB, 50 KB or 1 MB. It is made for government forms, exam forms and job applications that say "photo must be less than 50 KB" and so on.</p>
   <p>Your photo never leaves your device. Everything happens inside your browser. First the tool tries quality settings; if that is not enough, it gently makes the photo smaller until it fits. The final size and dimensions are read out, so you always know exactly what you got.</p>
@@ -433,10 +446,13 @@
   </div>
 
   <p class="hint">Please note: a photo can only be squeezed so far. If you ask for a very tiny size, like 5 KB for a big colourful photo, the tool will tell you honestly when the photo would become too unclear to use, and give you the smallest clear version it could make. To edit the photo first (crop, rotate, brightness), use the <a href="#edit-photo">Image Editor section above</a>. For passport photos, use the <a href="#passport-photo">Passport Size Photo section on this page</a>.</p>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="passport-photo">
-    <h2 id="passport-photo">6. Passport Size Photo Maker</h2>
+  <section aria-labelledby="passport-photo" class="tool-section">
+    <h2 id="passport-photo"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="passport-photo-body">6. Passport Size Photo Maker</button></h2>
+    <div class="tool-body" id="passport-photo-body" hidden>
 
   <p>This free tool turns any photo of you into a correct passport size photo, with the exact dimensions used for Indian passports, visas, exam forms and job applications. It runs fully inside your browser: your photo never leaves your device.</p>
   <p>It cuts your photo to the exact size, can put a white background behind you automatically, and can keep the file under a size limit like 50 KB, which many forms ask for.</p>
@@ -502,10 +518,13 @@
   </div>
 
   <p class="hint">Honest limits: the automatic white background is very good with plain backgrounds, but it can leave small mistakes around hair or shadows, and it cannot remove objects behind you like doors or trees. Very strict authorities (for example some embassies) may still ask for a studio photo. To edit the photo first, use the <a href="#edit-photo">Image Editor section above</a>. To squeeze any photo to an exact file size, use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="circle-crop">
-    <h2 id="circle-crop">7. Circle Crop (profile photo)</h2>
+  <section aria-labelledby="circle-crop" class="tool-section">
+    <h2 id="circle-crop"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="circle-crop-body">7. Circle Crop (profile photo)</button></h2>
+    <div class="tool-body" id="circle-crop-body" hidden>
     <p>Cut your photo into a circle, or into a square with rounded corners. This is popular for profile photos on WhatsApp, Telegram and other apps. The part outside the circle becomes see-through (transparent).</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="cc-file">Photo file</label>
@@ -539,10 +558,13 @@
       </div>
       <p class="hint">The result is a PNG file, which keeps the see-through part. To move the cut away from the centre, first crop the photo in the <a href="#edit-photo">Image Editor section above</a>.</p>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="remove-background">
-    <h2 id="remove-background">8. Remove White Background</h2>
+  <section aria-labelledby="remove-background" class="tool-section">
+    <h2 id="remove-background"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="remove-background-body">8. Remove White Background</button></h2>
+    <div class="tool-body" id="remove-background-body" hidden>
     <p>Make the white background of a photo see-through. This is made for signatures and logos scanned or photographed on white paper: sign on white paper, take a photo, and this tool gives you a signature with a see-through background that you can put on any document.</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="rb-file">Photo file</label>
@@ -567,10 +589,13 @@
       </div>
       <p class="hint">The result is a PNG file, which keeps the see-through background. Honest note: this tool removes light backgrounds only. To remove the background behind a person, use the <a href="#passport-photo">Passport Size Photo section</a>, which has a smarter tool for people.</p>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="colour-palette">
-    <h2 id="colour-palette">9. Colour Finder (hear the colours of a photo)</h2>
+  <section aria-labelledby="colour-palette" class="tool-section">
+    <h2 id="colour-palette"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="colour-palette-body">9. Colour Finder (hear the colours of a photo)</button></h2>
+    <div class="tool-body" id="colour-palette-body" hidden>
     <p>This tool looks at your photo and tells you its main colours in plain words, with the exact colour codes. It is made for blind and low-vision users who want to know what a photo looks like, and for anyone matching colours for a design.</p>
     <h3>Step 1: Choose your photo</h3>
     <label for="cp-file">Photo file</label>
@@ -585,6 +610,8 @@
       <h3>Step 2: The colours</h3>
       <p id="cp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
       <ol id="cp-list"></ol>
+    </div>
+  
     </div>
   </section>
 </main>
@@ -1740,6 +1767,6 @@
   });
 })();
 </script>
-<script src="../assets/main.js?v=2"></script>
+<script src="../assets/main.js?v=3"></script>
 </body>
 </html>

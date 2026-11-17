@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Audio Editor | Vaibhav Tech Vision</title>
 <meta name="description" content="Free accessible audio tools in one page: trim or cut a recording, join many audio files into one, convert audio to MP3 or WAV, make audio louder or quieter, change speed, mix a voice over background music, mix several tracks together, add a fade, reverse audio, and clear a phone speaker with sound. Everything stays on your own device.">
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<link rel="stylesheet" href="../assets/style.css?v=4">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
 <body>
@@ -88,8 +88,9 @@
     </ul>
   </nav>
 
-  <section aria-labelledby="audio-trimmer">
-    <h2 id="audio-trimmer">1. Audio Trimmer</h2>
+  <section aria-labelledby="audio-trimmer" class="tool-section">
+    <h2 id="audio-trimmer"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="audio-trimmer-body">1. Audio Trimmer</button></h2>
+    <div class="tool-body" id="audio-trimmer-body" hidden>
     <p>Keep only the part of a recording you need, or remove a part from the middle. You type the times in seconds, so it works fully with a keyboard.</p>
     <label for="tr-file">Audio or video file</label>
     <input type="file" id="tr-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,video/mp4,video/webm,video/quicktime,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr,.mp4,.mov,.mkv">
@@ -118,10 +119,13 @@
         <p><button class="action" type="button" id="tr-dl">Download trimmed audio</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="audio-merger">
-    <h2 id="audio-merger">2. Audio Merger</h2>
+  <section aria-labelledby="audio-merger" class="tool-section">
+    <h2 id="audio-merger"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="audio-merger-body">2. Audio Merger</button></h2>
+    <div class="tool-body" id="audio-merger-body" hidden>
     <p>Join two or more audio files into one single file. After choosing your files you can change their order with the Move up and Move down buttons, and add a short silence between them.</p>
     <label for="mg-file">Audio files (choose two or more)</label>
     <input type="file" id="mg-file" multiple accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -144,10 +148,13 @@
         <p><button class="action" type="button" id="mg-dl">Download joined audio</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="audio-converter">
-    <h2 id="audio-converter">3. Audio Converter</h2>
+  <section aria-labelledby="audio-converter" class="tool-section">
+    <h2 id="audio-converter"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="audio-converter-body">3. Audio Converter</button></h2>
+    <div class="tool-body" id="audio-converter-body" hidden>
     <p>Change an audio file into MP3 or WAV. You can also choose a video file here: its sound will be taken out and saved as audio.</p>
     <label for="cv-file">Audio or video file</label>
     <input type="file" id="cv-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,video/mp4,video/webm,video/quicktime,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr,.mp4,.mov,.mkv">
@@ -174,10 +181,13 @@
         <p><button class="action" type="button" id="cv-dl">Download converted audio</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="volume-changer">
-    <h2 id="volume-changer">4. Volume Changer</h2>
+  <section aria-labelledby="volume-changer" class="tool-section">
+    <h2 id="volume-changer"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="volume-changer-body">4. Volume Changer</button></h2>
+    <div class="tool-body" id="volume-changer-body" hidden>
     <p>Make a recording louder or quieter. For example, 50 makes it half as loud and 200 makes it twice as loud. There is also an option to make the recording as loud as possible without distortion.</p>
     <label for="vl-file">Audio file</label>
     <input type="file" id="vl-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -199,10 +209,13 @@
         <p><button class="action" type="button" id="vl-dl">Download audio with new volume</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="speed-changer">
-    <h2 id="speed-changer">5. Speed Changer</h2>
+  <section aria-labelledby="speed-changer" class="tool-section">
+    <h2 id="speed-changer"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="speed-changer-body">5. Speed Changer</button></h2>
+    <div class="tool-body" id="speed-changer-body" hidden>
     <p>Make a recording faster or slower while voices still sound natural, without turning into chipmunks or monsters. For example, 150 plays the recording in two thirds of the time.</p>
     <label for="sp-file">Audio file</label>
     <input type="file" id="sp-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -223,10 +236,13 @@
         <p><button class="action" type="button" id="sp-dl">Download audio with new speed</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="voice-over">
-    <h2 id="voice-over">6. Voice Over Mixer</h2>
+  <section aria-labelledby="voice-over" class="tool-section">
+    <h2 id="voice-over"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="voice-over-body">6. Voice Over Mixer</button></h2>
+    <div class="tool-body" id="voice-over-body" hidden>
     <p>Put your voice recording on top of background music. The music automatically becomes quieter while your voice plays, and louder again when your voice ends. This is perfect for making a voice over for a video or a presentation.</p>
     <label for="vo-voice">Your voice recording</label>
     <input type="file" id="vo-voice" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -254,10 +270,13 @@
         <p><button class="action" type="button" id="vo-dl">Download voice over</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="multi-mixer">
-    <h2 id="multi-mixer">7. Multi-Track Mixer</h2>
+  <section aria-labelledby="multi-mixer" class="tool-section">
+    <h2 id="multi-mixer"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="multi-mixer-body">7. Multi-Track Mixer</button></h2>
+    <div class="tool-body" id="multi-mixer-body" hidden>
     <p>Play up to four audio files together, all starting at the same time, each with its own loudness. The result is as long as the longest file.</p>
     <label for="mx-file">Audio files (choose two to four)</label>
     <input type="file" id="mx-file" multiple accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -277,10 +296,13 @@
         <p><button class="action" type="button" id="mx-dl">Download mixed audio</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="fade-tool">
-    <h2 id="fade-tool">8. Fade In and Fade Out</h2>
+  <section aria-labelledby="fade-tool" class="tool-section">
+    <h2 id="fade-tool"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="fade-tool-body">8. Fade In and Fade Out</button></h2>
+    <div class="tool-body" id="fade-tool-body" hidden>
     <p>Make a recording start and end smoothly instead of beginning or stopping suddenly.</p>
     <label for="fd-file">Audio file</label>
     <input type="file" id="fd-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -303,10 +325,13 @@
         <p><button class="action" type="button" id="fd-dl">Download audio with fades</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="reverser">
-    <h2 id="reverser">9. Audio Reverser</h2>
+  <section aria-labelledby="reverser" class="tool-section">
+    <h2 id="reverser"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="reverser-body">9. Audio Reverser</button></h2>
+    <div class="tool-body" id="reverser-body" hidden>
     <p>Turn a recording around so it plays backwards, from the end to the beginning.</p>
     <label for="rv-file">Audio file</label>
     <input type="file" id="rv-file" accept="audio/mpeg,audio/wav,audio/ogg,audio/aac,audio/mp4,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.opus,.amr">
@@ -325,10 +350,13 @@
         <p><button class="action" type="button" id="rv-dl">Download reversed audio</button></p>
       </div>
     </div>
+  
+    </div>
   </section>
 
-  <section aria-labelledby="clear-speaker">
-    <h2 id="clear-speaker">10. Clear Phone Speaker</h2>
+  <section aria-labelledby="clear-speaker" class="tool-section">
+    <h2 id="clear-speaker"><button class="tool-toggle" type="button" aria-expanded="false" aria-controls="clear-speaker-body">10. Clear Phone Speaker</button></h2>
+    <div class="tool-body" id="clear-speaker-body" hidden>
     <p>If water or dust has entered your phone's speaker and the sound feels muffled, this tool plays a special cleaning tone that shakes the speaker and pushes the water or dust out. Hold the phone with the speaker facing down while it plays.</p>
     <p><strong>Warning:</strong> the cleaning sound is loud. Do not hold the phone near your ear while it plays.</p>
     <label for="cs-seconds">How long should the sound play?</label>
@@ -342,6 +370,8 @@
       <button class="action secondary" type="button" id="cs-stop" disabled>Stop the sound</button>
     </p>
     <p id="cs-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  
+    </div>
   </section>
 
 </main>
@@ -387,6 +417,6 @@
 </footer>
 <script src="../assets/lib/audio/lame.min.js"></script>
 <script src="../assets/audio-tools.js?v=5"></script>
-<script src="../assets/main.js?v=2"></script>
+<script src="../assets/main.js?v=3"></script>
 </body>
 </html>
