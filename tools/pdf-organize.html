@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Organize Pages | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to see every page of a PDF, change their order and delete pages, then save the result as a new PDF.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Organize Pages</h1>
+<p>This tool shows you every page of a PDF as a small picture. You can move pages up or down to change their order, and delete the pages you do not need. Then the tool saves the result as a new PDF.</p>
+<p>Choose a PDF file and wait for the page pictures to load. Use the Move up, Move down and Delete buttons under each page; everything works with a keyboard and a screen reader. When the order is right, press Save PDF. The file stays inside your browser; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<div class="result-box" id="pages-box" hidden>
+  <h2>Pages in their new order</h2>
+  <ul id="page-list"></ul>
+</div>
+
+<div class="button-row">
+  <button class="action" type="button" id="save-btn" disabled>Save PDF with this order</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+</main></main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script src="../assets/lib/pdf.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+function fmtSize(n) {
+  if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+  return Math.max(1, Math.round(n / 1024)) + ' KB';
+}
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '../assets/lib/pdf.worker.min.js';
+  var fileInput = document.getElementById('pdf-file');
+  var pagesBox = document.getElementById('pages-box');
+  var pageList = document.getElementById('page-list');
+  var saveBtn = document.getElementById('save-btn');
+  var bytes = null, fileName = 'document', order = [];
+
+  function refreshLabels() {
+    var items = pageList.querySelectorAll('li');
+    for (var i = 0; i < items.length; i++) {
+      var orig = items[i].getAttribute('data-orig');
+      items[i].querySelector('.pg-head').textContent = 'Position ' + (i + 1) + ': original page ' + orig;
+      items[i].querySelector('.up-btn').setAttribute('aria-label', 'Move original page ' + orig + ' up');
+      items[i].querySelector('.down-btn').setAttribute('aria-label', 'Move original page ' + orig + ' down');
+      items[i].querySelector('.del-btn').setAttribute('aria-label', 'Delete original page ' + orig);
+      items[i].querySelector('.up-btn').disabled = (i === 0);
+      items[i].querySelector('.down-btn').disabled = (i === items.length - 1);
+    }
+  }
+
+  function moveItem(li, dir) {
+    if (dir < 0 && li.previousElementSibling) pageList.insertBefore(li, li.previousElementSibling);
+    if (dir > 0 && li.nextElementSibling) pageList.insertBefore(li.nextElementSibling, li);
+    refreshLabels();
+    var orig = li.getAttribute('data-orig');
+    var pos = Array.prototype.indexOf.call(pageList.children, li) + 1;
+    say('Original page ' + orig + ' moved to position ' + pos + ' of ' + pageList.children.length + '.');
+    li.querySelector('.pg-head').focus && li.querySelector('.pg-head').setAttribute('tabindex', '-1');
+    li.querySelector('.pg-head').focus && li.querySelector('.pg-head').focus();
+  }
+
+  fileInput.addEventListener('change', function () {
+    bytes = null; pageList.innerHTML = ''; pagesBox.hidden = true; saveBtn.disabled = true;
+    if (!fileInput.files.length) return;
+    fileName = baseName(fileInput.files[0].name);
+    say('Reading the PDF and making page pictures, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      bytes = buf;
+      return pdfjsLib.getDocument({ data: buf.slice(0) }).promise;
+    }).then(function (pdf) {
+      var total = pdf.numPages, p = 1;
+      function next() {
+        if (p > total) {
+          pagesBox.hidden = false; saveBtn.disabled = false;
+          say('Ready. The PDF has ' + total + ' pages. Use the buttons under each page to change the order or delete pages, then press Save PDF with this order.');
+          return;
+        }
+        say('Making picture of page ' + p + ' of ' + total + '...');
+        (function (pageNum) {
+          pdf.getPage(pageNum).then(function (page) {
+            var base = page.getViewport({ scale: 1 });
+            var scale = 150 / base.width;
+            var viewport = page.getViewport({ scale: scale });
+            var canvas = document.createElement('canvas');
+            canvas.width = viewport.width; canvas.height = viewport.height;
+            return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise.then(function () {
+              var li = document.createElement('li');
+              li.setAttribute('data-orig', pageNum);
+              var h = document.createElement('h3');
+              h.className = 'pg-head';
+              var img = document.createElement('img');
+              img.src = canvas.toDataURL('image/jpeg', 0.7);
+              img.alt = 'Picture of page ' + pageNum;
+              img.style.maxWidth = '150px';
+              img.style.display = 'block';
+              img.style.border = '1px solid #999';
+              var up = document.createElement('button');
+              up.type = 'button'; up.className = 'action secondary up-btn'; up.textContent = 'Move up';
+              var down = document.createElement('button');
+              down.type = 'button'; down.className = 'action secondary down-btn'; down.textContent = 'Move down';
+              var del = document.createElement('button');
+              del.type = 'button'; del.className = 'action secondary del-btn'; del.textContent = 'Delete this page';
+              up.addEventListener('click', function () { moveItem(li, -1); });
+              down.addEventListener('click', function () { moveItem(li, 1); });
+              del.addEventListener('click', function () {
+                var nextFocus = li.nextElementSibling || li.previousElementSibling;
+                li.remove(); refreshLabels();
+                say('Original page ' + pageNum + ' deleted. ' + pageList.children.length + ' page(s) remain.');
+                if (nextFocus) nextFocus.querySelector('.pg-head').setAttribute('tabindex', '-1'), nextFocus.querySelector('.pg-head').focus();
+                else saveBtn.focus();
+              });
+              li.appendChild(h); li.appendChild(img);
+              li.appendChild(up); li.appendChild(down); li.appendChild(del);
+              pageList.appendChild(li);
+              refreshLabels();
+              p++; next();
+            });
+          });
+        })(p);
+      }
+      next();
+    }).catch(function () {
+      bytes = null;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  });
+
+  saveBtn.addEventListener('click', function () {
+    if (!bytes || !pageList.children.length) { say('There are no pages left to save. Please choose a PDF file again.'); return; }
+    var items = pageList.querySelectorAll('li');
+    var idx = [];
+    for (var i = 0; i < items.length; i++) idx.push(parseInt(items[i].getAttribute('data-orig'), 10) - 1);
+    saveBtn.disabled = true;
+    say('Saving the new PDF, please wait...');
+    var src;
+    PDFLib.PDFDocument.load(bytes.slice(0), { ignoreEncryption: true }).then(function (d) {
+      src = d;
+      return PDFLib.PDFDocument.create();
+    }).then(function (out) {
+      return out.copyPages(src, idx).then(function (pages) {
+        pages.forEach(function (pg) { out.addPage(pg); });
+        return out.save();
+      });
+    }).then(function (data) {
+      saveBtn.disabled = false;
+      saveBlob(new Blob([data], { type: 'application/pdf' }), fileName + '-organized.pdf');
+      say('Done. Your new PDF with ' + idx.length + ' pages in the new order has been downloaded.');
+    }).catch(function () {
+      saveBtn.disabled = false;
+      say('Sorry, something went wrong while saving this PDF.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</html>

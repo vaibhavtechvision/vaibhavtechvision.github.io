@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Rotate | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to rotate pages of a PDF by 90, 180 or 270 degrees: all pages, odd or even pages, or a range you choose.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Rotate</h1>
+<p>This tool turns pages of a PDF so they face the right way. You can rotate all pages, only odd pages, only even pages, or a range you choose, by 90, 180 or 270 degrees.</p>
+<p>Choose a PDF file, pick which pages and how much to turn them, and press Rotate pages. The file stays inside your browser; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<label for="which">Which pages to rotate</label>
+<select id="which">
+  <option value="all" selected>All pages</option>
+  <option value="odd">Odd pages only (1, 3, 5...)</option>
+  <option value="even">Even pages only (2, 4, 6...)</option>
+  <option value="range">A range of pages</option>
+</select>
+
+<label for="from-page">From page, used only for a range</label>
+<input type="number" id="from-page" min="1" inputmode="numeric" placeholder="First page, for example 2">
+
+<label for="to-page">To page, used only for a range</label>
+<input type="number" id="to-page" min="1" inputmode="numeric" placeholder="Last page, for example 6">
+
+<label for="angle">Turn pages by</label>
+<select id="angle">
+  <option value="90" selected>90 degrees clockwise</option>
+  <option value="180">180 degrees, upside down</option>
+  <option value="270">270 degrees clockwise (90 degrees anticlockwise)</option>
+</select>
+
+<div class="button-row">
+  <button class="action" type="button" id="rotate-btn">Rotate pages</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+</main></main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+function fmtSize(n) {
+  if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+  return Math.max(1, Math.round(n / 1024)) + ' KB';
+}
+
+  var fileInput = document.getElementById('pdf-file');
+  var whichSel = document.getElementById('which');
+  var fromInput = document.getElementById('from-page');
+  var toInput = document.getElementById('to-page');
+  var angleSel = document.getElementById('angle');
+  var btn = document.getElementById('rotate-btn');
+  var bytes = null, totalPages = 0, fileName = 'document';
+
+  fileInput.addEventListener('change', function () {
+    bytes = null; totalPages = 0;
+    if (!fileInput.files.length) return;
+    fileName = baseName(fileInput.files[0].name);
+    say('Reading the PDF, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      bytes = buf;
+      return PDFLib.PDFDocument.load(buf.slice(0), { ignoreEncryption: true });
+    }).then(function (doc) {
+      totalPages = doc.getPageCount();
+      say('File selected: ' + fileInput.files[0].name + '. It has ' + totalPages + ' pages. Now choose the pages and the turn, and press Rotate pages.');
+    }).catch(function () {
+      bytes = null;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  });
+
+  btn.addEventListener('click', function () {
+    if (!bytes) { say('Please choose a PDF file first.'); fileInput.focus(); return; }
+    var which = whichSel.value;
+    var delta = parseInt(angleSel.value, 10);
+    var from = parseInt(fromInput.value, 10), to = parseInt(toInput.value, 10);
+    if (which === 'range' && (!from || !to || from < 1 || to < from || to > totalPages)) {
+      say('Please enter a valid page range between 1 and ' + totalPages + '.'); fromInput.focus(); return;
+    }
+    btn.disabled = true;
+    say('Working, please wait...');
+    PDFLib.PDFDocument.load(bytes.slice(0), { ignoreEncryption: true }).then(function (doc) {
+      var count = 0;
+      for (var i = 0; i < totalPages; i++) {
+        var n = i + 1, hit = false;
+        if (which === 'all') hit = true;
+        else if (which === 'odd') hit = (n % 2 === 1);
+        else if (which === 'even') hit = (n % 2 === 0);
+        else hit = (n >= from && n <= to);
+        if (hit) {
+          var pg = doc.getPage(i);
+          var cur = pg.getRotation().angle || 0;
+          pg.setRotation(PDFLib.degrees(((cur + delta) % 360 + 360) % 360));
+          count++;
+        }
+      }
+      return doc.save().then(function (data) { return { data: data, count: count }; });
+    }).then(function (r) {
+      btn.disabled = false;
+      saveBlob(new Blob([r.data], { type: 'application/pdf' }), fileName + '-rotated.pdf');
+      say('Done. ' + r.count + ' page(s) were turned by ' + delta + ' degrees. Your new PDF has been downloaded.');
+    }).catch(function () {
+      btn.disabled = false;
+      say('Sorry, something went wrong while rotating this PDF.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Compress | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to make a PDF file smaller. Choose the smallest size, or keep text readable for screen readers.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Compress</h1>
+<p>This tool makes a PDF file smaller so it is easier to share or upload. There are two ways to do it:</p>
+<ul>
+  <li><strong>Smaller file:</strong> every page is turned into a picture. This gives the biggest size reduction, but the text becomes an image, so screen readers can no longer read it and you cannot select or search the text.</li>
+  <li><strong>Keep text readable:</strong> the file is cleaned up and re-saved without changing how pages look. Text stays readable for screen readers, but the size reduction is usually small, especially for PDFs that are mostly scanned images.</li>
+</ul>
+<p>An honest note: PDFs made of scans are already compressed pictures, so no tool can shrink them a lot without losing quality. Choose a PDF file, pick a way, and press Compress PDF. The file stays inside your browser; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<fieldset>
+  <legend>Compression way</legend>
+  <label><input type="radio" name="mode" value="quality" checked> Smaller file: pages become pictures</label>
+  <label><input type="radio" name="mode" value="lossless"> Keep text readable: clean up only</label>
+</fieldset>
+
+<label for="quality">Picture quality, used only for the smaller file way</label>
+<select id="quality">
+  <option value="low">Low quality, smallest file</option>
+  <option value="medium" selected>Medium quality</option>
+  <option value="high">High quality, larger file</option>
+</select>
+
+<div class="button-row">
+  <button class="action" type="button" id="compress-btn">Compress PDF</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+
+<div class="result-box" id="result-box" hidden>
+  <h2>Result</h2>
+  <p id="result-text"></p>
+</div>
+</main></main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script src="../assets/lib/pdf.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+function fmtSize(n) {
+  if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+  return Math.max(1, Math.round(n / 1024)) + ' KB';
+}
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '../assets/lib/pdf.worker.min.js';
+  var QUALITY = {
+    low: { scale: 1.0, jpeg: 0.45 },
+    medium: { scale: 1.5, jpeg: 0.65 },
+    high: { scale: 2.0, jpeg: 0.8 }
+  };
+  var fileInput = document.getElementById('pdf-file');
+  var qualitySel = document.getElementById('quality');
+  var btn = document.getElementById('compress-btn');
+  var resultBox = document.getElementById('result-box');
+  var resultText = document.getElementById('result-text');
+  var bytes = null, fileName = 'document', origSize = 0;
+
+  fileInput.addEventListener('change', function () {
+    bytes = null; resultBox.hidden = true;
+    if (!fileInput.files.length) return;
+    fileName = baseName(fileInput.files[0].name);
+    origSize = fileInput.files[0].size;
+    bytes = null;
+    say('Reading the PDF, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      bytes = buf;
+      say('File selected: ' + fileInput.files[0].name + '. Size: ' + fmtSize(origSize) + '. Now pick a compression way and press Compress PDF.');
+    });
+  });
+
+  function finish(data, outName) {
+    btn.disabled = false;
+    var blob = new Blob([data], { type: 'application/pdf' });
+    saveBlob(blob, outName);
+    var pct = origSize ? Math.round((1 - blob.size / origSize) * 100) : 0;
+    var msg = 'Original size: ' + fmtSize(origSize) + '. New size: ' + fmtSize(blob.size) + '. ';
+    msg += pct > 0 ? 'That is ' + pct + ' percent smaller.' : 'That is not smaller than the original, so you may prefer to keep your original file.';
+    resultText.textContent = msg;
+    resultBox.hidden = false;
+    say('Done. ' + msg + ' Your compressed PDF has been downloaded.');
+  }
+
+  function compressLossless() {
+    say('Cleaning up the PDF, please wait...');
+    PDFLib.PDFDocument.load(bytes.slice(0), { ignoreEncryption: true }).then(function (doc) {
+      return doc.save({ useObjectStreams: true });
+    }).then(function (data) {
+      finish(data, fileName + '-compressed.pdf');
+    }).catch(function () {
+      btn.disabled = false;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  }
+
+  function compressQuality() {
+    var q = QUALITY[qualitySel.value];
+    var pdf, out;
+    say('Opening the PDF, please wait...');
+    pdfjsLib.getDocument({ data: bytes.slice(0) }).promise.then(function (p) {
+      pdf = p;
+      return PDFLib.PDFDocument.create();
+    }).then(function (o) {
+      out = o;
+      var total = pdf.numPages, i = 1;
+      function next() {
+        if (i > total) return out.save({ useObjectStreams: true });
+        say('Compressing page ' + i + ' of ' + total + '...');
+        return pdf.getPage(i).then(function (page) {
+          var viewport = page.getViewport({ scale: q.scale });
+          var canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          var ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          return page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function () {
+            return new Promise(function (res) { canvas.toBlob(res, 'image/jpeg', q.jpeg); });
+          }).then(function (blob) {
+            return new Promise(function (res, rej) {
+              var r = new FileReader();
+              r.onload = function () { res(r.result); };
+              r.onerror = rej;
+              r.readAsArrayBuffer(blob);
+            });
+          }).then(function (jpgBytes) {
+            return out.embedJpg(jpgBytes).then(function (img) {
+              var wpt = viewport.width / q.scale, hpt = viewport.height / q.scale;
+              var pg = out.addPage([wpt, hpt]);
+              pg.drawImage(img, { x: 0, y: 0, width: wpt, height: hpt });
+              i++;
+              return next();
+            });
+          });
+        });
+      }
+      return next();
+    }).then(function (data) {
+      finish(data, fileName + '-compressed.pdf');
+    }).catch(function () {
+      btn.disabled = false;
+      say('Sorry, something went wrong while compressing this PDF. It may be damaged or locked with a password.');
+    });
+  }
+
+  btn.addEventListener('click', function () {
+    if (!bytes) { say('Please choose a PDF file first.'); fileInput.focus(); return; }
+    btn.disabled = true;
+    resultBox.hidden = true;
+    var mode = document.querySelector('input[name="mode"]:checked').value;
+    if (mode === 'lossless') compressLossless(); else compressQuality();
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Details Editor | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to see and change the hidden details of a PDF, like its title, author, subject and keywords.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Details Editor</h1>
+<p>Every PDF keeps hidden details inside it, like its title, author, subject and keywords. These are also called metadata. This tool shows you those details and lets you change them, then saves a new PDF with your changes.</p>
+<p>Choose a PDF file to see its current details, change what you want, and press Save with new details. The file stays inside your browser; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<div class="result-box" id="form-box" hidden>
+  <h2>PDF details</h2>
+  <p id="fixed-info"></p>
+  <label for="meta-title">Title</label>
+  <input type="text" id="meta-title">
+  <label for="meta-author">Author</label>
+  <input type="text" id="meta-author">
+  <label for="meta-subject">Subject</label>
+  <input type="text" id="meta-subject">
+  <label for="meta-keywords">Keywords, separated by commas</label>
+  <input type="text" id="meta-keywords">
+</div>
+
+<div class="button-row">
+  <button class="action" type="button" id="save-btn" disabled>Save with new details</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+</main></main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+function fmtSize(n) {
+  if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+  return Math.max(1, Math.round(n / 1024)) + ' KB';
+}
+
+  var fileInput = document.getElementById('pdf-file');
+  var formBox = document.getElementById('form-box');
+  var fixedInfo = document.getElementById('fixed-info');
+  var fTitle = document.getElementById('meta-title');
+  var fAuthor = document.getElementById('meta-author');
+  var fSubject = document.getElementById('meta-subject');
+  var fKeywords = document.getElementById('meta-keywords');
+  var saveBtn = document.getElementById('save-btn');
+  var bytes = null, fileName = 'document';
+
+  fileInput.addEventListener('change', function () {
+    bytes = null; formBox.hidden = true; saveBtn.disabled = true;
+    if (!fileInput.files.length) return;
+    fileName = baseName(fileInput.files[0].name);
+    say('Reading the PDF, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      bytes = buf;
+      return PDFLib.PDFDocument.load(buf.slice(0), { ignoreEncryption: true });
+    }).then(function (doc) {
+      fTitle.value = doc.getTitle() || '';
+      fAuthor.value = doc.getAuthor() || '';
+      fSubject.value = doc.getSubject() || '';
+      fKeywords.value = doc.getKeywords() || '';
+      var made = doc.getCreationDate ? doc.getCreationDate() : null;
+      var changed = doc.getModificationDate ? doc.getModificationDate() : null;
+      var info = 'This PDF was made with: ' + (doc.getCreator() || 'unknown') +
+        '. Produced by: ' + (doc.getProducer() || 'unknown') + '.';
+      if (made) info += ' Created on: ' + made.toLocaleString() + '.';
+      if (changed) info += ' Last changed on: ' + changed.toLocaleString() + '.';
+      fixedInfo.textContent = info;
+      formBox.hidden = false; saveBtn.disabled = false;
+      say('File selected: ' + fileInput.files[0].name + '. Its current details are filled in below. Change what you want and press Save with new details.');
+      fTitle.focus();
+    }).catch(function () {
+      bytes = null;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  });
+
+  saveBtn.addEventListener('click', function () {
+    if (!bytes) { say('Please choose a PDF file first.'); fileInput.focus(); return; }
+    saveBtn.disabled = true;
+    say('Working, please wait...');
+    PDFLib.PDFDocument.load(bytes.slice(0), { ignoreEncryption: true }).then(function (doc) {
+      doc.setTitle(fTitle.value);
+      doc.setAuthor(fAuthor.value);
+      doc.setSubject(fSubject.value);
+      doc.setKeywords(fKeywords.value.split(',').map(function (s) { return s.trim(); }).filter(function (s) { return s; }));
+      doc.setModificationDate(new Date());
+      return doc.save();
+    }).then(function (data) {
+      saveBtn.disabled = false;
+      saveBlob(new Blob([data], { type: 'application/pdf' }), fileName + '-updated-details.pdf');
+      say('Done. Your PDF with the new details has been downloaded.');
+    }).catch(function () {
+      saveBtn.disabled = false;
+      say('Sorry, something went wrong while saving this PDF.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</html>

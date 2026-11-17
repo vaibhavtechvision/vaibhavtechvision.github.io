@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Watermark | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible tool to stamp text like Draft or Confidential diagonally across every page of a PDF.">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<h1>PDF Watermark</h1>
+<p>This tool stamps text, for example Draft or Confidential, diagonally across every page of a PDF. The stamp sits behind the content, light enough that the page stays readable.</p>
+<p>Please note: the watermark text works with English letters and numbers only, not Hindi. Choose a PDF file, type the watermark text, and press Add watermark. The file stays inside your browser; it is never uploaded anywhere.</p>
+
+<label for="pdf-file">Choose a PDF file</label>
+<input type="file" id="pdf-file" accept="application/pdf,.pdf">
+
+<label for="wm-text">Watermark text, English letters and numbers only</label>
+<input type="text" id="wm-text" maxlength="40" placeholder="For example DRAFT">
+
+<label for="wm-size">Watermark size</label>
+<select id="wm-size">
+  <option value="36">Small</option>
+  <option value="60" selected>Medium</option>
+  <option value="96">Large</option>
+</select>
+
+<label for="wm-opacity">How dark the watermark is</label>
+<select id="wm-opacity">
+  <option value="0.15" selected>Light</option>
+  <option value="0.3">Medium</option>
+  <option value="0.5">Dark</option>
+</select>
+
+<div class="button-row">
+  <button class="action" type="button" id="wm-btn">Add watermark</button>
+</div>
+
+<p class="status" id="status" role="status" aria-live="polite"></p>
+</main></main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+
+<script src="../assets/lib/pdf-lib.min.js"></script>
+<script>
+(function () {
+
+function say(msg) { document.getElementById('status').textContent = msg; }
+function saveBlob(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function readAsArrayBuffer(file) {
+  return new Promise(function (res, rej) {
+    var r = new FileReader();
+    r.onload = function () { res(r.result); };
+    r.onerror = rej;
+    r.readAsArrayBuffer(file);
+  });
+}
+function baseName(name) { return name.replace(/\.[^.]+$/, ''); }
+function fmtSize(n) {
+  if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+  return Math.max(1, Math.round(n / 1024)) + ' KB';
+}
+
+  var fileInput = document.getElementById('pdf-file');
+  var textInput = document.getElementById('wm-text');
+  var sizeSel = document.getElementById('wm-size');
+  var opSel = document.getElementById('wm-opacity');
+  var btn = document.getElementById('wm-btn');
+  var bytes = null, totalPages = 0, fileName = 'document';
+
+  fileInput.addEventListener('change', function () {
+    bytes = null; totalPages = 0;
+    if (!fileInput.files.length) return;
+    fileName = baseName(fileInput.files[0].name);
+    say('Reading the PDF, please wait...');
+    readAsArrayBuffer(fileInput.files[0]).then(function (buf) {
+      bytes = buf;
+      return PDFLib.PDFDocument.load(buf.slice(0), { ignoreEncryption: true });
+    }).then(function (doc) {
+      totalPages = doc.getPageCount();
+      say('File selected: ' + fileInput.files[0].name + '. It has ' + totalPages + ' pages. Now type the watermark text and press Add watermark.');
+    }).catch(function () {
+      bytes = null;
+      say('Sorry, this PDF could not be opened. It may be damaged or locked with a password.');
+    });
+  });
+
+  btn.addEventListener('click', function () {
+    if (!bytes) { say('Please choose a PDF file first.'); fileInput.focus(); return; }
+    var text = textInput.value.trim();
+    if (!text) { say('Please type the watermark text first.'); textInput.focus(); return; }
+    if (/[^\x20-\x7E]/.test(text)) { say('Sorry, the watermark works with English letters and numbers only. Please remove any Hindi or special characters.'); textInput.focus(); return; }
+    var size = parseInt(sizeSel.value, 10);
+    var opacity = parseFloat(opSel.value);
+    btn.disabled = true;
+    say('Working, please wait...');
+    PDFLib.PDFDocument.load(bytes.slice(0), { ignoreEncryption: true }).then(function (doc) {
+      return doc.embedFont(PDFLib.StandardFonts.HelveticaBold).then(function (font) {
+        var angle = 45, rad = angle * Math.PI / 180;
+        var cos = Math.cos(rad), sin = Math.sin(rad);
+        for (var i = 0; i < totalPages; i++) {
+          var pg = doc.getPage(i);
+          var sz = pg.getSize();
+          var tw = font.widthOfTextAtSize(text, size);
+          var th = size;
+          var x = sz.width / 2 - (tw / 2) * cos + (th / 2) * sin;
+          var y = sz.height / 2 - (tw / 2) * sin - (th / 2) * cos;
+          pg.drawText(text, {
+            x: x, y: y, size: size, font: font,
+            color: PDFLib.rgb(0.5, 0.5, 0.5),
+            opacity: opacity,
+            rotate: PDFLib.degrees(angle)
+          });
+        }
+        return doc.save();
+      });
+    }).then(function (data) {
+      btn.disabled = false;
+      saveBlob(new Blob([data], { type: 'application/pdf' }), fileName + '-watermarked.pdf');
+      say('Done. The watermark has been added to all ' + totalPages + ' pages and your new PDF has been downloaded.');
+    }).catch(function () {
+      btn.disabled = false;
+      say('Sorry, something went wrong while adding the watermark.');
+    });
+  });
+})();
+</script>
+
+<script src="../assets/main.js?v=2"></script>
+</html>
