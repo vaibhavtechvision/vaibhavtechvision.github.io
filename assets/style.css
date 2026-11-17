@@ -158,7 +158,7 @@ select:focus-visible {
 
 /* Forms and tools */
 label { display: block; font-weight: bold; margin: 1rem 0 0.25rem; }
-textarea, input[type="text"], input[type="password"] {
+textarea, input[type="text"], input[type="password"], input[type="number"] {
   width: 100%;
   max-width: 40rem;
   font-family: inherit;

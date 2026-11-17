@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Editor | Vaibhav Tech Vision</title>
+<meta name="description" content="Free accessible image editor. Resize, crop, rotate, flip, fix brightness and colours, add text and save your photo as JPG, PNG or WebP. Everything stays on your own device.">
+<link rel="stylesheet" href="../assets/style.css?v=3">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/audio-books.html">Audio Books</a></li>
+          <li><a href="../tools/audio-library.html">Audio Library</a></li>
+          <li><a href="../tools/text-manipulation.html">Text Manipulation</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation</a></li>
+          <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
+          <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="../tools/image-editor.html" aria-current="page">Image Editor</a></li>
+          <li><a href="../tools/image-compressor.html">Image Compressor</a></li>
+          <li><a href="../tools/passport-photo.html">Passport Size Photo</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Image Editor</h1>
+  <p>This free tool edits your photos right inside your browser. Your photo never leaves your device; nothing is uploaded to any server.</p>
+  <p>You can make the photo bigger or smaller, crop it, rotate or flip it, fix brightness and colours, add text, and save it as JPG, PNG or WebP. Every control works with a keyboard and a screen reader: you type numbers or choose options, then press a button. The result is read out after every change.</p>
+  <p>Related tools: <a href="passport-photo.html">Passport Size Photo</a> makes a correct passport size photo with a white background, and <a href="image-compressor.html">Image Compressor</a> makes a photo fit an exact file size like 20 KB.</p>
+
+  <h2>Step 1: Choose your photo</h2>
+  <label for="file">Photo file</label>
+  <input type="file" id="file" accept="image/*">
+  <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. The photo opens on your device only.</p>
+  <p id="file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <p id="error" class="status" role="alert" aria-atomic="true"></p>
+
+  <div id="editor" hidden>
+    <canvas id="preview" role="img" aria-label="Preview of your photo"></canvas>
+
+    <h2>Step 2: Make bigger or smaller (resize)</h2>
+    <fieldset>
+      <legend>Resize by</legend>
+      <label><input type="radio" name="rs-mode" value="percent" checked> Percent (for example 50 makes it half size)</label>
+      <label><input type="radio" name="rs-mode" value="pixels"> Exact pixels</label>
+    </fieldset>
+    <div id="rs-percent-box">
+      <label for="rs-percent">Size in percent</label>
+      <input type="number" id="rs-percent" min="1" max="800" step="1" value="50">
+    </div>
+    <div id="rs-pixels-box" hidden>
+      <label for="rs-w">New width in pixels</label>
+      <input type="number" id="rs-w" min="1" max="10000" step="1">
+      <label for="rs-h">New height in pixels</label>
+      <input type="number" id="rs-h" min="1" max="10000" step="1">
+      <label><input type="checkbox" id="rs-keep" checked> Keep the photo's shape (when you change one side, the other follows)</label>
+    </div>
+    <div class="button-row" role="group" aria-label="Resize actions">
+      <button class="action" type="button" id="rs-apply">Apply resize</button>
+    </div>
+
+    <h2>Step 3: Crop (cut out one part)</h2>
+    <p class="hint">The crop keeps the part of the photo inside a box. Left and Top say where the box starts, counted in pixels from the top-left corner of the photo. Width and Height say how big the box is.</p>
+    <label for="crop-preset">Quick shape (fills the numbers for you)</label>
+    <select id="crop-preset">
+      <option value="">Choose a shape, or type your own numbers below</option>
+      <option value="1:1">Square (1:1)</option>
+      <option value="4:3">Standard (4:3)</option>
+      <option value="3:2">Photo print (3:2)</option>
+      <option value="16:9">Wide screen (16:9)</option>
+      <option value="35:45">Passport shape (35 x 45 mm)</option>
+    </select>
+    <label for="crop-x">Left in pixels</label>
+    <input type="number" id="crop-x" min="0" step="1" value="0">
+    <label for="crop-y">Top in pixels</label>
+    <input type="number" id="crop-y" min="0" step="1" value="0">
+    <label for="crop-w">Width in pixels</label>
+    <input type="number" id="crop-w" min="1" step="1">
+    <label for="crop-h">Height in pixels</label>
+    <input type="number" id="crop-h" min="1" step="1">
+    <div class="button-row" role="group" aria-label="Crop actions">
+      <button class="action" type="button" id="crop-apply">Apply crop</button>
+    </div>
+
+    <h2>Step 4: Rotate and flip</h2>
+    <div class="button-row" role="group" aria-label="Rotate and flip actions">
+      <button class="action" type="button" id="rot-left">Rotate left 90 degrees</button>
+      <button class="action" type="button" id="rot-right">Rotate right 90 degrees</button>
+      <button class="action" type="button" id="rot-180">Turn upside down (180 degrees)</button>
+      <button class="action" type="button" id="flip-h">Flip left to right (mirror)</button>
+      <button class="action" type="button" id="flip-v">Flip top to bottom</button>
+    </div>
+
+    <h2>Step 5: Brightness, contrast and colour</h2>
+    <p class="hint">100 means no change. Higher is more, lower is less. Each time you press the button, the change is added to the current photo. Press Start over to return to the original.</p>
+    <label for="adj-bright">Brightness in percent</label>
+    <input type="number" id="adj-bright" min="0" max="300" step="5" value="100">
+    <label for="adj-contrast">Contrast in percent</label>
+    <input type="number" id="adj-contrast" min="0" max="300" step="5" value="100">
+    <label for="adj-sat">Colour strength in percent</label>
+    <input type="number" id="adj-sat" min="0" max="300" step="5" value="100">
+    <div class="button-row" role="group" aria-label="Brightness and colour actions">
+      <button class="action" type="button" id="adj-apply">Apply changes</button>
+    </div>
+
+    <h2>Step 6: Ready-made filters</h2>
+    <label for="filter">Filter</label>
+    <select id="filter">
+      <option value="grayscale">Black and white (grayscale)</option>
+      <option value="sepia">Sepia (old photo look)</option>
+      <option value="invert">Invert colours</option>
+      <option value="contrast">Black and white, high contrast</option>
+    </select>
+    <div class="button-row" role="group" aria-label="Filter actions">
+      <button class="action" type="button" id="filter-apply">Apply filter</button>
+    </div>
+
+    <h2>Step 7: Add text to the photo</h2>
+    <label for="text-value">Text to write</label>
+    <input type="text" id="text-value" autocomplete="off">
+    <label for="text-size">Letter size in pixels</label>
+    <input type="number" id="text-size" min="8" max="400" step="1" value="48">
+    <label for="text-color">Text colour</label>
+    <select id="text-color">
+      <option value="#ffffff">White</option>
+      <option value="#000000">Black</option>
+      <option value="#ffdd00">Yellow</option>
+      <option value="#d00000">Red</option>
+      <option value="#0044cc">Blue</option>
+    </select>
+    <label for="text-pos">Text position</label>
+    <select id="text-pos">
+      <option value="bottom">Bottom centre</option>
+      <option value="middle">Middle centre</option>
+      <option value="top">Top centre</option>
+    </select>
+    <div class="button-row" role="group" aria-label="Text actions">
+      <button class="action" type="button" id="text-apply">Add text</button>
+    </div>
+
+    <h2>Step 8: Save your photo</h2>
+    <label for="save-format">File type</label>
+    <select id="save-format">
+      <option value="original">Same as the original photo</option>
+      <option value="image/jpeg">JPG (best for photos, small file)</option>
+      <option value="image/png">PNG (best for text and graphics)</option>
+      <option value="image/webp">WebP (modern, small file)</option>
+    </select>
+    <label for="save-quality">Quality in percent (for JPG and WebP; higher looks better but makes a bigger file)</label>
+    <input type="number" id="save-quality" min="1" max="100" step="1" value="90">
+    <div class="button-row" role="group" aria-label="Save and reset actions">
+      <button class="action" type="button" id="save-btn">Download photo</button>
+      <button class="action secondary" type="button" id="reset-btn">Start over with the original photo</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="hint">Need a passport size photo with a white background? Use the <a href="passport-photo.html">Passport Size Photo</a> tool. Need an exact file size like 20 KB for a form? Use the <a href="image-compressor.html">Image Compressor</a>.</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you do with this tool stays on your own device.</p>
+</footer>
+<script src="../assets/image-tools.js?v=1"></script>
+<script>
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('file');
+  var infoEl = document.getElementById('file-info');
+  var errorEl = document.getElementById('error');
+  var statusEl = document.getElementById('status');
+  var editorEl = document.getElementById('editor');
+  var preview = document.getElementById('preview');
+  var original = null;   // canvas of the photo as loaded
+  var work = null;       // canvas being edited
+  var originalName = 'photo';
+  var originalMime = 'image/jpeg';
+
+  function say(msg) { statusEl.textContent = msg; }
+  function fail(msg) { errorEl.textContent = msg; infoEl.textContent = ''; }
+  function clearErr() { errorEl.textContent = ''; }
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+  function describe(prefix) {
+    var label = (prefix ? prefix + ' ' : '') + 'The photo is now ' + work.width + ' pixels wide and ' + work.height + ' pixels high.';
+    preview.setAttribute('aria-label', label);
+    say(label);
+  }
+  function refresh() {
+    preview.width = work.width;
+    preview.height = work.height;
+    preview.getContext('2d').drawImage(work, 0, 0);
+  }
+  function applyDraw(fn, message) {
+    var next = document.createElement('canvas');
+    fn(next);
+    work = next;
+    refresh();
+    describe(message);
+  }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      original = VTV.imageToCanvas(r.img);
+      work = VTV.copyCanvas(original);
+      originalName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      originalMime = /^image\/(jpeg|png|webp)$/.test(f.type) ? f.type : 'image/png';
+      editorEl.hidden = false;
+      refresh();
+      var label = 'Your photo is ready. It is ' + work.width + ' pixels wide and ' + work.height +
+        ' pixels high, file size ' + VTV.formatBytes(f.size) + '. Use the steps below to edit it.';
+      preview.setAttribute('aria-label', label);
+      infoEl.textContent = label;
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  /* Resize */
+  var rsPercentBox = document.getElementById('rs-percent-box');
+  var rsPixelsBox = document.getElementById('rs-pixels-box');
+  document.querySelectorAll('input[name="rs-mode"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var px = document.querySelector('input[name="rs-mode"]:checked').value === 'pixels';
+      rsPercentBox.hidden = !px;
+      rsPixelsBox.hidden = px;
+      if (px) {
+        document.getElementById('rs-w').value = work.width;
+        document.getElementById('rs-h').value = work.height;
+      }
+    });
+  });
+  document.getElementById('rs-w').addEventListener('input', function () {
+    if (document.getElementById('rs-keep').checked && work && work.width) {
+      var w = num('rs-w');
+      if (w > 0) { document.getElementById('rs-h').value = Math.max(1, Math.round(work.height * w / work.width)); }
+    }
+  });
+  document.getElementById('rs-h').addEventListener('input', function () {
+    if (document.getElementById('rs-keep').checked && work && work.height) {
+      var h = num('rs-h');
+      if (h > 0) { document.getElementById('rs-w').value = Math.max(1, Math.round(work.width * h / work.height)); }
+    }
+  });
+  document.getElementById('rs-apply').addEventListener('click', function () {
+    clearErr();
+    var mode = document.querySelector('input[name="rs-mode"]:checked').value;
+    var w, h;
+    if (mode === 'percent') {
+      var p = num('rs-percent');
+      if (!(p > 0 && p <= 800)) { fail('Please type a percent between 1 and 800.'); return; }
+      w = Math.round(work.width * p / 100);
+      h = Math.round(work.height * p / 100);
+    } else {
+      w = num('rs-w'); h = num('rs-h');
+      if (!(w >= 1 && h >= 1 && w <= 10000 && h <= 10000)) { fail('Please type a width and height between 1 and 10000 pixels.'); return; }
+    }
+    work = VTV.resizedCanvas(work, w, h);
+    refresh();
+    describe('Resized.');
+  });
+
+  /* Crop */
+  document.getElementById('crop-preset').addEventListener('change', function () {
+    var v = this.value;
+    if (!v) { return; }
+    var parts = v.split(':');
+    var ratio = parseFloat(parts[0]) / parseFloat(parts[1]);
+    var cw = work.width, ch = work.height;
+    if (cw / ch > ratio) { cw = Math.round(ch * ratio); } else { ch = Math.round(cw / ratio); }
+    document.getElementById('crop-x').value = Math.round((work.width - cw) / 2);
+    document.getElementById('crop-y').value = Math.round((work.height - ch) / 2);
+    document.getElementById('crop-w').value = cw;
+    document.getElementById('crop-h').value = ch;
+    say('The crop numbers are filled for the ' + v + ' shape, centred on the photo. Press Apply crop to cut, or change the numbers first.');
+  });
+  document.getElementById('crop-apply').addEventListener('click', function () {
+    clearErr();
+    var x = num('crop-x'), y = num('crop-y'), w = num('crop-w'), h = num('crop-h');
+    if (!(x >= 0 && y >= 0 && w >= 1 && h >= 1)) { fail('Please type crop numbers: Left and Top zero or more, Width and Height at least 1.'); return; }
+    if (x + w > work.width || y + h > work.height) {
+      fail('The crop box goes outside the photo. The photo is ' + work.width + ' by ' + work.height + ' pixels, so Left plus Width must be at most ' + work.width + ' and Top plus Height at most ' + work.height + '.');
+      return;
+    }
+    applyDraw(function (next) {
+      next.width = Math.round(w); next.height = Math.round(h);
+      next.getContext('2d').drawImage(work, Math.round(x), Math.round(y), Math.round(w), Math.round(h), 0, 0, Math.round(w), Math.round(h));
+    }, 'Cropped.');
+  });
+
+  /* Rotate and flip */
+  function rotate(deg) {
+    applyDraw(function (next) {
+      var swap = Math.abs(deg) === 90;
+      next.width = swap ? work.height : work.width;
+      next.height = swap ? work.width : work.height;
+      var ctx = next.getContext('2d');
+      ctx.translate(next.width / 2, next.height / 2);
+      ctx.rotate(deg * Math.PI / 180);
+      ctx.drawImage(work, -work.width / 2, -work.height / 2);
+    }, deg === 180 ? 'Turned upside down.' : 'Rotated ' + (deg > 0 ? 'right' : 'left') + ' 90 degrees.');
+  }
+  function flip(horizontal) {
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.translate(horizontal ? work.width : 0, horizontal ? 0 : work.height);
+      ctx.scale(horizontal ? -1 : 1, horizontal ? 1 : -1);
+      ctx.drawImage(work, 0, 0);
+    }, horizontal ? 'Flipped left to right.' : 'Flipped top to bottom.');
+  }
+  document.getElementById('rot-left').addEventListener('click', function () { clearErr(); rotate(-90); });
+  document.getElementById('rot-right').addEventListener('click', function () { clearErr(); rotate(90); });
+  document.getElementById('rot-180').addEventListener('click', function () { clearErr(); rotate(180); });
+  document.getElementById('flip-h').addEventListener('click', function () { clearErr(); flip(true); });
+  document.getElementById('flip-v').addEventListener('click', function () { clearErr(); flip(false); });
+
+  /* Brightness, contrast, colour */
+  document.getElementById('adj-apply').addEventListener('click', function () {
+    clearErr();
+    var b = num('adj-bright'), c = num('adj-contrast'), s = num('adj-sat');
+    if (!(b >= 0 && b <= 300 && c >= 0 && c <= 300 && s >= 0 && s <= 300)) {
+      fail('Brightness, contrast and colour must be between 0 and 300 percent.'); return;
+    }
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.filter = 'brightness(' + b + '%) contrast(' + c + '%) saturate(' + s + '%)';
+      ctx.drawImage(work, 0, 0);
+    }, 'Brightness ' + b + ' percent, contrast ' + c + ' percent and colour ' + s + ' percent applied.');
+  });
+
+  /* Filters */
+  document.getElementById('filter-apply').addEventListener('click', function () {
+    clearErr();
+    var f = document.getElementById('filter').value;
+    var css = { grayscale: 'grayscale(1)', sepia: 'sepia(1)', invert: 'invert(1)', contrast: 'grayscale(1) contrast(1.4)' }[f];
+    var names = { grayscale: 'Black and white', sepia: 'Sepia', invert: 'Inverted colours', contrast: 'Black and white high contrast' };
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.filter = css;
+      ctx.drawImage(work, 0, 0);
+    }, names[f] + ' filter applied.');
+  });
+
+  /* Add text */
+  document.getElementById('text-apply').addEventListener('click', function () {
+    clearErr();
+    var t = document.getElementById('text-value').value.trim();
+    if (!t) { fail('Please type the text to write on the photo.'); return; }
+    var size = num('text-size');
+    if (!(size >= 8 && size <= 400)) { fail('Letter size must be between 8 and 400 pixels.'); return; }
+    var color = document.getElementById('text-color').value;
+    var pos = document.getElementById('text-pos').value;
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.drawImage(work, 0, 0);
+      ctx.font = 'bold ' + size + 'px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      var margin = size;
+      var y = pos === 'top' ? margin : pos === 'bottom' ? work.height - margin : work.height / 2;
+      ctx.lineWidth = Math.max(2, size / 12);
+      ctx.strokeStyle = color === '#000000' ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.85)';
+      ctx.strokeText(t, work.width / 2, y);
+      ctx.fillStyle = color;
+      ctx.fillText(t, work.width / 2, y);
+    }, 'Text added.');
+  });
+
+  /* Save and reset */
+  document.getElementById('save-btn').addEventListener('click', function () {
+    clearErr();
+    var fmt = document.getElementById('save-format').value;
+    var mime = fmt === 'original' ? originalMime : fmt;
+    var q = num('save-quality');
+    if (!(q >= 1 && q <= 100)) { fail('Quality must be between 1 and 100.'); return; }
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    say('Saving, please wait.');
+    VTV.toBlob(work, mime, q / 100).then(function (blob) {
+      VTV.download(blob, originalName + '-edited.' + ext);
+      say('Done. Your photo downloaded as ' + originalName + '-edited.' + ext + ', ' + work.width + ' by ' + work.height + ' pixels, ' + VTV.formatBytes(blob.size) + '.');
+    }).catch(function () {
+      fail('Sorry, the photo could not be saved in this format. Please try JPG or PNG.');
+    });
+  });
+  document.getElementById('reset-btn').addEventListener('click', function () {
+    clearErr();
+    work = VTV.copyCanvas(original);
+    refresh();
+    describe('Started over.');
+  });
+})();
+</script>
+<script src="../assets/main.js?v=2"></script>
+</body>
+</html>
