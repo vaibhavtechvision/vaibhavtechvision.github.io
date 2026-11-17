@@ -140,4 +140,68 @@
     return out;
   });
 
+  wire('qe', 'email-qr-code.png', function () {
+    var to = $('qe-to').value.trim();
+    if (!to) return '';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
+      throw new Error('please type a valid email address, for example name@example.com.');
+    }
+    var out = 'mailto:' + to;
+    var qs = [];
+    var sub = $('qe-subject').value.trim();
+    if (sub) qs.push('subject=' + encodeURIComponent(sub));
+    var body = $('qe-body').value.trim();
+    if (body) qs.push('body=' + encodeURIComponent(body));
+    if (qs.length) out += '?' + qs.join('&');
+    return out;
+  });
+
+  wire('qs', 'sms-qr-code.png', function () {
+    var n = $('qs-number').value.trim();
+    if (!n) return '';
+    if (!/^\+?[0-9 ()-]{5,20}$/.test(n)) {
+      throw new Error('please type a phone number with digits only, starting with the country code, for example +91.');
+    }
+    var out = 'sms:' + n.replace(/[ ()-]/g, '');
+    var body = $('qs-body').value.trim();
+    if (body) out += '?body=' + encodeURIComponent(body);
+    return out;
+  });
+
+  wire('qc', 'whatsapp-qr-code.png', function () {
+    var n = $('qc-number').value.replace(/[^0-9]/g, '');
+    if (!n) return '';
+    if (n.length < 8 || n.length > 15) {
+      throw new Error('please type the number with the country code, using 8 to 15 digits, for example 91 followed by your ten digits.');
+    }
+    var out = 'https://wa.me/' + n;
+    var t = $('qc-text').value.trim();
+    if (t) out += '?text=' + encodeURIComponent(t);
+    return out;
+  });
+
+  wire('qv', 'contact-qr-code.png', function () {
+    var name = $('qv-name').value.trim();
+    if (!name) return '';
+    var lines = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + name.replace(/[\r\n;,]/g, ' ')];
+    var phone = $('qv-phone').value.trim();
+    if (phone) {
+      if (!/^\+?[0-9 ()-]{5,20}$/.test(phone)) {
+        throw new Error('the phone number should have digits only, starting with the country code, for example +91.');
+      }
+      lines.push('TEL;TYPE=CELL:' + phone.replace(/[ ()-]/g, ''));
+    }
+    var email = $('qv-email').value.trim();
+    if (email) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('please type a valid email address, for example name@example.com.');
+      }
+      lines.push('EMAIL:' + email);
+    }
+    var org = $('qv-org').value.trim();
+    if (org) lines.push('ORG:' + org.replace(/[\r\n;]/g, ' '));
+    lines.push('END:VCARD');
+    return lines.join('\r\n');
+  });
+
 })();
