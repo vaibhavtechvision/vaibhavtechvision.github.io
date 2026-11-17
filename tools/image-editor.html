@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Image Editor | Vaibhav Tech Vision</title>
-<meta name="description" content="Free accessible image editor. Resize, crop, rotate, flip, fix brightness and colours, add text and save your photo as JPG, PNG or WebP. Everything stays on your own device.">
+<meta name="description" content="Free accessible image tools in one page: edit photos (resize, crop, rotate, colours, text, watermark, blur), convert between JPG, PNG and WebP, join photos into one, split a photo into parts, compress a photo to an exact file size like 20 KB, and make a passport size photo with a white background. Everything stays on your own device.">
 <link rel="stylesheet" href="../assets/style.css?v=3">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
@@ -38,8 +38,6 @@
           <li><a href="../tools/government-circulars.html">Government Circulars</a></li>
           <li><a href="../tools/currency-converter.html">Currency Converter</a></li>
           <li><a href="../tools/image-editor.html" aria-current="page">Image Editor</a></li>
-          <li><a href="../tools/image-compressor.html">Image Compressor</a></li>
-          <li><a href="../tools/passport-photo.html">Passport Size Photo</a></li>
         </ul>
       </li>
       <li>
@@ -71,11 +69,23 @@
 
 <main id="main">
   <h1>Image Editor</h1>
-  <p>This free tool edits your photos right inside your browser. Your photo never leaves your device; nothing is uploaded to any server.</p>
-  <p>You can make the photo bigger or smaller, crop it, rotate or flip it, fix brightness and colours, add text, and save it as JPG, PNG or WebP. Every control works with a keyboard and a screen reader: you type numbers or choose options, then press a button. The result is read out after every change.</p>
-  <p>Related tools: <a href="passport-photo.html">Passport Size Photo</a> makes a correct passport size photo with a white background, and <a href="image-compressor.html">Image Compressor</a> makes a photo fit an exact file size like 20 KB.</p>
+  <p>This free tool works on your photos right inside your browser. Your photo never leaves your device; nothing is uploaded to any server. Every control works with a keyboard and a screen reader: you type numbers or choose options, then press a button. The result is read out after every change.</p>
+  <nav aria-label="Tools on this page">
+    <p>This one page has six tools:</p>
+    <ul>
+      <li><a href="#edit-photo">Image Editor: make a photo bigger or smaller (pixels, percent or centimetres), crop it, rotate or flip it, fix brightness and colours, add text, add a watermark, blur or cover a part, and save it as JPG, PNG or WebP.</a></li>
+      <li><a href="#format-converter">Image Format Converter: change a photo from JPG, PNG or WebP to another type.</a></li>
+      <li><a href="#merge-photos">Merge Photos: join two or more photos into one, side by side or stacked.</a></li>
+      <li><a href="#split-photo">Split a Photo: cut one photo into smaller parts.</a></li>
+      <li><a href="#image-compressor">Image Compressor: make a photo fit an exact file size you type, like 20 KB or 1 MB, for form and document uploads.</a></li>
+      <li><a href="#passport-photo">Passport Size Photo: turn a photo into a correct passport size photo with exact dimensions and an automatic white background.</a></li>
+    </ul>
+  </nav>
 
-  <h2>Step 1: Choose your photo</h2>
+  <section aria-labelledby="edit-photo">
+    <h2 id="edit-photo">1. Image Editor</h2>
+    <p>Edit your photo step by step below. When you are done, you can make it an exact file size in the Image Compressor section, or turn it into a passport photo in the Passport Size Photo section.</p>
+<h3>Step 1: Choose your photo</h3>
   <label for="file">Photo file</label>
   <input type="file" id="file" accept="image/*">
   <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. The photo opens on your device only.</p>
@@ -85,11 +95,12 @@
   <div id="editor" hidden>
     <canvas id="preview" role="img" aria-label="Preview of your photo"></canvas>
 
-    <h2>Step 2: Make bigger or smaller (resize)</h2>
+    <h3>Step 2: Make bigger or smaller (resize)</h3>
     <fieldset>
       <legend>Resize by</legend>
       <label><input type="radio" name="rs-mode" value="percent" checked> Percent (for example 50 makes it half size)</label>
       <label><input type="radio" name="rs-mode" value="pixels"> Exact pixels</label>
+      <label><input type="radio" name="rs-mode" value="cm"> Centimetres for printing (uses DPI)</label>
     </fieldset>
     <div id="rs-percent-box">
       <label for="rs-percent">Size in percent</label>
@@ -102,11 +113,19 @@
       <input type="number" id="rs-h" min="1" max="10000" step="1">
       <label><input type="checkbox" id="rs-keep" checked> Keep the photo's shape (when you change one side, the other follows)</label>
     </div>
+    <div id="rs-cm-box" hidden>
+      <label for="rs-cm-w">New width in centimetres</label>
+      <input type="number" id="rs-cm-w" min="0.5" max="100" step="0.1">
+      <label for="rs-cm-h">New height in centimetres</label>
+      <input type="number" id="rs-cm-h" min="0.5" max="100" step="0.1">
+      <label for="rs-dpi">Print quality in DPI (300 is the standard for printing)</label>
+      <input type="number" id="rs-dpi" min="50" max="1200" step="1" value="300">
+    </div>
     <div class="button-row" role="group" aria-label="Resize actions">
       <button class="action" type="button" id="rs-apply">Apply resize</button>
     </div>
 
-    <h2>Step 3: Crop (cut out one part)</h2>
+    <h3>Step 3: Crop (cut out one part)</h3>
     <p class="hint">The crop keeps the part of the photo inside a box. Left and Top say where the box starts, counted in pixels from the top-left corner of the photo. Width and Height say how big the box is.</p>
     <label for="crop-preset">Quick shape (fills the numbers for you)</label>
     <select id="crop-preset">
@@ -129,7 +148,7 @@
       <button class="action" type="button" id="crop-apply">Apply crop</button>
     </div>
 
-    <h2>Step 4: Rotate and flip</h2>
+    <h3>Step 4: Rotate and flip</h3>
     <div class="button-row" role="group" aria-label="Rotate and flip actions">
       <button class="action" type="button" id="rot-left">Rotate left 90 degrees</button>
       <button class="action" type="button" id="rot-right">Rotate right 90 degrees</button>
@@ -138,7 +157,7 @@
       <button class="action" type="button" id="flip-v">Flip top to bottom</button>
     </div>
 
-    <h2>Step 5: Brightness, contrast and colour</h2>
+    <h3>Step 5: Brightness, contrast and colour</h3>
     <p class="hint">100 means no change. Higher is more, lower is less. Each time you press the button, the change is added to the current photo. Press Start over to return to the original.</p>
     <label for="adj-bright">Brightness in percent</label>
     <input type="number" id="adj-bright" min="0" max="300" step="5" value="100">
@@ -150,7 +169,7 @@
       <button class="action" type="button" id="adj-apply">Apply changes</button>
     </div>
 
-    <h2>Step 6: Ready-made filters</h2>
+    <h3>Step 6: Ready-made filters</h3>
     <label for="filter">Filter</label>
     <select id="filter">
       <option value="grayscale">Black and white (grayscale)</option>
@@ -162,7 +181,7 @@
       <button class="action" type="button" id="filter-apply">Apply filter</button>
     </div>
 
-    <h2>Step 7: Add text to the photo</h2>
+    <h3>Step 7: Add text to the photo</h3>
     <label for="text-value">Text to write</label>
     <input type="text" id="text-value" autocomplete="off">
     <label for="text-size">Letter size in pixels</label>
@@ -185,7 +204,60 @@
       <button class="action" type="button" id="text-apply">Add text</button>
     </div>
 
-    <h2>Step 8: Save your photo</h2>
+    <h3>Step 8: Add a watermark (see-through text)</h3>
+    <p class="hint">A watermark is see-through text on top of the photo, for example your name or website, so others do not misuse your photo.</p>
+    <label for="wm-text">Watermark text</label>
+    <input type="text" id="wm-text" autocomplete="off">
+    <label for="wm-size">Letter size in pixels</label>
+    <input type="number" id="wm-size" min="8" max="200" step="1" value="36">
+    <label for="wm-color">Watermark colour</label>
+    <select id="wm-color">
+      <option value="#ffffff">White</option>
+      <option value="#000000">Black</option>
+    </select>
+    <label for="wm-opacity">How visible in percent (100 is fully solid, 30 is lightly visible)</label>
+    <input type="number" id="wm-opacity" min="5" max="100" step="5" value="30">
+    <label for="wm-mode">Placement</label>
+    <select id="wm-mode">
+      <option value="tile">Repeated all over the photo</option>
+      <option value="center">Once, in the centre</option>
+      <option value="corner">Once, in the bottom right corner</option>
+    </select>
+    <div class="button-row" role="group" aria-label="Watermark actions">
+      <button class="action" type="button" id="wm-apply">Add watermark</button>
+    </div>
+
+    <h3>Step 9: Blur or cover one part of the photo</h3>
+    <p class="hint">Hide a face, a name or a number in the photo. Like the crop, Left and Top say where the part starts in pixels from the top-left corner, and Width and Height say how big it is.</p>
+    <label for="bl-x">Left in pixels</label>
+    <input type="number" id="bl-x" min="0" step="1" value="0">
+    <label for="bl-y">Top in pixels</label>
+    <input type="number" id="bl-y" min="0" step="1" value="0">
+    <label for="bl-w">Width in pixels</label>
+    <input type="number" id="bl-w" min="1" step="1">
+    <label for="bl-h">Height in pixels</label>
+    <input type="number" id="bl-h" min="1" step="1">
+    <fieldset>
+      <legend>How to hide the part</legend>
+      <label><input type="radio" name="bl-mode" value="blur" checked> Blur it (smudge it so it cannot be read)</label>
+      <label><input type="radio" name="bl-mode" value="cover"> Cover it with a solid colour</label>
+    </fieldset>
+    <div id="bl-blur-box">
+      <label for="bl-amount">Blur strength in pixels (10 is normal, higher is stronger)</label>
+      <input type="number" id="bl-amount" min="2" max="100" step="1" value="10">
+    </div>
+    <div id="bl-cover-box" hidden>
+      <label for="bl-color">Cover colour</label>
+      <select id="bl-color">
+        <option value="#000000">Black</option>
+        <option value="#ffffff">White</option>
+      </select>
+    </div>
+    <div class="button-row" role="group" aria-label="Blur or cover actions">
+      <button class="action" type="button" id="bl-apply">Hide this part</button>
+    </div>
+
+    <h3>Step 10: Save your photo</h3>
     <label for="save-format">File type</label>
     <select id="save-format">
       <option value="original">Same as the original photo</option>
@@ -200,10 +272,233 @@
       <button class="action secondary" type="button" id="reset-btn">Start over with the original photo</button>
     </div>
     <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
-    <p class="hint">Need a passport size photo with a white background? Use the <a href="passport-photo.html">Passport Size Photo</a> tool. Need an exact file size like 20 KB for a form? Use the <a href="image-compressor.html">Image Compressor</a>.</p>
+    <p class="hint">Need a passport size photo with a white background? Use the <a href="#passport-photo">Passport Size Photo section on this page</a>. Need an exact file size like 20 KB for a form? Use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
   </div>
-</main>
+  </section>
 
+  <section aria-labelledby="format-converter">
+    <h2 id="format-converter">2. Image Format Converter</h2>
+    <p>Change a photo from one file type to another: JPG, PNG or WebP. For example, turn a PNG into a JPG when a form only accepts JPG photos.</p>
+    <h3>Step 1: Choose your photo</h3>
+    <label for="fc-file">Photo file</label>
+    <input type="file" id="fc-file" accept="image/*">
+    <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
+    <p id="fc-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="fc-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="fc-controls" hidden>
+      <h3>Step 2: Choose the new file type</h3>
+      <label for="fc-format">New file type</label>
+      <select id="fc-format">
+        <option value="image/jpeg" selected>JPG (best for photos, small file)</option>
+        <option value="image/png">PNG (best for text and graphics)</option>
+        <option value="image/webp">WebP (modern, small file)</option>
+      </select>
+      <label for="fc-quality">Quality in percent (for JPG and WebP; higher looks better but makes a bigger file)</label>
+      <input type="number" id="fc-quality" min="1" max="100" step="1" value="90">
+      <div class="button-row" role="group" aria-label="Convert actions">
+        <button class="action" type="button" id="fc-go-btn">Convert my photo</button>
+      </div>
+    </div>
+    <div id="fc-result-box" hidden>
+      <h3>Step 3: Download the result</h3>
+      <p id="fc-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <canvas id="fc-preview" role="img" aria-label="Preview of the converted photo"></canvas>
+      <div class="button-row" role="group" aria-label="Download actions">
+        <button class="action" type="button" id="fc-dl-btn">Download converted photo</button>
+      </div>
+    </div>
+    <p class="hint">To change the photo itself (resize, crop, colours), use the <a href="#edit-photo">Image Editor section above</a>. To make the photo an exact file size like 20 KB, use the <a href="#image-compressor">Image Compressor section</a>.</p>
+  </section>
+
+  <section aria-labelledby="merge-photos">
+    <h2 id="merge-photos">3. Merge Photos (join photos into one)</h2>
+    <p>Join two or more photos into a single photo: side by side (left to right) or stacked (top to bottom). Useful for before-and-after photos or for putting two pictures on one print.</p>
+    <h3>Step 1: Choose the photos</h3>
+    <label for="mg-files">Photo files (choose two or more; they are joined in the order you choose them)</label>
+    <input type="file" id="mg-files" accept="image/*" multiple>
+    <p class="hint">You can join up to 6 photos. JPG, PNG, WebP, GIF and BMP photos work.</p>
+    <p id="mg-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="mg-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="mg-controls" hidden>
+      <h3>Step 2: Choose how to join them</h3>
+      <label for="mg-direction">Direction</label>
+      <select id="mg-direction">
+        <option value="row" selected>Side by side, left to right</option>
+        <option value="column">Stacked, top to bottom</option>
+      </select>
+      <label for="mg-bg">Background colour behind the photos</label>
+      <select id="mg-bg">
+        <option value="#ffffff" selected>White</option>
+        <option value="#000000">Black</option>
+      </select>
+      <label for="mg-format">File type of the result</label>
+      <select id="mg-format">
+        <option value="image/jpeg" selected>JPG (smaller file)</option>
+        <option value="image/png">PNG</option>
+        <option value="image/webp">WebP (modern, small file)</option>
+      </select>
+      <div class="button-row" role="group" aria-label="Merge actions">
+        <button class="action" type="button" id="mg-go-btn">Join my photos</button>
+      </div>
+    </div>
+    <div id="mg-result-box" hidden>
+      <h3>Step 3: Download the joined photo</h3>
+      <p id="mg-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <canvas id="mg-preview" role="img" aria-label="Preview of the joined photo"></canvas>
+      <div class="button-row" role="group" aria-label="Download actions">
+        <button class="action" type="button" id="mg-dl-btn">Download joined photo</button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="split-photo">
+    <h2 id="split-photo">4. Split a Photo into Parts</h2>
+    <p>Cut one photo into smaller parts, for example to print a big photo on small papers, or to post one photo as a grid. You choose how many rows and columns; each part downloads as its own file.</p>
+    <h3>Step 1: Choose your photo</h3>
+    <label for="sp-file">Photo file</label>
+    <input type="file" id="sp-file" accept="image/*">
+    <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
+    <p id="sp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="sp-error" class="status" role="alert" aria-atomic="true"></p>
+    <div id="sp-controls" hidden>
+      <h3>Step 2: Choose rows and columns</h3>
+      <label for="sp-rows">Rows (top to bottom)</label>
+      <input type="number" id="sp-rows" min="1" max="4" step="1" value="2">
+      <label for="sp-cols">Columns (left to right)</label>
+      <input type="number" id="sp-cols" min="1" max="4" step="1" value="1">
+      <label for="sp-format">File type of each part</label>
+      <select id="sp-format">
+        <option value="image/jpeg" selected>JPG (smaller file)</option>
+        <option value="image/png">PNG</option>
+        <option value="image/webp">WebP (modern, small file)</option>
+      </select>
+      <div class="button-row" role="group" aria-label="Split actions">
+        <button class="action" type="button" id="sp-go-btn">Split my photo</button>
+      </div>
+    </div>
+    <div id="sp-result-box" hidden>
+      <h3>Step 3: Download the parts</h3>
+      <p id="sp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="sp-parts" role="group" aria-label="Download buttons for each part"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="image-compressor">
+    <h2 id="image-compressor">5. Image Compressor</h2>
+
+  <p>This free tool makes your photo fit an exact file size that you type, for example 20 KB, 50 KB or 1 MB. It is made for government forms, exam forms and job applications that say "photo must be less than 50 KB" and so on.</p>
+  <p>Your photo never leaves your device. Everything happens inside your browser. First the tool tries quality settings; if that is not enough, it gently makes the photo smaller until it fits. The final size and dimensions are read out, so you always know exactly what you got.</p>
+<h3>Step 1: Choose your photo</h3>
+  <label for="cmp-file">Photo file</label>
+  <input type="file" id="cmp-file" accept="image/*">
+  <p class="hint">JPG, PNG, WebP, GIF and BMP photos work.</p>
+  <p id="cmp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <p id="cmp-error" class="status" role="alert" aria-atomic="true"></p>
+
+  <div id="cmp-controls" hidden>
+    <h3>Step 2: Type the size you want</h3>
+    <label for="cmp-target">File size</label>
+    <input type="number" id="cmp-target" min="1" max="102400" step="1" value="50" aria-describedby="cmp-target-help">
+    <label for="cmp-unit">In</label>
+    <select id="cmp-unit">
+      <option value="kb" selected>KB (kilobytes)</option>
+      <option value="mb">MB (megabytes)</option>
+    </select>
+    <p id="cmp-target-help" class="hint">For example: type 50 and choose KB when a form asks for a photo under 50 KB. The photo will come out at your size or just under it.</p>
+
+    <label for="cmp-format">File type of the result</label>
+    <select id="cmp-format">
+      <option value="image/jpeg" selected>JPG (best for photos, reaches small sizes)</option>
+      <option value="image/webp">WebP (modern, even smaller, accepted by many forms)</option>
+      <option value="image/png">PNG (only for graphics; photos may not reach small sizes)</option>
+    </select>
+
+    <div class="button-row" role="group" aria-label="Compress actions">
+      <button class="action" type="button" id="cmp-go-btn">Compress my photo</button>
+    </div>
+  </div>
+
+  <div id="cmp-result-box" hidden>
+    <h3>Step 3: Download the result</h3>
+    <p id="cmp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <canvas id="cmp-preview" role="img" aria-label="Preview of the compressed photo"></canvas>
+    <div class="button-row" role="group" aria-label="Download actions">
+      <button class="action" type="button" id="cmp-dl-btn">Download compressed photo</button>
+    </div>
+  </div>
+
+  <p class="hint">Please note: a photo can only be squeezed so far. If you ask for a very tiny size, like 5 KB for a big colourful photo, the tool will tell you honestly when the photo would become too unclear to use, and give you the smallest clear version it could make. To edit the photo first (crop, rotate, brightness), use the <a href="#edit-photo">Image Editor section above</a>. For passport photos, use the <a href="#passport-photo">Passport Size Photo section on this page</a>.</p>
+  </section>
+
+  <section aria-labelledby="passport-photo">
+    <h2 id="passport-photo">6. Passport Size Photo Maker</h2>
+
+  <p>This free tool turns any photo of you into a correct passport size photo, with the exact dimensions used for Indian passports, visas, exam forms and job applications. It runs fully inside your browser: your photo never leaves your device.</p>
+  <p>It cuts your photo to the exact size, can put a white background behind you automatically, and can keep the file under a size limit like 50 KB, which many forms ask for.</p>
+  <p><strong>For the best result:</strong> take the photo facing the camera, in good daylight, against a plain light-coloured wall, with no shadow behind you. The automatic white background works well with such photos but may not be perfect around hair; it is made by a small AI model that runs inside your browser, not on any server. If the result is not good enough for an official document, take the photo again against a plain white wall and choose "Keep the original background".</p>
+<h3>Step 1: Choose your photo</h3>
+  <label for="pp-file">Photo file</label>
+  <input type="file" id="pp-file" accept="image/*">
+  <p class="hint">JPG, PNG, WebP, GIF and BMP photos work. A photo where you face the camera gives the best result.</p>
+  <p id="pp-file-info" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <p id="pp-error" class="status" role="alert" aria-atomic="true"></p>
+
+  <div id="pp-controls" hidden>
+    <h3>Step 2: Choose the photo size</h3>
+    <label for="pp-size">Passport photo size</label>
+    <select id="pp-size">
+      <option value="35x45" selected>India passport and visa: 35 mm wide, 45 mm high (413 x 531 pixels)</option>
+      <option value="51x51">US visa and passport: 2 x 2 inch, 51 x 51 mm (600 x 600 pixels)</option>
+      <option value="25x35">Small exam photo: 25 mm wide, 35 mm high (295 x 413 pixels)</option>
+      <option value="custom">My own size in millimetres</option>
+    </select>
+    <div id="pp-custom-box" hidden>
+      <label for="pp-custom-w">Width in millimetres</label>
+      <input type="number" id="pp-custom-w" min="10" max="200" step="1" value="35">
+      <label for="pp-custom-h">Height in millimetres</label>
+      <input type="number" id="pp-custom-h" min="10" max="200" step="1" value="45">
+    </div>
+    <p class="hint">All sizes are made at 300 DPI, the quality required for printing. The exact pixel dimensions are always read out in the result.</p>
+
+    <h3>Step 3: Frame your face</h3>
+    <p class="hint">The tool cuts the centre of your photo to the passport shape. If your face is too small, increase the zoom. If the cut is not centred on your face, use the move numbers: positive numbers move your face right or down, negative numbers move it left or up.</p>
+    <label for="pp-zoom">Zoom in percent (100 is normal, 150 is closer)</label>
+    <input type="number" id="pp-zoom" min="100" max="400" step="5" value="100">
+    <label for="pp-move-x">Move left or right in pixels (negative is left, positive is right)</label>
+    <input type="number" id="pp-move-x" min="-2000" max="2000" step="5" value="0">
+    <label for="pp-move-y">Move up or down in pixels (negative is up, positive is down)</label>
+    <input type="number" id="pp-move-y" min="-2000" max="2000" step="5" value="0">
+
+    <h3>Step 4: Background</h3>
+    <fieldset>
+      <legend>Background of the photo</legend>
+      <label><input type="radio" name="bg" value="white" checked> White background (automatic, recommended)</label>
+      <label><input type="radio" name="bg" value="original"> Keep the original background</label>
+    </fieldset>
+
+    <h3>Step 5: File size limit (optional)</h3>
+    <label><input type="checkbox" id="pp-limit-on"> The file must be smaller than a size I type (many exam forms ask for this)</label>
+    <label for="pp-limit-kb">Maximum file size in KB</label>
+    <input type="number" id="pp-limit-kb" min="5" max="2048" step="1" value="50">
+
+    <div class="button-row" role="group" aria-label="Make photo actions">
+      <button class="action" type="button" id="pp-go-btn">Make my passport photo</button>
+    </div>
+  </div>
+
+  <div id="pp-result-box" hidden>
+    <h3>Step 6: Check and download</h3>
+    <p id="pp-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <canvas id="pp-preview" role="img" aria-label="Preview of your passport photo"></canvas>
+    <div class="button-row" role="group" aria-label="Download actions">
+      <button class="action" type="button" id="pp-dl-btn">Download passport photo</button>
+    </div>
+    <p class="hint">If the framing is not right, change the zoom or move numbers above and press "Make my passport photo" again. There is no limit; try as many times as you like.</p>
+  </div>
+
+  <p class="hint">Honest limits: the automatic white background is very good with plain backgrounds, but it can leave small mistakes around hair or shadows, and it cannot remove objects behind you like doors or trees. Very strict authorities (for example some embassies) may still ask for a studio photo. To edit the photo first, use the <a href="#edit-photo">Image Editor section above</a>. To squeeze any photo to an exact file size, use the <a href="#image-compressor">Image Compressor section on this page</a>.</p>
+  </section>
+</main>
 <footer class="site-footer">
   <nav aria-label="Quick Links">
     <h2 class="footer-heading">Quick Links</h2>
@@ -306,14 +601,20 @@
   /* Resize */
   var rsPercentBox = document.getElementById('rs-percent-box');
   var rsPixelsBox = document.getElementById('rs-pixels-box');
+  var rsCmBox = document.getElementById('rs-cm-box');
   document.querySelectorAll('input[name="rs-mode"]').forEach(function (r) {
     r.addEventListener('change', function () {
-      var px = document.querySelector('input[name="rs-mode"]:checked').value === 'pixels';
-      rsPercentBox.hidden = !px;
-      rsPixelsBox.hidden = px;
-      if (px) {
+      var mode = document.querySelector('input[name="rs-mode"]:checked').value;
+      rsPercentBox.hidden = mode !== 'percent';
+      rsPixelsBox.hidden = mode !== 'pixels';
+      rsCmBox.hidden = mode !== 'cm';
+      if (mode === 'pixels') {
         document.getElementById('rs-w').value = work.width;
         document.getElementById('rs-h').value = work.height;
+      }
+      if (mode === 'cm') {
+        document.getElementById('rs-cm-w').value = (work.width / 300 * 2.54).toFixed(1);
+        document.getElementById('rs-cm-h').value = (work.height / 300 * 2.54).toFixed(1);
       }
     });
   });
@@ -338,9 +639,16 @@
       if (!(p > 0 && p <= 800)) { fail('Please type a percent between 1 and 800.'); return; }
       w = Math.round(work.width * p / 100);
       h = Math.round(work.height * p / 100);
-    } else {
+    } else if (mode === 'pixels') {
       w = num('rs-w'); h = num('rs-h');
       if (!(w >= 1 && h >= 1 && w <= 10000 && h <= 10000)) { fail('Please type a width and height between 1 and 10000 pixels.'); return; }
+    } else {
+      var cw = num('rs-cm-w'), ch = num('rs-cm-h'), dpi = num('rs-dpi');
+      if (!(cw >= 0.5 && cw <= 100 && ch >= 0.5 && ch <= 100)) { fail('Please type a width and height between 0.5 and 100 centimetres.'); return; }
+      if (!(dpi >= 50 && dpi <= 1200)) { fail('DPI must be between 50 and 1200.'); return; }
+      w = Math.round(cw / 2.54 * dpi);
+      h = Math.round(ch / 2.54 * dpi);
+      if (w > 10000 || h > 10000) { fail('That size at ' + dpi + ' DPI needs more than 10000 pixels. Please type a smaller size or a lower DPI.'); return; }
     }
     work = VTV.resizedCanvas(work, w, h);
     refresh();
@@ -457,6 +765,90 @@
     }, 'Text added.');
   });
 
+  /* Watermark */
+  document.getElementById('wm-apply').addEventListener('click', function () {
+    clearErr();
+    var t = document.getElementById('wm-text').value.trim();
+    if (!t) { fail('Please type the watermark text.'); return; }
+    var size = num('wm-size');
+    if (!(size >= 8 && size <= 200)) { fail('Letter size must be between 8 and 200 pixels.'); return; }
+    var op = num('wm-opacity');
+    if (!(op >= 5 && op <= 100)) { fail('Visibility must be between 5 and 100 percent.'); return; }
+    var color = document.getElementById('wm-color').value;
+    var mode = document.getElementById('wm-mode').value;
+    applyDraw(function (next) {
+      next.width = work.width; next.height = work.height;
+      var ctx = next.getContext('2d');
+      ctx.drawImage(work, 0, 0);
+      ctx.font = 'bold ' + size + 'px Arial, sans-serif';
+      ctx.fillStyle = color;
+      ctx.globalAlpha = op / 100;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      if (mode === 'tile') {
+        var gapX = Math.max(size * 6, ctx.measureText(t).width + size * 3);
+        var gapY = size * 5;
+        ctx.save();
+        ctx.translate(work.width / 2, work.height / 2);
+        ctx.rotate(-Math.PI / 6);
+        var R = Math.sqrt(work.width * work.width + work.height * work.height) / 2 + gapX;
+        for (var y = -R; y <= R; y += gapY) {
+          for (var x = -R; x <= R; x += gapX) { ctx.fillText(t, x, y); }
+        }
+        ctx.restore();
+      } else if (mode === 'corner') {
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(t, work.width - size / 2, work.height - size / 2);
+      } else {
+        ctx.fillText(t, work.width / 2, work.height / 2);
+      }
+      ctx.globalAlpha = 1;
+    }, mode === 'tile' ? 'Watermark repeated all over the photo.' : 'Watermark added.');
+  });
+
+  /* Blur or cover a region */
+  document.querySelectorAll('input[name="bl-mode"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var blur = document.querySelector('input[name="bl-mode"]:checked').value === 'blur';
+      document.getElementById('bl-blur-box').hidden = !blur;
+      document.getElementById('bl-cover-box').hidden = blur;
+    });
+  });
+  document.getElementById('bl-apply').addEventListener('click', function () {
+    clearErr();
+    var x = num('bl-x'), y = num('bl-y'), w = num('bl-w'), h = num('bl-h');
+    if (!(x >= 0 && y >= 0 && w >= 1 && h >= 1)) { fail('Please type the part numbers: Left and Top zero or more, Width and Height at least 1.'); return; }
+    if (x + w > work.width || y + h > work.height) {
+      fail('The part goes outside the photo. The photo is ' + work.width + ' by ' + work.height + ' pixels, so Left plus Width must be at most ' + work.width + ' and Top plus Height at most ' + work.height + '.');
+      return;
+    }
+    var mode = document.querySelector('input[name="bl-mode"]:checked').value;
+    if (mode === 'blur') {
+      var amount = num('bl-amount');
+      if (!(amount >= 2 && amount <= 100)) { fail('Blur strength must be between 2 and 100 pixels.'); return; }
+      applyDraw(function (next) {
+        next.width = work.width; next.height = work.height;
+        var ctx = next.getContext('2d');
+        ctx.drawImage(work, 0, 0);
+        ctx.save();
+        ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+        ctx.filter = 'blur(' + amount + 'px)';
+        ctx.drawImage(work, 0, 0);
+        ctx.restore();
+      }, 'The part is now blurred.');
+    } else {
+      var color = document.getElementById('bl-color').value;
+      applyDraw(function (next) {
+        next.width = work.width; next.height = work.height;
+        var ctx = next.getContext('2d');
+        ctx.drawImage(work, 0, 0);
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, w, h);
+      }, 'The part is now covered with ' + (color === '#000000' ? 'black' : 'white') + '.');
+    }
+  });
+
   /* Save and reset */
   document.getElementById('save-btn').addEventListener('click', function () {
     clearErr();
@@ -478,6 +870,493 @@
     work = VTV.copyCanvas(original);
     refresh();
     describe('Started over.');
+  });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('cmp-file');
+  var infoEl = document.getElementById('cmp-file-info');
+  var errorEl = document.getElementById('cmp-error');
+  var statusEl = document.getElementById('cmp-status');
+  var controlsEl = document.getElementById('cmp-controls');
+  var resultBox = document.getElementById('cmp-result-box');
+  var preview = document.getElementById('cmp-preview');
+  var source = null; // canvas of the loaded photo
+  var sourceName = 'photo';
+  var sourceSize = 0;
+  var lastBlob = null, lastName = '';
+
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      sourceSize = f.size;
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels and its file size is ' + VTV.formatBytes(f.size) + '. Now type the size you want.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('cmp-go-btn').addEventListener('click', function () {
+    clearErr();
+    var amount = parseFloat(document.getElementById('cmp-target').value);
+    var unit = document.getElementById('cmp-unit').value;
+    if (!(amount >= 1)) { fail('Please type the file size you want, at least 1.'); return; }
+    var targetBytes = Math.round(amount * (unit === 'mb' ? 1024 * 1024 : 1024));
+    var mime = document.getElementById('cmp-format').value;
+    var ext = { 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/png': 'png' }[mime];
+
+    if (sourceSize <= targetBytes) {
+      statusEl.textContent = 'Good news: your photo is already ' + VTV.formatBytes(sourceSize) +
+        ', which is smaller than the ' + VTV.formatBytes(targetBytes) + ' you asked for. You can use the original photo as it is, or press Compress anyway to convert it.';
+    }
+
+    infoEl.textContent = '';
+    statusEl.textContent = 'Working, please wait. This can take a few seconds for a big photo.';
+    resultBox.hidden = false;
+
+    VTV.compressToTarget(source, targetBytes, mime).then(function (r) {
+      lastBlob = r.blob;
+      lastName = sourceName + '-' + VTV.formatBytes(r.blob.size).replace(' ', '-') + '.' + ext;
+      preview.width = r.width;
+      preview.height = r.height;
+      preview.getContext('2d').drawImage(r.canvas, 0, 0);
+      var sizeText = VTV.formatBytes(r.blob.size);
+      if (r.reached === false) {
+        statusEl.textContent = 'Honest answer: ' + VTV.formatBytes(targetBytes) +
+          ' is too small for this photo without making it unusable. The smallest clear version we could make is ' +
+          sizeText + ', ' + r.width + ' by ' + r.height + ' pixels. You can download it below, or crop the photo first in the Image Editor and try again.';
+        preview.setAttribute('aria-label', 'Preview of the compressed photo, ' + r.width + ' by ' + r.height + ' pixels, ' + sizeText + '. The requested size could not be reached.');
+      } else {
+        var parts = 'Done. Your photo is now ' + sizeText + ', which fits inside the ' + VTV.formatBytes(targetBytes) + ' you asked for.';
+        parts += ' It is ' + r.width + ' by ' + r.height + ' pixels';
+        if (r.quality) { parts += ', saved at ' + r.quality + ' percent quality'; }
+        parts += '. Download it below.';
+        if ((r.quality && r.quality < 20) || (r.scalePercent && r.scalePercent < 60)) {
+          parts += ' Honest warning: the photo had to be squeezed very hard to reach this size, so it may look blurry. If the form allows a bigger size, type a bigger number, or crop the photo first in the Image Editor.';
+        }
+        statusEl.textContent = parts;
+        preview.setAttribute('aria-label', 'Preview of the compressed photo, ' + r.width + ' by ' + r.height + ' pixels, ' + sizeText + '.');
+      }
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be compressed. Please try a different photo or a bigger target size.');
+    });
+  });
+
+  document.getElementById('cmp-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var VISION_BASE = '../assets/lib/vision';
+  var DPI = 300;
+  var fileEl = document.getElementById('pp-file');
+  var infoEl = document.getElementById('pp-file-info');
+  var errorEl = document.getElementById('pp-error');
+  var statusEl = document.getElementById('pp-status');
+  var controlsEl = document.getElementById('pp-controls');
+  var resultBox = document.getElementById('pp-result-box');
+  var preview = document.getElementById('pp-preview');
+  var source = null;
+  var lastBlob = null, lastName = '';
+
+  function fail(msg) { errorEl.textContent = msg; statusEl.textContent = ''; }
+  function clearErr() { errorEl.textContent = ''; }
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Now choose the size and press "Make my passport photo".';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('pp-size').addEventListener('change', function () {
+    document.getElementById('pp-custom-box').hidden = this.value !== 'custom';
+  });
+
+  function targetSize() {
+    var v = document.getElementById('pp-size').value;
+    if (v === 'custom') {
+      var w = num('pp-custom-w'), h = num('pp-custom-h');
+      if (!(w >= 10 && w <= 200 && h >= 10 && h <= 200)) { return null; }
+      return { mmW: w, mmH: h, pxW: VTV.mmToPx(w, DPI), pxH: VTV.mmToPx(h, DPI),
+        label: w + ' by ' + h + ' millimetres' };
+    }
+    if (v === '51x51') {
+      // Exactly 2 x 2 inch: 600 x 600 pixels at 300 DPI.
+      return { mmW: 51, mmH: 51, pxW: 600, pxH: 600, label: '2 by 2 inch (51 by 51 millimetres)' };
+    }
+    var parts = v.split('x');
+    var mw = parseFloat(parts[0]), mh = parseFloat(parts[1]);
+    return { mmW: mw, mmH: mh, pxW: VTV.mmToPx(mw, DPI), pxH: VTV.mmToPx(mh, DPI),
+      label: mw + ' by ' + mh + ' millimetres' };
+  }
+
+  document.getElementById('pp-go-btn').addEventListener('click', function () {
+    clearErr();
+    var t = targetSize();
+    if (!t) { fail('Please type a width and height between 10 and 200 millimetres.'); return; }
+    var outW = t.pxW;
+    var outH = t.pxH;
+    var zoom = num('pp-zoom');
+    var mx = num('pp-move-x') || 0, my = num('pp-move-y') || 0;
+    if (!(zoom >= 100 && zoom <= 400)) { fail('Zoom must be between 100 and 400 percent.'); return; }
+    if (!(mx >= -2000 && mx <= 2000 && my >= -2000 && my <= 2000)) { fail('Move numbers must be between minus 2000 and 2000.'); return; }
+    var whiteBg = document.querySelector('input[name="bg"]:checked').value === 'white';
+    var limitOn = document.getElementById('pp-limit-on').checked;
+    var limitKb = num('pp-limit-kb');
+    if (limitOn && !(limitKb >= 5 && limitKb <= 2048)) { fail('The file size limit must be between 5 and 2048 KB.'); return; }
+
+    // 1. Cut the photo to the exact passport shape.
+    var crop = VTV.coverCrop(source.width, source.height, outW, outH, zoom, mx, my);
+    var out = document.createElement('canvas');
+    out.width = outW; out.height = outH;
+    var ctx = out.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(source, crop.sx, crop.sy, crop.sw, crop.sh, 0, 0, outW, outH);
+
+    resultBox.hidden = false;
+    var dimText = outW + ' by ' + outH + ' pixels, exactly ' + t.label + ' at ' + DPI + ' DPI';
+
+    // 2. Background.
+    var bgStep;
+    if (whiteBg) {
+      statusEl.textContent = 'Making the background white with the in-browser AI. The first time, it downloads about 10 MB of model files to your device, so please wait.';
+      bgStep = VTV.whiteBackgroundAI(out, VISION_BASE).catch(function () {
+        statusEl.textContent = 'The AI background remover could not load (no internet or an old browser). Trying the simple plain-background method instead.';
+        try { return VTV.whiteBackgroundFlood(out, 42); }
+        catch (e) { return out; }
+      });
+    } else {
+      bgStep = Promise.resolve(out);
+    }
+
+    // 3. File size and encoding.
+    bgStep.then(function (canvas) {
+      if (limitOn) {
+        return VTV.compressToTarget(canvas, Math.round(limitKb * 1024), 'image/jpeg').then(function (r) {
+          return { blob: r.blob, canvas: canvas, width: outW, height: outH, reached: r.reached, limited: true, quality: r.quality };
+        });
+      }
+      return VTV.toBlob(canvas, 'image/jpeg', 0.92).then(function (blob) {
+        return { blob: blob, canvas: canvas, width: outW, height: outH, reached: true, limited: false };
+      });
+    }).then(function (r) {
+      lastBlob = r.blob;
+      lastName = 'passport-photo-' + t.mmW + 'x' + t.mmH + 'mm.jpg';
+      preview.width = r.width;
+      preview.height = r.height;
+      preview.getContext('2d').drawImage(r.canvas, 0, 0);
+      var bgText = whiteBg ? 'white background' : 'original background';
+      var msg;
+      if (r.limited && r.reached === false) {
+        msg = 'Honest answer: ' + limitKb + ' KB is too small for this photo. The smallest clear version we could make is ' +
+          VTV.formatBytes(r.blob.size) + '. Your photo is ' + dimText + ' with a ' + bgText + '. Download it below, or try a bigger KB number.';
+      } else {
+        msg = 'Done. Your passport photo is ready: ' + dimText + ', ' + bgText + ', file size ' + VTV.formatBytes(r.blob.size) + '.';
+        if (r.limited) { msg += ' It fits inside your ' + limitKb + ' KB limit.'; }
+        if (r.limited && r.quality && r.quality < 40) { msg += ' Honest warning: to fit the limit the quality had to be lowered a lot, so check that your face still looks clear.'; }
+        msg += ' Check it below and download it.';
+      }
+      statusEl.textContent = msg;
+      preview.setAttribute('aria-label', 'Your finished passport photo, ' + dimText + ', ' + bgText + ', ' + VTV.formatBytes(r.blob.size) + '.');
+    }).catch(function () {
+      fail('Sorry, the photo could not be prepared. Please try a different photo.');
+    });
+  });
+
+  document.getElementById('pp-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
+<script>
+/* Image Format Converter */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('fc-file');
+  var infoEl = document.getElementById('fc-file-info');
+  var errorEl = document.getElementById('fc-error');
+  var statusEl = document.getElementById('fc-status');
+  var controlsEl = document.getElementById('fc-controls');
+  var resultBox = document.getElementById('fc-result-box');
+  var preview = document.getElementById('fc-preview');
+  var source = null, sourceName = 'photo', sourceSize = 0, sourceType = '';
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      sourceSize = f.size;
+      sourceType = (f.type || 'unknown').replace('image/', '').toUpperCase();
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is a ' + sourceType + ' file, ' + source.width + ' by ' + source.height +
+        ' pixels, ' + VTV.formatBytes(f.size) + '. Now choose the new file type.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('fc-go-btn').addEventListener('click', function () {
+    clearErr();
+    var mime = document.getElementById('fc-format').value;
+    var q = parseFloat(document.getElementById('fc-quality').value);
+    if (!(q >= 1 && q <= 100)) { fail('Quality must be between 1 and 100.'); return; }
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    var typeName = { 'image/jpeg': 'JPG', 'image/png': 'PNG', 'image/webp': 'WebP' }[mime];
+    statusEl.textContent = 'Converting, please wait.';
+    resultBox.hidden = false;
+    var canvas = mime === 'image/png' ? source : VTV.flattenOnWhite(source);
+    VTV.toBlob(canvas, mime, q / 100).then(function (blob) {
+      lastBlob = blob;
+      lastName = sourceName + '-converted.' + ext;
+      preview.width = source.width;
+      preview.height = source.height;
+      preview.getContext('2d').drawImage(source, 0, 0);
+      statusEl.textContent = 'Done. Your photo was a ' + sourceType + ' of ' + VTV.formatBytes(sourceSize) +
+        '. It is now a ' + typeName + ' of ' + VTV.formatBytes(blob.size) + ', same ' + source.width + ' by ' + source.height +
+        ' pixels. Download it below.';
+      preview.setAttribute('aria-label', 'Preview of the converted photo, ' + source.width + ' by ' + source.height + ' pixels.');
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be converted. Please try a different photo or file type.');
+    });
+  });
+
+  document.getElementById('fc-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
+<script>
+/* Merge Photos */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('mg-files');
+  var infoEl = document.getElementById('mg-file-info');
+  var errorEl = document.getElementById('mg-error');
+  var statusEl = document.getElementById('mg-status');
+  var controlsEl = document.getElementById('mg-controls');
+  var resultBox = document.getElementById('mg-result-box');
+  var preview = document.getElementById('mg-preview');
+  var images = null;
+  var lastBlob = null, lastName = '';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    lastBlob = null;
+    images = null;
+    var files = Array.prototype.slice.call(fileEl.files || []);
+    if (!files.length) { return; }
+    if (files.length < 2) { fail('Please choose at least two photos to join.'); infoEl.textContent = ''; return; }
+    if (files.length > 6) { fail('Please choose at most 6 photos.'); infoEl.textContent = ''; return; }
+    infoEl.textContent = 'Opening ' + files.length + ' photos, please wait.';
+    var loaded = [];
+    var seq = Promise.resolve();
+    files.forEach(function (f, i) {
+      seq = seq.then(function () {
+        return VTV.loadImage(f).then(function (r) {
+          loaded[i] = VTV.imageToCanvas(r.img);
+          URL.revokeObjectURL(r.url);
+        });
+      });
+    });
+    seq.then(function () {
+      images = loaded;
+      controlsEl.hidden = false;
+      var dims = loaded.map(function (c, i) { return 'photo ' + (i + 1) + ' is ' + c.width + ' by ' + c.height + ' pixels'; }).join(', ');
+      infoEl.textContent = 'Your ' + loaded.length + ' photos are ready: ' + dims + '. Now choose how to join them.';
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, one of the files could not be opened as a photo. Please try JPG, PNG, WebP, GIF or BMP files.');
+    });
+  });
+
+  document.getElementById('mg-go-btn').addEventListener('click', function () {
+    clearErr();
+    if (!images || !images.length) { fail('Please choose the photos first.'); return; }
+    var dir = document.getElementById('mg-direction').value;
+    var bg = document.getElementById('mg-bg').value;
+    var mime = document.getElementById('mg-format').value;
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    var W = 0, H = 0, i;
+    if (dir === 'row') {
+      for (i = 0; i < images.length; i++) { W += images[i].width; H = Math.max(H, images[i].height); }
+    } else {
+      for (i = 0; i < images.length; i++) { H += images[i].height; W = Math.max(W, images[i].width); }
+    }
+    if (W > 15000 || H > 15000) { fail('The joined photo would be bigger than 15000 pixels. Please resize the photos first in the Image Editor section.'); return; }
+    var out = document.createElement('canvas');
+    out.width = W; out.height = H;
+    var ctx = out.getContext('2d');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+    var pos = 0;
+    for (i = 0; i < images.length; i++) {
+      if (dir === 'row') { ctx.drawImage(images[i], pos, 0); pos += images[i].width; }
+      else { ctx.drawImage(images[i], 0, pos); pos += images[i].height; }
+    }
+    statusEl.textContent = 'Joining, please wait.';
+    resultBox.hidden = false;
+    VTV.toBlob(out, mime, 0.92).then(function (blob) {
+      lastBlob = blob;
+      lastName = 'joined-photos.' + ext;
+      preview.width = W; preview.height = H;
+      preview.getContext('2d').drawImage(out, 0, 0);
+      var how = dir === 'row' ? 'side by side, left to right' : 'stacked, top to bottom';
+      statusEl.textContent = 'Done. Your ' + images.length + ' photos are joined ' + how + ' into one photo, ' +
+        W + ' by ' + H + ' pixels, ' + VTV.formatBytes(blob.size) + '. Download it below.';
+      preview.setAttribute('aria-label', 'Preview of the joined photo, ' + W + ' by ' + H + ' pixels.');
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photos could not be joined. Please try smaller photos.');
+    });
+  });
+
+  document.getElementById('mg-dl-btn').addEventListener('click', function () {
+    if (lastBlob) { VTV.download(lastBlob, lastName); }
+  });
+})();
+</script>
+<script>
+/* Split a Photo into Parts */
+(function () {
+  'use strict';
+  var VTV = window.VTVImage;
+  var fileEl = document.getElementById('sp-file');
+  var infoEl = document.getElementById('sp-file-info');
+  var errorEl = document.getElementById('sp-error');
+  var statusEl = document.getElementById('sp-status');
+  var controlsEl = document.getElementById('sp-controls');
+  var resultBox = document.getElementById('sp-result-box');
+  var partsEl = document.getElementById('sp-parts');
+  var source = null, sourceName = 'photo';
+  function fail(msg) { errorEl.textContent = msg; }
+  function clearErr() { errorEl.textContent = ''; }
+
+  fileEl.addEventListener('change', function () {
+    clearErr();
+    resultBox.hidden = true;
+    partsEl.innerHTML = '';
+    var f = fileEl.files && fileEl.files[0];
+    if (!f) { return; }
+    infoEl.textContent = 'Opening the photo, please wait.';
+    VTV.loadImage(f).then(function (r) {
+      source = VTV.imageToCanvas(r.img);
+      sourceName = (f.name || 'photo').replace(/\.[^.]+$/, '');
+      controlsEl.hidden = false;
+      infoEl.textContent = 'Your photo is ready. It is ' + source.width + ' by ' + source.height +
+        ' pixels. Now choose how many rows and columns to cut it into.';
+      URL.revokeObjectURL(r.url);
+    }).catch(function () {
+      infoEl.textContent = '';
+      fail('Sorry, this file could not be opened as a photo. Please try a JPG, PNG, WebP, GIF or BMP file.');
+    });
+  });
+
+  document.getElementById('sp-go-btn').addEventListener('click', function () {
+    clearErr();
+    var rows = parseInt(document.getElementById('sp-rows').value, 10);
+    var cols = parseInt(document.getElementById('sp-cols').value, 10);
+    if (!(rows >= 1 && rows <= 4 && cols >= 1 && cols <= 4)) { fail('Rows and columns must be between 1 and 4.'); return; }
+    if (rows === 1 && cols === 1) { fail('One row and one column means no cutting. Please choose at least 2 rows or 2 columns.'); return; }
+    var mime = document.getElementById('sp-format').value;
+    var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime];
+    var baseW = Math.floor(source.width / cols), baseH = Math.floor(source.height / rows);
+    if (baseW < 1 || baseH < 1) { fail('The photo is too small to cut into that many parts.'); return; }
+    statusEl.textContent = 'Cutting the photo, please wait.';
+    resultBox.hidden = false;
+    partsEl.innerHTML = '';
+    var jobs = [];
+    var n = 0;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        n++;
+        var x = c * baseW, y = r * baseH;
+        // the last column and row take the leftover pixels
+        var w = (c === cols - 1) ? source.width - x : baseW;
+        var h = (r === rows - 1) ? source.height - y : baseH;
+        var part = document.createElement('canvas');
+        part.width = w; part.height = h;
+        part.getContext('2d').drawImage(source, x, y, w, h, 0, 0, w, h);
+        jobs.push({ canvas: part, num: n, row: r + 1, col: c + 1, w: w, h: h });
+      }
+    }
+    var seq = Promise.resolve();
+    jobs.forEach(function (job) {
+      seq = seq.then(function () {
+        return VTV.toBlob(job.canvas, mime, 0.92).then(function (blob) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'action';
+          btn.textContent = 'Download part ' + job.num + ' (row ' + job.row + ', column ' + job.col + ')';
+          btn.addEventListener('click', function () {
+            VTV.download(blob, sourceName + '-part-' + job.num + '.' + ext);
+          });
+          var p = document.createElement('p');
+          p.appendChild(btn);
+          partsEl.appendChild(p);
+        });
+      });
+    });
+    seq.then(function () {
+      statusEl.textContent = 'Done. Your photo is cut into ' + jobs.length + ' parts (' + rows + ' rows, ' + cols +
+        ' columns). Each part is about ' + baseW + ' by ' + baseH + ' pixels. The download buttons for the parts are below; each button says its row and column.';
+    }).catch(function () {
+      statusEl.textContent = '';
+      fail('Sorry, the photo could not be split. Please try a different photo.');
+    });
   });
 })();
 </script>
