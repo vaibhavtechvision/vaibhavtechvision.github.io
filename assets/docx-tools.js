@@ -70,6 +70,63 @@
   (function () {
     var btn = $('td-go');
     if (!btn) return;
+
+    function esc(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* Build a real .docx (WordprocessingML) with the bundled JSZip. */
+    function buildDocx(blocks) {
+      var body = '';
+      blocks.forEach(function (b) {
+        var runs = b.lines.map(function (line, i) {
+          var br = i > 0 ? '<w:br/>' : '';
+          return '<w:r>' + (b.heading ? '<w:rPr><w:b/></w:rPr>' : '') +
+            '<w:t xml:space="preserve">' + br + esc(line) + '</w:t></w:r>';
+        }).join('');
+        var ppr = b.heading ? '<w:pPr><w:pStyle w:val="Heading1"/></w:pPr>' : '';
+        body += '<w:p>' + ppr + runs + '</w:p>';
+      });
+      var documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' +
+        '<w:body>' + body + '<w:sectPr/></w:body></w:document>';
+      var contentTypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+        '<Default Extension="xml" ContentType="application/xml"/>' +
+        '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>' +
+        '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>' +
+        '</Types>';
+      var rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>' +
+        '</Relationships>';
+      var docRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' +
+        '</Relationships>';
+      var styles = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' +
+        '<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style>' +
+        '<w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/>' +
+        '<w:basedOn w:val="Normal"/><w:next w:val="Normal"/>' +
+        '<w:pPr><w:outlineLvl w:val="0"/></w:pPr>' +
+        '<w:rPr><w:b/><w:sz w:val="32"/></w:rPr></w:style>' +
+        '</w:styles>';
+      var zip = new JSZip();
+      zip.file('[Content_Types].xml', contentTypes);
+      zip.folder('_rels').file('.rels', rels);
+      var word = zip.folder('word');
+      word.file('document.xml', documentXml);
+      word.file('styles.xml', styles);
+      word.folder('_rels').file('document.xml.rels', docRels);
+      return zip.generateAsync({
+        type: 'blob',
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      });
+    }
+
     btn.addEventListener('click', function () {
       if (btn.disabled) return;
       btn.disabled = true;
@@ -82,31 +139,23 @@
       }
       var name = ($('td-name').value.trim() || 'my-document').replace(/[^A-Za-z0-9 _-]/g, '') || 'my-document';
       setText('td-status', 'Making your Word document...');
-      try {
-        /* Lines starting with # become headings; blank lines split paragraphs. */
-        var blocks = text.split(/\n\s*\n/);
-        var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>';
-        blocks.forEach(function (block) {
-          var lines = block.split('\n');
-          var heading = /^#\s+/.test(lines[0]);
-          if (heading) {
-            html += '<h1>' + esc(lines[0].replace(/^#\s+/, '')) + '</h1>';
-            lines = lines.slice(1);
-          }
-          if (lines.length) html += '<p>' + lines.map(esc).join('<br>') + '</p>';
-        });
-        html += '</body></html>';
-        var blob = window.htmlDocx.asBlob(html);
+      /* Blank lines split paragraphs; a line starting with "# " becomes a heading. */
+      var blocks = [];
+      text.split(/\n\s*\n/).forEach(function (chunk) {
+        var lines = chunk.split('\n');
+        var heading = /^#\s+/.test(lines[0]);
+        if (heading) lines[0] = lines[0].replace(/^#\s+/, '');
+        if (lines.join('').trim()) blocks.push({ heading: heading, lines: lines });
+      });
+      buildDocx(blocks).then(function (blob) {
         download(blob, name + '.docx');
         setText('td-status', 'Done. Your Word document ' + name + '.docx has been downloaded.');
-      } catch (err) {
+        btn.disabled = false;
+      }).catch(function () {
         setText('td-status', 'Sorry: the document could not be made. Please try shorter text.');
-      }
-      btn.disabled = false;
+        btn.disabled = false;
+      });
     });
-    function esc(s) {
-      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
   })();
 
 })();
