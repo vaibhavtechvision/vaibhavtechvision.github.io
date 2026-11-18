@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Number to Hindi Words | Vaibhav Tech Vision</title>
-<meta name="description" content="Type any number and this free tool writes it out in Hindi words, from one up to kharab and beyond.">
+<title>Number to Words in Hindi and Bengali | Vaibhav Tech Vision</title>
+<meta name="description" content="Type any number and this free tool writes it out in Hindi or Bengali words, from one up to kharab and beyond.">
 <link rel="stylesheet" href="../assets/style.css?v=4">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
@@ -62,18 +62,23 @@
 </header>
 
 <main id="main">
-  <h1>Number to Hindi Words</h1>
-  <p>Type a number and press the button. The tool writes it out in Hindi words, using the Indian way of counting: hazar, lakh, crore, arab and kharab.</p>
+  <h1>Number to Words in Hindi and Bengali</h1>
+  <p>Pick a language, type a number, and press the button. The tool writes it out in words, using the Indian way of counting: hazar, lakh, crore, arab and kharab.</p>
   <p class="hint">Everything happens on your own device. Nothing you type is uploaded anywhere.</p>
 
-  <label for="nw-num">Type a number</label>
+  <label for="nw-lang">Language</label>
+    <select id="nw-lang">
+      <option value="hi">Hindi</option>
+      <option value="bn">Bengali</option>
+    </select>
+    <label for="nw-num">Type a number</label>
     <input type="text" id="nw-num" inputmode="numeric" placeholder="For example: 1234567">
-    <p><button class="action" type="button" id="nw-go">Write it in Hindi words</button></p>
+    <p><button class="action" type="button" id="nw-go">Write it in words</button></p>
     <p id="nw-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
     <div id="nw-result" hidden>
-      <h2>In Hindi words</h2>
+      <h2 id="nw-head">In words</h2>
       <p id="nw-grouped"></p>
-      <p id="nw-words" tabindex="-1" lang="hi"></p>
+      <p id="nw-words" tabindex="-1"></p>
       <p><button class="action" type="button" id="nw-copy">Copy the words</button></p>
     </div>
 
@@ -123,6 +128,18 @@
 <script>
 (function(){
   var $=function(id){return document.getElementById(id);};
+  var BN=['শূন্য','এক','দুই','তিন','চার','পাঁচ','ছয়','সাত','আট','নয়','দশ',
+  'এগারো','বারো','তেরো','চৌদ্দ','পনেরো','ষোলো','সতেরো','আঠারো','উনিশ','বিশ',
+  'একুশ','বাইশ','তেইশ','চব্বিশ','পঁচিশ','ছাব্বিশ','সাতাশ','আটাশ','ঊনত্রিশ','ত্রিশ',
+  'একত্রিশ','বত্রিশ','তেত্রিশ','চৌত্রিশ','পঁয়ত্রিশ','ছত্রিশ','সাঁইত্রিশ','আটত্রিশ','ঊনচল্লিশ','চল্লিশ',
+  'একচল্লিশ','বিয়াল্লিশ','তেতাল্লিশ','চুয়াল্লিশ','পঁয়তাল্লিশ','ছেচল্লিশ','সাতচল্লিশ','আটচল্লিশ','ঊনপঞ্চাশ','পঞ্চাশ',
+  'একান্ন','বাহান্ন','তিপ্পান্ন','চুয়ান্ন','পঞ্চান্ন','ছাপ্পান্ন','সাতান্ন','আটান্ন','ঊনষাট','ষাট',
+  'একষট্টি','বাষট্টি','তেষট্টি','চৌষট্টি','পঁয়ষট্টি','ছেষট্টি','সাতষট্টি','আটষট্টি','ঊনসত্তর','সত্তর',
+  'একাত্তর','বাহাত্তর','তিয়াত্তর','চুয়াত্তর','পঁচাত্তর','ছিয়াত্তর','সাতাত্তর','আটাত্তর','ঊনঅশি','আশি',
+  'একাশি','বিরাশি','তিরাশি','চুরাশি','পঁচাশি','ছিয়াশি','সাতাশি','আটাশি','ঊননব্বই','নব্বই',
+  'একানব্বই','বিরানব্বই','তিরানব্বই','চুরানব্বই','পঁচানব্বই','ছিয়ানব্বই','সাতানব্বই','আটানব্বই','নিরানব্বই'];
+  var BN_GROUPS=[[100000000000n,'খর্ব'],[1000000000n,'অর্বুদ'],[10000000n,'কোটি'],[100000n,'লক্ষ'],[1000n,'হাজার']];
+  var BN_HUNDRED='শত';
   var W=['शून्य','एक','दो','तीन','चार','पांच','छह','सात','आठ','नौ','दस',
   'ग्यारह','बारह','तेरह','चौदह','पंद्रह','सोलह','सत्रह','अठारह','उन्नीस','बीस',
   'इक्कीस','बाईस','तेईस','चौबीस','पच्चीस','छब्बीस','सत्ताईस','अट्ठाईस','उनतीस','तीस',
@@ -133,30 +150,28 @@
   'इकहत्तर','बहत्तर','तिहत्तर','चौहत्तर','पचहत्तर','छिहत्तर','सतहत्तर','अठहत्तर','उन्यासी','अस्सी',
   'इक्यासी','बयासी','तिरासी','चौरासी','पचासी','छियासी','सत्तासी','अट्ठासी','नवासी','नब्बे',
   'इक्यानवे','बानवे','तिरानवे','चौरानवे','पचानवे','छियानवे','सत्तानवे','अट्ठानवे','निन्यानवे'];
-  function two(n){return W[n];}
-  function three(n){
+  function three(n,T){
     var parts=[];
     var h=Math.floor(n/100), r=n%100;
-    if(h>0){parts.push(W[h]+' सौ');}
-    if(r>0){parts.push(two(r));}
+    if(h>0){parts.push(T[h]+' '+T.hundred);}
+    if(r>0){parts.push(T[r]);}
     return parts.join(' ');
   }
-  function words(n){
-    if(n===0n) return W[0];
+  function words(n,lang){
+    var T=lang==='bn'?BN:W;
+    T.hundred=lang==='bn'?BN_HUNDRED:'सौ';
+    var groups=lang==='bn'?BN_GROUPS:[[100000000000n,'खरब'],[1000000000n,'अरब'],[10000000n,'करोड़'],[100000n,'लाख'],[1000n,'हज़ार']];
+    if(n===0n) return T[0];
     var parts=[];
-    var groups=[
-      [100000000000n,'खरब'],[1000000000n,'अरब'],[10000000n,'करोड़'],
-      [100000n,'लाख'],[1000n,'हज़ार']
-    ];
     for(var g=0;g<groups.length;g++){
       var val=groups[g][0];
       var m=Number(n/val);
       if(m>0){
-        parts.push(three(m)+' '+groups[g][1]);
+        parts.push(three(m,T)+' '+groups[g][1]);
         n=n%val;
       }
     }
-    if(n>0n){parts.push(three(Number(n)));}
+    if(n>0n){parts.push(three(Number(n),T));}
     return parts.join(' ');
   }
   function indianGrouping(d){
@@ -172,12 +187,13 @@
       $('nw-status').textContent='Sorry: please type a whole number using digits only, up to 15 digits long.';
       return;
     }
-    var w=words(BigInt(raw));
+    var lang=$('nw-lang').value;
+    var w=words(BigInt(raw),lang);
     $('nw-grouped').textContent='Your number: '+indianGrouping(raw.replace(/^0+(?=\d)/,''));
     $('nw-words').textContent=w;
     $('nw-result').hidden=false;
     $('nw-words').focus();
-    $('nw-status').textContent='Done. The number in Hindi words is below. You can copy it.';
+    $('nw-status').textContent='Done. The number in words is below. You can copy it.';
   });
   $('nw-copy').addEventListener('click',function(){
     var t=$('nw-words').textContent;

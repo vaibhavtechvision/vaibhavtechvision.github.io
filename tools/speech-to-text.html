@@ -64,7 +64,7 @@
 <main id="main">
   <h1>Speech to Text</h1>
   <p>Press the start button and speak. The tool types what you say. When you stop, you can copy the text or download it as a file.</p>
-  <p class="hint">This tool uses your browser's own speech service, so it works best in Google Chrome. On Chrome, what you say is processed by Google's speech service to turn it into text. Nothing is saved or used by this website.</p>
+  <p class="hint">This tool uses your browser's own speech service, so it works best in Google Chrome. On Chrome, what you say is processed by Google's speech service to turn it into text. Nothing is saved or used by this website. The languages below are the ones Chrome's speech service usually understands; if your browser does not know the one you pick, the tool will tell you.</p>
 
   <div id="st-nosupport" hidden>
     <p>Sorry: this browser does not offer speech typing. Please open this page in Google Chrome on your phone or computer and try again.</p>
@@ -75,6 +75,17 @@
       <option value="hi-IN">Hindi</option>
       <option value="en-IN">English (India)</option>
       <option value="en-US">English (US)</option>
+      <option value="as-IN">Assamese</option>
+      <option value="bn-IN">Bengali</option>
+      <option value="gu-IN">Gujarati</option>
+      <option value="kn-IN">Kannada</option>
+      <option value="ml-IN">Malayalam</option>
+      <option value="mr-IN">Marathi</option>
+      <option value="ne-NP">Nepali</option>
+      <option value="pa-IN">Punjabi</option>
+      <option value="ta-IN">Tamil</option>
+      <option value="te-IN">Telugu</option>
+      <option value="ur-IN">Urdu</option>
     </select>
     <p><button class="action" type="button" id="st-start">Start listening</button>
     <button class="action" type="button" id="st-stop" disabled>Stop listening</button></p>
@@ -165,6 +176,8 @@
         $('st-status').textContent='Nothing was heard. Press start and speak a little louder or closer to the microphone.';
       }else if(e.error==='audio-capture'){
         $('st-status').textContent='Sorry: no microphone was found on this device.';
+      }else if(e.error==='language-not-supported'){
+        $('st-status').textContent='Sorry: this browser does not understand that language for speech typing. Please try another language, or open this page in Google Chrome.';
       }else{
         $('st-status').textContent='Sorry: listening stopped because of a problem. Please press start to try again.';
       }

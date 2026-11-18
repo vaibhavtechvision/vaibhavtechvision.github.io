@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Picture to Text Reader | Vaibhav Tech Vision</title>
-<meta name="description" content="Choose a picture or a scanned page and this free tool reads the printed text out of it, in English or Hindi, ready to copy or download.">
+<meta name="description" content="Choose a picture or a scanned page and this free tool reads the printed text out of it, in 17 languages including Hindi, Tamil, Bengali and Urdu, ready to copy or download.">
 <link rel="stylesheet" href="../assets/style.css?v=4">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
@@ -64,7 +64,8 @@
 <main id="main">
   <h1>Picture to Text Reader</h1>
   <p>Choose a picture of a printed page, a document photo, or a screenshot. The tool reads the writing in it and gives you the text to copy or download.</p>
-  <p>It works with printed English and Hindi. Handwriting is not read reliably. Clear, straight, well-lit pictures give the best results.</p>
+  <p>It works with printed text in 17 languages: English and 16 Indian languages. Handwriting is not read reliably. Clear, straight, well-lit pictures give the best results.</p>
+  <p>The reading engine has no lessons for Dogri, Kashmiri, Konkani, Maithili, Manipuri and Santali. If your text uses Devanagari letters (for example Konkani or Maithili), choose Hindi and it will read the letters. If your Manipuri text uses Bengali letters, choose Bengali.</p>
   <p class="hint">Everything happens on your own device. The picture is never uploaded anywhere. The first time you use the tool, it downloads the reading engine itself (a few megabytes) from a free library host, so the first read can take a little longer.</p>
 
   <label for="ot-file">Choose a picture</label>
@@ -74,6 +75,21 @@
       <option value="eng">English</option>
       <option value="hin">Hindi</option>
       <option value="eng+hin">English and Hindi together</option>
+      <option value="asm">Assamese</option>
+      <option value="ben">Bengali</option>
+      <option value="bod">Bodo</option>
+      <option value="guj">Gujarati</option>
+      <option value="kan">Kannada</option>
+      <option value="mal">Malayalam</option>
+      <option value="mar">Marathi</option>
+      <option value="nep">Nepali</option>
+      <option value="ori">Odia</option>
+      <option value="pan">Punjabi</option>
+      <option value="san">Sanskrit</option>
+      <option value="snd">Sindhi</option>
+      <option value="tam">Tamil</option>
+      <option value="tel">Telugu</option>
+      <option value="urd">Urdu</option>
     </select>
     <p><button class="action" type="button" id="ot-go">Read the text</button></p>
     <p id="ot-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>

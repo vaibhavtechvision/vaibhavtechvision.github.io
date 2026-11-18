@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Roman to Hindi Typing | Vaibhav Tech Vision</title>
-<meta name="description" content="Type Hindi sounds in English letters and this free tool turns them into Devanagari Hindi as you type.">
+<title>Roman to Indian Scripts Typing | Vaibhav Tech Vision</title>
+<meta name="description" content="Type words in English letters the way they sound and this free tool turns them into Devanagari, Bengali, Tamil, Telugu, Kannada, Malayalam, Gujarati, Gurmukhi or Odia writing as you type.">
 <link rel="stylesheet" href="../assets/style.css?v=4">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 </head>
@@ -62,15 +62,38 @@
 </header>
 
 <main id="main">
-  <h1>Roman to Hindi Typing</h1>
-  <p>Type Hindi the way it sounds, using English letters, and the Hindi writing appears below as you type. For example, type namaste and you get नमस्ते.</p>
+  <h1>Roman to Indian Scripts Typing</h1>
+  <p>Pick a language, then type the way it sounds, using English letters. The proper writing appears below as you type. For example, with Hindi chosen, typing namaste gives नमस्ते.</p>
   <p class="hint">Everything happens on your own device. Nothing you type is uploaded anywhere.</p>
 
+  <label for="rd-lang">Language</label>
+    <select id="rd-lang">
+      <option value="dev">Hindi (Devanagari)</option>
+      <option value="dev">Marathi (Devanagari)</option>
+      <option value="dev">Sanskrit (Devanagari)</option>
+      <option value="dev">Nepali (Devanagari)</option>
+      <option value="dev">Maithili (Devanagari)</option>
+      <option value="dev">Konkani (Devanagari)</option>
+      <option value="dev">Bodo (Devanagari)</option>
+      <option value="dev">Dogri (Devanagari)</option>
+      <option value="dev">Santali (Devanagari)</option>
+      <option value="ben">Bengali (Bengali script)</option>
+      <option value="ben">Assamese (Bengali script)</option>
+      <option value="ben">Manipuri (Bengali script)</option>
+      <option value="gur">Punjabi (Gurmukhi)</option>
+      <option value="guj">Gujarati</option>
+      <option value="ory">Odia</option>
+      <option value="tam">Tamil</option>
+      <option value="tel">Telugu</option>
+      <option value="kan">Kannada</option>
+      <option value="mal">Malayalam</option>
+    </select>
+    <p>This tool does not yet write in the Arabic-based scripts, so Urdu, Kashmiri and Sindhi are not here, and the Ol Chiki and Meitei Mayek scripts are not covered yet either.</p>
   <label for="rd-in">Type in English letters</label>
     <textarea id="rd-in" rows="6" placeholder="For example: mera naam Vaibhav hai"></textarea>
-    <label for="rd-out">Hindi writing</label>
+    <label for="rd-out">Your writing</label>
     <textarea id="rd-out" rows="6" readonly></textarea>
-    <p><button class="action" type="button" id="rd-copy">Copy the Hindi text</button>
+    <p><button class="action" type="button" id="rd-copy">Copy the text</button>
     <button class="action" type="button" id="rd-clear">Clear everything</button></p>
     <p id="rd-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
 
@@ -78,11 +101,12 @@
     <summary>Show the typing guide</summary>
     <p>Type the sounds the way you would say them:</p>
     <ul>
-      <li>Vowels: a = अ, aa = आ, i = इ, ii or ee = ई, u = उ, uu or oo = ऊ, e = ए, ai = ऐ, o = ओ, au = औ</li>
-      <li>Letters: ka = क, kha = ख, ga = ग, gha = घ, cha = च, chha = छ, ja = ज, jha = झ, ta = त, tha = थ, da = द, dha = ध, na = न, pa = प, pha or fa = फ, ba = ब, bha = भ, ma = म, ya = य, ra = र, la = ल, va or wa = व, sha = श, sa = स, ha = ह</li>
-      <li>Hard letters, typed with capitals: Ta = ट, Tha = ठ, Da = ड, Dha = ढ, Na = ण, Sha = ष</li>
-      <li>Two consonants together join up: type school and you get स्छूल.</li>
-      <li>An n or m just before another consonant becomes a bindu: hindi becomes हिंदी, and shanti becomes शांति.</li>
+      <li>Vowels: a, aa, i, ii or ee, u, uu or oo, e, ai, o, au. Example: bhaarat has a long aa.</li>
+      <li>Letters: ka, kha, ga, gha, cha, chha, ja, jha, ta, tha, da, dha, na, pa, pha or fa, ba, bha, ma, ya, ra, la, va or wa, sha, sa, ha.</li>
+      <li>Hard letters, typed with capitals: Ta, Tha, Da, Dha, Na, Sha.</li>
+      <li>Two consonants together join up: school becomes a joined letter pair.</li>
+      <li>An n or m just before another consonant becomes a dot or bindu where the writing system has one: hindi becomes हिंदी in Devanagari and হিন্দি in Bengali.</li>
+      <li>Tamil has one letter for each sound group, so ka, kha, ga and gha all become க, and cha, ja become ச. That is how Tamil is written.</li>
       <li>English words, numbers and punctuation pass through as they are.</li>
     </ul>
   </details>
@@ -133,75 +157,115 @@
 <script>
 (function(){
   var $=function(id){return document.getElementById(id);};
-  var CONS=[
-    ['ksh','क्ष'],['chh','छ'],['kh','ख'],['gh','घ'],['ch','च'],['jh','झ'],
-    ['Th','ठ'],['Dh','ढ'],['th','थ'],['dh','ध'],['ph','फ'],['bh','भ'],['sh','श'],
-    ['T','ट'],['D','ड'],['N','ण'],['S','ष'],
-    ['k','क'],['g','ग'],['j','ज'],['t','त'],['d','द'],['n','न'],['p','प'],
-    ['b','ब'],['m','म'],['y','य'],['r','र'],['l','ल'],['v','व'],['w','व'],
-    ['s','स'],['h','ह'],['f','फ'],['z','ज़']
-  ];
-  var VOW=[
-    ['ai',['ऐ','ै']],['au',['औ','ौ']],['aa',['आ','ा']],
-    ['ii',['ई','ी']],['ee',['ई','ी']],['uu',['ऊ','ू']],['oo',['ऊ','ू']],
-    ['ri',['ऋ','ृ']],
-    ['a',['अ','']],['i',['इ','ि']],['u',['उ','ु']],
-    ['e',['ए','े']],['o',['ओ','ो']]
-  ];
-  function matchVowel(s,i){
-    for(var k=0;k<VOW.length;k++){
-      if(s.substr(i,VOW[k][0].length)===VOW[k][0]) return VOW[k];
+  // Each script: vowels and matras by roman key, consonant glyphs, virama (joiner), bindu (dot) or null.
+  var SCRIPTS={
+    dev:{vow:{a:'अ',aa:'आ',i:'इ',ii:'ई',u:'उ',uu:'ऊ',e:'ए',ai:'ऐ',o:'ओ',au:'औ',ri:'ऋ'},
+      mat:{aa:'ा',i:'ि',ii:'ी',u:'ु',uu:'ू',e:'े',ai:'ै',o:'ो',au:'ौ',ri:'ृ'},
+      con:{k:'क',kh:'ख',g:'ग',gh:'घ',ch:'च',chh:'छ',j:'ज',jh:'झ',T:'ट',Th:'ठ',D:'ड',Dh:'ढ',N:'ण',t:'त',th:'थ',d:'द',dh:'ध',n:'न',p:'प',ph:'फ',b:'ब',bh:'भ',m:'म',y:'य',r:'र',l:'ल',L:'ळ',v:'व',w:'व',sh:'श',S:'ष',s:'स',h:'ह',f:'फ',z:'ज़',ksh:'क्ष'},
+      vir:'्',bind:'ं'},
+    ben:{vow:{a:'অ',aa:'আ',i:'ই',ii:'ঈ',u:'উ',uu:'ঊ',e:'এ',ai:'ঐ',o:'ও',au:'ঔ',ri:'ঋ'},
+      mat:{aa:'া',i:'ি',ii:'ী',u:'ু',uu:'ূ',e:'ে',ai:'ৈ',o:'ো',au:'ৌ',ri:'ৃ'},
+      con:{k:'ক',kh:'খ',g:'গ',gh:'ঘ',ch:'চ',chh:'ছ',j:'জ',jh:'ঝ',T:'ট',Th:'ঠ',D:'ড',Dh:'ঢ',N:'ণ',t:'ত',th:'থ',d:'দ',dh:'ধ',n:'ন',p:'প',ph:'ফ',b:'ব',bh:'ভ',m:'ম',y:'য',r:'র',l:'ল',v:'ব',w:'ব',sh:'শ',S:'ষ',s:'স',h:'হ',f:'ফ',z:'জ'},
+      vir:'্',bind:'ং'},
+    gur:{vow:{a:'ਅ',aa:'ਆ',i:'ਇ',ii:'ਈ',u:'ਉ',uu:'ਊ',e:'ਏ',ai:'ਐ',o:'ਓ',au:'ਔ'},
+      mat:{aa:'ਾ',i:'ਿ',ii:'ੀ',u:'ੁ',uu:'ੂ',e:'ੇ',ai:'ੈ',o:'ੋ',au:'ੌ'},
+      con:{k:'ਕ',kh:'ਖ',g:'ਗ',gh:'ਘ',ch:'ਚ',chh:'ਛ',j:'ਜ',jh:'ਝ',T:'ਟ',Th:'ਠ',D:'ਡ',Dh:'ਢ',N:'ਣ',t:'ਤ',th:'ਥ',d:'ਦ',dh:'ਧ',n:'ਨ',p:'ਪ',ph:'ਫ',b:'ਬ',bh:'ਭ',m:'ਮ',y:'ਯ',r:'ਰ',l:'ਲ',v:'ਵ',w:'ਵ',sh:'ਸ਼',S:'ਸ਼',s:'ਸ',h:'ਹ',f:'ਫ',z:'ਜ਼'},
+      vir:'੍',bind:'ਂ',novir:true},
+    guj:{vow:{a:'અ',aa:'આ',i:'ઇ',ii:'ઈ',u:'ઉ',uu:'ઊ',e:'એ',ai:'ઐ',o:'ઓ',au:'ઔ',ri:'ઋ'},
+      mat:{aa:'ા',i:'િ',ii:'ી',u:'ુ',uu:'ૂ',e:'ે',ai:'ૈ',o:'ો',au:'ૌ',ri:'ૃ'},
+      con:{k:'ક',kh:'ખ',g:'ગ',gh:'ઘ',ch:'ચ',chh:'છ',j:'જ',jh:'ઝ',T:'ટ',Th:'ઠ',D:'ડ',Dh:'ઢ',N:'ણ',t:'ત',th:'થ',d:'દ',dh:'ધ',n:'ન',p:'પ',ph:'ફ',b:'બ',bh:'ભ',m:'મ',y:'ય',r:'ર',l:'લ',L:'ળ',v:'વ',w:'વ',sh:'શ',S:'ષ',s:'સ',h:'હ',f:'ફ',z:'જ'},
+      vir:'્',bind:'ં'},
+    ory:{vow:{a:'ଅ',aa:'ଆ',i:'ଇ',ii:'ଈ',u:'ଉ',uu:'ଊ',e:'ଏ',ai:'ଐ',o:'ଓ',au:'ଔ',ri:'ଋ'},
+      mat:{aa:'ା',i:'ି',ii:'ୀ',u:'ୁ',uu:'ୂ',e:'େ',ai:'ୈ',o:'ୋ',au:'ୌ',ri:'ୃ'},
+      con:{k:'କ',kh:'ଖ',g:'ଗ',gh:'ଘ',ch:'ଚ',chh:'ଛ',j:'ଜ',jh:'ଝ',T:'ଟ',Th:'ଠ',D:'ଡ',Dh:'ଢ',N:'ଣ',t:'ତ',th:'ଥ',d:'ଦ',dh:'ଧ',n:'ନ',p:'ପ',ph:'ଫ',b:'ବ',bh:'ଭ',m:'ମ',y:'ଯ',r:'ର',l:'ଲ',L:'ଳ',v:'ଵ',w:'ଵ',sh:'ଶ',S:'ଷ',s:'ସ',h:'ହ',f:'ଫ',z:'ଜ'},
+      vir:'୍',bind:'ଂ'},
+    tam:{vow:{a:'அ',aa:'ஆ',i:'இ',ii:'ஈ',u:'உ',uu:'ஊ',e:'ஏ',ai:'ஐ',o:'ஓ',au:'ஔ'},
+      mat:{aa:'ா',i:'ி',ii:'ீ',u:'ு',uu:'ூ',e:'ே',ai:'ை',o:'ோ',au:'ௌ'},
+      con:{k:'க',kh:'க',g:'க',gh:'க',ch:'ச',chh:'ச',j:'ஜ',jh:'ச',T:'ட',Th:'ட',D:'ட',Dh:'ட',N:'ண',t:'த',th:'த',d:'த',dh:'த',n:'ந',p:'ப',ph:'ப',b:'ப',bh:'ப',m:'ம',y:'ய',r:'ர',l:'ல',L:'ள',v:'வ',w:'வ',sh:'ஷ',S:'ஷ',s:'ஸ',h:'ஹ',z:'ஜ',zh:'ழ'},
+      vir:'்',bind:null,finalVir:true},
+    tel:{vow:{a:'అ',aa:'ఆ',i:'ఇ',ii:'ఈ',u:'ఉ',uu:'ఊ',e:'ఏ',ai:'ఐ',o:'ఓ',au:'ఔ',ri:'ఋ'},
+      mat:{aa:'ా',i:'ి',ii:'ీ',u:'ు',uu:'ూ',e:'ే',ai:'ై',o:'ో',au:'ౌ',ri:'ృ'},
+      con:{k:'క',kh:'ఖ',g:'గ',gh:'ఘ',ch:'చ',chh:'ఛ',j:'జ',jh:'ఝ',T:'ట',Th:'ఠ',D:'డ',Dh:'ఢ',N:'ణ',t:'త',th:'థ',d:'ద',dh:'ధ',n:'న',p:'ప',ph:'ఫ',b:'బ',bh:'భ',m:'మ',y:'య',r:'ర',l:'ల',L:'ళ',v:'వ',w:'వ',sh:'శ',S:'ష',s:'స',h:'హ',f:'ఫ',z:'జ'},
+      vir:'్',bind:'ం'},
+    kan:{vow:{a:'ಅ',aa:'ಆ',i:'ಇ',ii:'ಈ',u:'ಉ',uu:'ಊ',e:'ಏ',ai:'ಐ',o:'ಓ',au:'ಔ',ri:'ಋ'},
+      mat:{aa:'ಾ',i:'ಿ',ii:'ೀ',u:'ು',uu:'ೂ',e:'ೇ',ai:'ೈ',o:'ೋ',au:'ೌ',ri:'ೃ'},
+      con:{k:'ಕ',kh:'ಖ',g:'ಗ',gh:'ಘ',ch:'ಚ',chh:'ಛ',j:'ಜ',jh:'ಝ',T:'ಟ',Th:'ಠ',D:'ಡ',Dh:'ಢ',N:'ಣ',t:'ತ',th:'ಥ',d:'ದ',dh:'ಧ',n:'ನ',p:'ಪ',ph:'ಫ',b:'ಬ',bh:'ಭ',m:'ಮ',y:'ಯ',r:'ರ',l:'ಲ',L:'ಳ',v:'ವ',w:'ವ',sh:'ಶ',S:'ಷ',s:'ಸ',h:'ಹ',f:'ಫ',z:'ಜ'},
+      vir:'್',bind:'ಂ'},
+    mal:{vow:{a:'അ',aa:'ആ',i:'ഇ',ii:'ഈ',u:'ഉ',uu:'ഊ',e:'ഏ',ai:'ഐ',o:'ഓ',au:'ഔ',ri:'ഋ'},
+      mat:{aa:'ാ',i:'ി',ii:'ീ',u:'ു',uu:'ൂ',e:'േ',ai:'ൈ',o:'ോ',au:'ൌ',ri:'ൃ'},
+      con:{k:'ക',kh:'ഖ',g:'ഗ',gh:'ഘ',ch:'ച',chh:'ഛ',j:'ജ',jh:'ഝ',T:'ട',Th:'ഠ',D:'ഡ',Dh:'ഢ',N:'ണ',t:'ത',th:'ഥ',d:'ദ',dh:'ധ',n:'ന',p:'പ',ph:'ഫ',b:'ബ',bh:'ഭ',m:'മ',y:'യ',r:'ര',l:'ല',L:'ള',v:'വ',w:'വ',sh:'ശ',S:'ഷ',s:'സ',h:'ഹ',f:'ഫ',z:'ജ',zh:'ഴ'},
+      vir:'്',bind:'ം',finalBindu:true}
+  };
+  // Longest-first roman tokens.
+  var CONS_TOKENS=['ksh','chh','zh','kh','gh','ch','jh','Th','Dh','th','dh','ph','bh','sh','T','D','N','S','L','k','g','j','t','d','n','p','b','m','y','r','l','v','w','s','h','f','z'];
+  var VOW_TOKENS=['ai','au','aa','ii','ee','uu','oo','ri','a','i','u','e','o'];
+  var VOW_ALIAS={ee:'ii',oo:'uu'};
+  function matchVowel(s,i,S){
+    for(var k=0;k<VOW_TOKENS.length;k++){
+      var tok=VOW_TOKENS[k];
+      if(s.substr(i,tok.length)===tok){
+        var key=VOW_ALIAS[tok]||tok;
+        if(S.vow[key]) return {tok:tok,key:key};
+      }
     }
     return null;
   }
-  function matchCons(s,i){
-    for(var k=0;k<CONS.length;k++){
-      if(s.substr(i,CONS[k][0].length)===CONS[k][0]) return CONS[k];
+  function matchCons(s,i,S){
+    for(var k=0;k<CONS_TOKENS.length;k++){
+      var tok=CONS_TOKENS[k];
+      if(s.substr(i,tok.length)===tok&&S.con[tok]) return {tok:tok,glyph:S.con[tok]};
     }
     return null;
   }
-  function convert(s){
+  function convert(s,S){
     var out='',i=0;
     while(i<s.length){
       var c=s[i];
       if(!/[a-zA-Z]/.test(c)){out+=c;i++;continue;}
-      var cons=matchCons(s,i);
+      var cons=matchCons(s,i,S);
       if(cons){
-        var after=i+cons[0].length;
-        var vow=matchVowel(s,after);
+        var after=i+cons.tok.length;
+        var vow=matchVowel(s,after,S);
         if(vow){
-          out+=cons[1]+vow[1][1];
-          i=after+vow[0].length;
-        }else if((cons[0]==='n'||cons[0]==='m')&&matchCons(s,after)){
-          out+='ं'; i=after;
-        }else if(matchCons(s,after)){
-          out+=cons[1]+'्'; i=after;
+          out+=cons.glyph+(S.mat[vow.key]||'');
+          i=after+vow.tok.length;
+        }else if(S.bind&&(cons.tok==='n'||cons.tok==='m')&&matchCons(s,after,S)){
+          out+=S.bind; i=after;
+        }else if(matchCons(s,after,S)){
+          out+=S.novir?cons.glyph:cons.glyph+S.vir; i=after;
+        }else if(S.finalVir){
+          out+=cons.glyph+S.vir; i=after;
+        }else if(S.finalBindu&&(cons.tok==='n'||cons.tok==='m')){
+          out+=S.bind; i=after;
         }else{
-          out+=cons[1]; i=after;
+          out+=cons.glyph; i=after;
         }
         continue;
       }
-      var v2=matchVowel(s,i);
-      if(v2){out+=v2[1][0];i+=v2[0].length;continue;}
+      var v2=matchVowel(s,i,S);
+      if(v2){out+=S.vow[v2.key];i+=v2.tok.length;continue;}
       out+=c;i++;
     }
     return out;
   }
+  function curScript(){return SCRIPTS[$('rd-lang').value]||SCRIPTS.dev;}
   var lastLen=0;
-  $('rd-in').addEventListener('input',function(){
+  function run(){
     var t=$('rd-in').value;
-    $('rd-out').value=convert(t);
-    if(t.length>0&&lastLen===0){$('rd-status').textContent='The Hindi writing is appearing in the box below.';}
+    $('rd-out').value=convert(t,curScript());
+    if(t.length>0&&lastLen===0){$('rd-status').textContent='The writing is appearing in the box below.';}
     if(t.length===0&&lastLen>0){$('rd-status').textContent='';}
     lastLen=t.length;
-  });
+  }
+  $('rd-in').addEventListener('input',run);
+  $('rd-lang').addEventListener('change',function(){run();if($('rd-in').value){$('rd-status').textContent='Language changed. The writing below now uses the new script.';}});
   $('rd-copy').addEventListener('click',function(){
     var t=$('rd-out').value;
-    if(!t){$('rd-status').textContent='There is no Hindi text to copy yet. Type something first.';return;}
+    if(!t){$('rd-status').textContent='There is nothing to copy yet. Type something first.';return;}
     navigator.clipboard.writeText(t).then(function(){
-      $('rd-status').textContent='Copied. The Hindi text is on your clipboard.';
+      $('rd-status').textContent='Copied. The text is on your clipboard.';
     },function(){
-      $('rd-status').textContent='Sorry: copying did not work on this browser. You can select the Hindi text and copy it yourself.';
+      $('rd-status').textContent='Sorry: copying did not work on this browser. You can select the text and copy it yourself.';
     });
   });
   $('rd-clear').addEventListener('click',function(){
