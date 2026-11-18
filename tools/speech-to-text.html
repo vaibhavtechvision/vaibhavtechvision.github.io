@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speech to Text | Vaibhav Tech Vision</title>
+<meta name="description" content="Speak into your microphone and this free tool types what you say, in Hindi or English, ready to copy or download.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation Tools</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Speech to Text</h1>
+  <p>Press the start button and speak. The tool types what you say. When you stop, you can copy the text or download it as a file.</p>
+  <p class="hint">This tool uses your browser's own speech service, so it works best in Google Chrome. On Chrome, what you say is processed by Google's speech service to turn it into text. Nothing is saved or used by this website.</p>
+
+  <div id="st-nosupport" hidden>
+    <p>Sorry: this browser does not offer speech typing. Please open this page in Google Chrome on your phone or computer and try again.</p>
+  </div>
+  <div id="st-controls">
+    <label for="st-lang">Language you will speak</label>
+    <select id="st-lang">
+      <option value="hi-IN">Hindi</option>
+      <option value="en-IN">English (India)</option>
+      <option value="en-US">English (US)</option>
+    </select>
+    <p><button class="action" type="button" id="st-start">Start listening</button>
+    <button class="action" type="button" id="st-stop" disabled>Stop listening</button></p>
+    <p id="st-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <label for="st-text">What you said</label>
+    <textarea id="st-text" rows="10" readonly></textarea>
+    <p><button class="action" type="button" id="st-copy">Copy the text</button>
+    <button class="action" type="button" id="st-dl">Download as a text file</button>
+    <button class="action" type="button" id="st-clear">Clear the text</button></p>
+  </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/main.js?v=3"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var rec=null, listening=false, finalText='';
+  if(!SR){
+    $('st-controls').hidden=true;
+    $('st-nosupport').hidden=false;
+    return;
+  }
+  function setButtons(){
+    $('st-start').disabled=listening;
+    $('st-stop').disabled=!listening;
+    $('st-lang').disabled=listening;
+  }
+  $('st-start').addEventListener('click',function(){
+    rec=new SR();
+    rec.lang=$('st-lang').value;
+    rec.continuous=true;
+    rec.interimResults=true;
+    rec.onresult=function(e){
+      var interim='';
+      for(var i=e.resultIndex;i<e.results.length;i++){
+        if(e.results[i].isFinal){finalText+=e.results[i][0].transcript+' ';}
+        else{interim+=e.results[i][0].transcript;}
+      }
+      $('st-text').value=(finalText+interim).trim();
+    };
+    rec.onerror=function(e){
+      listening=false; setButtons();
+      if(e.error==='not-allowed'||e.error==='service-not-allowed'){
+        $('st-status').textContent='Sorry: the microphone is not allowed. Please allow the microphone when the browser asks, and press start again.';
+      }else if(e.error==='no-speech'){
+        $('st-status').textContent='Nothing was heard. Press start and speak a little louder or closer to the microphone.';
+      }else if(e.error==='audio-capture'){
+        $('st-status').textContent='Sorry: no microphone was found on this device.';
+      }else{
+        $('st-status').textContent='Sorry: listening stopped because of a problem. Please press start to try again.';
+      }
+    };
+    rec.onend=function(){
+      if(listening){
+        try{rec.start();return;}catch(e){}
+      }
+      listening=false; setButtons();
+      if(finalText.trim()){
+        $('st-status').textContent='Stopped listening. Your text is below. You can copy it or download it.';
+        $('st-text').focus();
+      }else{
+        $('st-status').textContent='Stopped listening.';
+      }
+    };
+    try{
+      rec.start();
+      listening=true; setButtons();
+      $('st-status').textContent='Listening now. Speak, and press stop when you are done.';
+    }catch(e){
+      $('st-status').textContent='Sorry: listening could not start. Please try again.';
+    }
+  });
+  $('st-stop').addEventListener('click',function(){
+    listening=false;
+    if(rec){try{rec.stop();}catch(e){}}
+    setButtons();
+    $('st-status').textContent='Stopping...';
+  });
+  $('st-copy').addEventListener('click',function(){
+    var t=$('st-text').value;
+    if(!t){$('st-status').textContent='There is no text to copy yet.';return;}
+    navigator.clipboard.writeText(t).then(function(){
+      $('st-status').textContent='Copied. The text is on your clipboard.';
+    },function(){
+      $('st-status').textContent='Sorry: copying did not work on this browser. You can select the text above and copy it yourself.';
+    });
+  });
+  $('st-dl').addEventListener('click',function(){
+    var t=$('st-text').value;
+    if(!t){$('st-status').textContent='There is no text to download yet.';return;}
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));
+    a.download='my-speech.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  $('st-clear').addEventListener('click',function(){
+    finalText=''; $('st-text').value='';
+    $('st-status').textContent='Cleared. Press start to speak again.';
+  });
+})();
+</script>
+</body>
+</html>

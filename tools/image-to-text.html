@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Picture to Text Reader | Vaibhav Tech Vision</title>
+<meta name="description" content="Choose a picture or a scanned page and this free tool reads the printed text out of it, in English or Hindi, ready to copy or download.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation Tools</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Picture to Text Reader</h1>
+  <p>Choose a picture of a printed page, a document photo, or a screenshot. The tool reads the writing in it and gives you the text to copy or download.</p>
+  <p>It works with printed English and Hindi. Handwriting is not read reliably. Clear, straight, well-lit pictures give the best results.</p>
+  <p class="hint">Everything happens on your own device. The picture is never uploaded anywhere. The first time you use the tool, it downloads the reading engine itself (a few megabytes) from a free library host, so the first read can take a little longer.</p>
+
+  <label for="ot-file">Choose a picture</label>
+    <input type="file" id="ot-file" accept="image/*">
+    <label for="ot-lang">Writing in the picture</label>
+    <select id="ot-lang">
+      <option value="eng">English</option>
+      <option value="hin">Hindi</option>
+      <option value="eng+hin">English and Hindi together</option>
+    </select>
+    <p><button class="action" type="button" id="ot-go">Read the text</button></p>
+    <p id="ot-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div id="ot-result" hidden>
+      <h2>Your text</h2>
+      <div id="ot-text" tabindex="-1"></div>
+      <p><button class="action" type="button" id="ot-copy">Copy the text</button>
+      <button class="action" type="button" id="ot-dl">Download as a text file</button></p>
+    </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/main.js?v=3"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var text='';
+  var last=0;
+  $('ot-go').addEventListener('click',async function(){
+    var f=$('ot-file').files[0];
+    if(!f){$('ot-status').textContent='Sorry: please choose a picture first.';return;}
+    if(typeof Tesseract==='undefined'){
+      $('ot-status').textContent='Sorry: the reading engine could not be loaded. Please check your internet connection and try again.';
+      return;
+    }
+    var btn=$('ot-go'); btn.disabled=true;
+    $('ot-result').hidden=true;
+    $('ot-status').textContent='Getting ready, please wait...';
+    try{
+      var r=await Tesseract.recognize(f,$('ot-lang').value,{logger:function(m){
+        if(m.status==='recognizing text'){
+          var p=Math.round(m.progress*100);
+          if(p>=last+10){last=p;$('ot-status').textContent='Reading the text: '+p+' percent done.';}
+        }else if(m.status&&m.status.indexOf('loading')===0){
+          $('ot-status').textContent='Loading the reading engine, please wait...';
+        }
+      }});
+      text=(r.data.text||'').trim();
+      if(!text){
+        $('ot-status').textContent='Sorry: no writing could be found in that picture. Try a clearer, straighter photo.';
+      }else{
+        var words=text.split(/\s+/).length;
+        $('ot-text').textContent=text;
+        $('ot-result').hidden=false;
+        $('ot-text').focus();
+        $('ot-status').textContent='Done. Found '+words+' words. Your text is below. You can copy it or download it.';
+      }
+    }catch(e){
+      $('ot-status').textContent='Sorry: that picture could not be read. Please check your internet connection and try a clear JPG or PNG picture.';
+    }
+    btn.disabled=false;
+  });
+  $('ot-copy').addEventListener('click',function(){
+    if(!text) return;
+    navigator.clipboard.writeText(text).then(function(){
+      $('ot-status').textContent='Copied. The text is on your clipboard.';
+    },function(){
+      $('ot-status').textContent='Sorry: copying did not work on this browser. You can select the text above and copy it yourself.';
+    });
+  });
+  $('ot-dl').addEventListener('click',function(){
+    if(!text) return;
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));
+    a.download='picture-text.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
+</body>
+</html>

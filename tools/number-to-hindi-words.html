@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Number to Hindi Words | Vaibhav Tech Vision</title>
+<meta name="description" content="Type any number and this free tool writes it out in Hindi words, from one up to kharab and beyond.">
+<link rel="stylesheet" href="../assets/style.css?v=4">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="../index.html">Vaibhav Tech Vision
+    <span class="tagline">Accessible technology for everyone</span>
+  </a>
+  <nav class="main-nav" aria-label="Main">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="events-menu">Events</button>
+        <ul class="submenu" id="events-menu">
+          <li><a href="../events/index.html">All Events</a></li>
+          <li><a href="../events/upcoming.html">Upcoming Events</a></li>
+          <li><a href="../events/past.html">Past Events</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="tools-menu">Tools</button>
+        <ul class="submenu" id="tools-menu">
+          <li><a href="../tools/index.html">All Tools</a></li>
+          <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+          <li><a href="../tools/pdf-manipulation.html">PDF Manipulation Tools</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="contents-menu">Contents</button>
+        <ul class="submenu" id="contents-menu">
+          <li><a href="../contents/blog.html">Blog</a></li>
+          <li><a href="../contents/apps.html">Apps</a></li>
+          <li><a href="../contents/jobs.html">Jobs</a></li>
+        </ul>
+      </li>
+      <li>
+        <button class="submenu-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="who-menu">Who We Are</button>
+        <ul class="submenu" id="who-menu">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+          <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+          <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+          <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+          <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+        </ul>
+      </li>
+      <li><a href="../courses.html">Courses</a></li>
+      <li><a href="../playlists.html">Playlists</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../developers.html">Developers</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <h1>Number to Hindi Words</h1>
+  <p>Type a number and press the button. The tool writes it out in Hindi words, using the Indian way of counting: hazar, lakh, crore, arab and kharab.</p>
+  <p class="hint">Everything happens on your own device. Nothing you type is uploaded anywhere.</p>
+
+  <label for="nw-num">Type a number</label>
+    <input type="text" id="nw-num" inputmode="numeric" placeholder="For example: 1234567">
+    <p><button class="action" type="button" id="nw-go">Write it in Hindi words</button></p>
+    <p id="nw-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div id="nw-result" hidden>
+      <h2>In Hindi words</h2>
+      <p id="nw-grouped"></p>
+      <p id="nw-words" tabindex="-1" lang="hi"></p>
+      <p><button class="action" type="button" id="nw-copy">Copy the words</button></p>
+    </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <nav aria-label="Quick Links">
+    <h2 class="footer-heading">Quick Links</h2>
+    <ul>
+      <li><a href="../about.html">About Us</a></li>
+      <li><a href="../who-we-are/contact.html">Contact Us</a></li>
+      <li><a href="../who-we-are/our-team.html">Our Team</a></li>
+      <li><a href="../who-we-are/our-channels.html">Our Channels</a></li>
+      <li><a href="../who-we-are/join-groups.html">Join Our Groups</a></li>
+      <li><a href="../who-we-are/volunteer.html">Join as Volunteer</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Products and Services">
+    <h2 class="footer-heading">Products and Services</h2>
+    <ul>
+      <li><a href="../courses.html">Our Courses</a></li>
+      <li><a href="../tools/ai-studio.html">AI Studio</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Follow Us">
+    <h2 class="footer-heading">Follow Us</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/@vaibhavtechvision581">YouTube</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VaAIUBYBadmTkFVSI12H">WhatsApp Channel</a></li>
+      <li><a href="https://t.me/vaibhavtechvision">Telegram Channel</a></li>
+    </ul>
+  </nav>
+  <nav aria-label="Policies">
+    <h2 class="footer-heading">Policies</h2>
+    <ul>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+      <li><a href="../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../accessibility.html">Accessibility</a></li>
+      <li><a href="../sitemap.html">Sitemap</a></li>
+    </ul>
+  </nav>
+  <p class="copyright">&#169; Vaibhav Tech Vision. All rights reserved. This website does not collect any personal information; everything you type into our tools stays on your own device.</p>
+</footer>
+<script src="../assets/main.js?v=3"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var W=['शून्य','एक','दो','तीन','चार','पांच','छह','सात','आठ','नौ','दस',
+  'ग्यारह','बारह','तेरह','चौदह','पंद्रह','सोलह','सत्रह','अठारह','उन्नीस','बीस',
+  'इक्कीस','बाईस','तेईस','चौबीस','पच्चीस','छब्बीस','सत्ताईस','अट्ठाईस','उनतीस','तीस',
+  'इकतीस','बत्तीस','तैंतीस','चौंतीस','पैंतीस','छत्तीस','सैंतीस','अड़तीस','उनतालीस','चालीस',
+  'इकतालीस','बयालीस','तैंतालीस','चवालीस','पैंतालीस','छियालीस','सैंतालीस','अड़तालीस','उनचास','पचास',
+  'इक्यावन','बावन','तिरपन','चौवन','पचपन','छप्पन','सत्तावन','अठावन','उनसठ','साठ',
+  'इकसठ','बासठ','तिरसठ','चौंसठ','पैंसठ','छियासठ','सड़सठ','अड़सठ','उनहत्तर','सत्तर',
+  'इकहत्तर','बहत्तर','तिहत्तर','चौहत्तर','पचहत्तर','छिहत्तर','सतहत्तर','अठहत्तर','उन्यासी','अस्सी',
+  'इक्यासी','बयासी','तिरासी','चौरासी','पचासी','छियासी','सत्तासी','अट्ठासी','नवासी','नब्बे',
+  'इक्यानवे','बानवे','तिरानवे','चौरानवे','पचानवे','छियानवे','सत्तानवे','अट्ठानवे','निन्यानवे'];
+  function two(n){return W[n];}
+  function three(n){
+    var parts=[];
+    var h=Math.floor(n/100), r=n%100;
+    if(h>0){parts.push(W[h]+' सौ');}
+    if(r>0){parts.push(two(r));}
+    return parts.join(' ');
+  }
+  function words(n){
+    if(n===0n) return W[0];
+    var parts=[];
+    var groups=[
+      [100000000000n,'खरब'],[1000000000n,'अरब'],[10000000n,'करोड़'],
+      [100000n,'लाख'],[1000n,'हज़ार']
+    ];
+    for(var g=0;g<groups.length;g++){
+      var val=groups[g][0];
+      var m=Number(n/val);
+      if(m>0){
+        parts.push(three(m)+' '+groups[g][1]);
+        n=n%val;
+      }
+    }
+    if(n>0n){parts.push(three(Number(n)));}
+    return parts.join(' ');
+  }
+  function indianGrouping(d){
+    if(d.length<=3) return d;
+    var last3=d.slice(-3), rest=d.slice(0,-3), out='';
+    while(rest.length>2){out=','+rest.slice(-2)+out;rest=rest.slice(0,-2);}
+    return rest+out+','+last3;
+  }
+  $('nw-go').addEventListener('click',function(){
+    var raw=$('nw-num').value.replace(/[,\s]/g,'');
+    if(!/^\d{1,15}$/.test(raw)){
+      $('nw-result').hidden=true;
+      $('nw-status').textContent='Sorry: please type a whole number using digits only, up to 15 digits long.';
+      return;
+    }
+    var w=words(BigInt(raw));
+    $('nw-grouped').textContent='Your number: '+indianGrouping(raw.replace(/^0+(?=\d)/,''));
+    $('nw-words').textContent=w;
+    $('nw-result').hidden=false;
+    $('nw-words').focus();
+    $('nw-status').textContent='Done. The number in Hindi words is below. You can copy it.';
+  });
+  $('nw-copy').addEventListener('click',function(){
+    var t=$('nw-words').textContent;
+    if(!t) return;
+    navigator.clipboard.writeText(t).then(function(){
+      $('nw-status').textContent='Copied. The words are on your clipboard.';
+    },function(){
+      $('nw-status').textContent='Sorry: copying did not work on this browser. You can select the words above and copy them yourself.';
+    });
+  });
+})();
+</script>
+</body>
+</html>
